@@ -204,8 +204,12 @@ rm -rf WRF WPS
 #git clone https://github.com/wrf-model/WRF
 #git clone https://github.com/wrf-model/WPS
 
+# rejoin split WRF tar ball
+echo "Rejoining $WRFVER.tar.gz"
+cat $WRFscripts/packages/$WRFVER\_part_* > $WRFscripts/packages/$WRFVER.tar.gz
+
 echo "untar'ing ${WRFVER}.${WSUFFIX} package"
-tar xvf $WRFscripts/packages/$WRFVER.$WSUFFIX
+tar xvfz $WRFscripts/packages/$WRFVER.$WSUFFIX
 status=$?
 if [ $status -gt 0 ]
 then
@@ -297,12 +301,19 @@ then
     exit 1
 fi   
 
+# some sector housekeeping
+cd $WRFscripts/wrf/sectors/ANDES03/wps
+cp namelist.wps.template namelist.wps
+
+cd $WRFscripts/wrf/sectors/ANDES03/wrf
+cp namelist.input.template namelist.input
+
 if [ ${INSTALL_WRF_WPS_GEOG} = "NO" ]
 then
     echo "WRF ${INSTALL_WRF_IO_TYPE} INSTALLATION complete with NO WPS_GEOG files."
     echo "Be sure to link your WPS_GEOG to $WRFscripts/wrf/WPS_GEOG."
     echo "You must populate geo files in wrf/sectors/XXXXX/wps, set io_forms"
-    echo "parameters in SECTOR/wrf/namelist.input.org, link to GFS input" 
+    echo "parameters in SECTOR/wrf/namelist.input.template, link to GFS input" 
     echo "directory if available, etc.  See README.txt"
     exit 0
 fi

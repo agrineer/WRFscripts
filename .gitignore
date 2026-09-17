@@ -25,34 +25,20 @@ wrf/sectors/ANDES03/wps/geo_em.*.nc
 wrf/sectors/ANDES03/wps/geogrid.log
 wrf/sectors/ANDES03/wps/met_em.*
 wrf/sectors/ANDES03/wps/metgrid.log
-wrf/sectors/ANDES03/wps/namelist.wps.*
+wrf/sectors/ANDES03/wps/namelist.wps
+wrf/sectors/ANDES03/wps/namelist.wps.old
 wrf/sectors/ANDES03/wps/ungrib.log
 
 wrf/sectors/ANDES03/wrf/met_em.*
-wrf/sectors/ANDES03/wrf/namelist.input.*
+wrf/sectors/ANDES03/wrf/namelist.input
+wrf/sectors/ANDES03/wrf/namelist.input.old
+wrf/sectors/ANDES03/wrf/namelist.output
 wrf/sectors/ANDES03/wrf/rsl.error.*
 wrf/sectors/ANDES03/wrf/rsl.out.*
 wrf/sectors/ANDES03/wrf/wrfbdy_d01*
 wrf/sectors/ANDES03/wrf/wrfinput*
 wrf/sectors/ANDES03/wrf/wrfout*
 
-!wrf/sectors/AUSCOT01
-wrf/sectors/AUSCOT01/wps/GFS*
-wrf/sectors/AUSCOT01/wps/GRIBFILE*
-
-wrf/sectors/AUSCOT01/wps/geo_em.*.nc
-wrf/sectors/AUSCOT01/wps/geogrid.log
-wrf/sectors/AUSCOT01/wps/met_em.*
-wrf/sectors/AUSCOT01/wps/metgrid.log
-wrf/sectors/AUSCOT01/wps/ungrib.log
-wrf/sectors/AUSCOT01/wps/namelist.wps.old
-
-wrf/sectors/AUSCOT01/wrf/met_em.*
-wrf/sectors/AUSCOT01/wrf/namelist.input.old
-wrf/sectors/AUSCOT01/wrf/rsl.error.*
-wrf/sectors/AUSCOT01/wrf/rsl.out.*
-wrf/sectors/AUSCOT01/wrf/wrfinput*
-wrf/sectors/AUSCOT01/wrf/wrfout*
 
 wrf/share/
 wrf/WPS/

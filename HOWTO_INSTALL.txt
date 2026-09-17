@@ -1,6 +1,6 @@
-This HOWTO_INSTALL file describes how to install WRF 4.5 from scratch.
+How to install WRFscripts and WRF/WPS from scratch.
 
------------------------------------------------------------------------
+#-----------------------------------------------------------------------
 
 # Some WRF dependencies:
 (probably incomplete, but most systems should have these and others required)
@@ -21,21 +21,19 @@ This HOWTO_INSTALL file describes how to install WRF 4.5 from scratch.
     netcdf-f 
     pnetcdf 
 
-------------------------------------------------------------------------
-# Decide where to put WRFscripts and untar WRFscripts.tar
+#------------------------------------------------------------------------
+# Decide where to put WRFscripts and untar WRFscripts.tar.gz
 # eg. /home/user/WRFscripts
 
 $ cd ~
-$ tar xvf WRFscripts.tar
+$ tar xvf WRFscripts.tar.gz
 
 # TO INSTALL:
-> cd WRFscripts
+$ cd WRFscripts
 
-Edit install_wrf_variables.bash file to suit your type of WRF implementation,
-ie. serial or parallel IO. Currently the serial and pnetcdf implementations are stable.
-Start with the serial IO implementation.
+Edit the file "install_wrf_variables.bash" to suit your type of WRF implementation, ie. serial or parallel IO. Currently the serial and pnetcdf implementations are stable, However, pnetcdf version doesn't seem to improve execution time. Start with the serial IO implementation.
 
-This file sets the environment variables that specify how to compile the libraries and WRF.
+This shell file sets the environment variables that specify how to compile the libraries and WRF.
 
 	  WRFscripts sets the location of where WRFscripts.tar was extracted.
 	  eg. export WRFscripts=/home/user/WRFscripts
@@ -69,7 +67,7 @@ This file sets the environment variables that specify how to compile the librari
 	  Specifies if GPU (CUDA) is compiled in the MPICH MPI.
 	  This option is not yet implemented.
 
-Make these options active by sourcing the file
+Make these options active by sourcing the edited file "install_wrf_variables.bash". ie.
 $ source install_wrf_variables.bash 
 	  
 # run the INSTALL shell program with:
@@ -79,28 +77,28 @@ $ ./INSTALL.bash 2>&1 | tee WRF-build.txt
 
 # With a succesfull install, link the WRFscripts/wrf to a convienient locator,
 eg.
-
-$ cd /home/user
+$ cd ~
 $ ln -s WRFscripts/wrf
 
-Also, if you did not download the WPS_GEOG directly, link your existing WPS_GEOG
-directly in the ~/wrf/directory
+# If you did not download the "WPS_GEOG" in your install, ie by setting INSTALL_WRF_WPS_GEOG=NO, link your existing "WPS_GEOG" directory in the ~/wrf/directory
 eg.
 $ cd ~/wrf
 $ ln -s /data/WPS_GEOG
 
-# If you have a separate gfs_0.25 directory you should link that too inthe  wrf directory.
-# Otherwise, make the gfs_0.25 in the wrf directory.
+# If you have a separate "gfs_0.25" directory you should remove the "gfs_0.25" directory in the "wrf" directory and your "gfs_0.25" link in the  "wrf" directory.
 
 # Populate sector geo directories,
 eg.
 $ cd ~/wrf/sectors/ANDES03/wps
 
-# Edit namelist.wps and namelist.wps.template files to point to WPS_GEOG directory
+# Edit "namelist.wps" and "namelist.wps.template" files to point to "WPS_GEOG directory
 eg. geog_data_path = '/home/user/wrf/WPS_GEOG',
 
 # run geogrid.exe to populate the static geo files
 $ ./geogrid.exe
+
+-------------------------------------------------------------------------------
+Adjust the file "SECTOR/wrf/namelist.input", if needed, where SECTOR is a predefined regions, eg.ANDES03.
 
 If running pnetcdf io:
    go to wrf/sectors/XXXXXXX/wrf
@@ -120,20 +118,22 @@ If running netcdfpar io:
    io_form_input                       = 2
    io_form_boundary                    = 13
 
+# default in distribution, no need to edit namelist.input
 If running serial io:
    go to wrf/sectors/XXXXXXX/wrf
    edit namelist.input.template
-   set io_form_* to 2                    # default
+   set io_form_* to 2
 
-for all cases leave  io_form_geogrid = 2 in the namelist.wps.template
+for all cases above leave io_form_geogrid = 2 in the namelist.wps.template
+
+# Sector "ANDES03" is distributed with this release. This project is open to receiving and distributing user's sector "namelist.* Currently, send to git at agrineer.org
 
 #-------------------------------------------------------------------------------
 
-If using SLURM: go to WRFscripts/test_c_mpi and test out slurm interfaces
+If using SLURM: go to WRFscripts/test_c_mpi and test the slurm interfaces
    	 	using mpi_hello_world.c. See the test_c_mpi/README.txt
 		
-   	 	Edit WRFscripts/wrf/sectors/SECTOR/wrf_mpich.slurm where SECTOR is a predefined
-		regions, eg.ANDES03.
+   	 	Edit WRFscripts/wrf/sectors/SECTOR/wrf_mpich.slurm 
 
 		mpich.slurm contains the SLURM parameters for execution. 
 		
@@ -141,12 +141,11 @@ PBS job control is not yet implementation
 
 #------------------------------------------------------------------------------
 
-runtime Environment variables:
+# Runtime environment variables:
 
 
-# fill out these varibles in .bash_profile
+# Fill out these varibles in .bash_profile
   and source it for user configuration. see bash_profile_example.
-  TODO: edit bash_profile?
 
 eg.
 export WRF_HOME=/home/user/wrf     # here the WRF home directory is
@@ -172,32 +171,32 @@ $ getdata_gfs.py
 
 or
 
-# Get specific date GFS files
+# Get specific date Global Forecast System (GFS) files
 $ getdata_gfs.py YYYYMMDD
 
-NOTE: that gfs files are only available for 10 days. To go back beyond
-      the 10 days you need to go to an archive site (TODO: say where)
+NOTE: that GFS files are only available for 10 days. To go back beyond
+      the 10 days you need to go to an archive site. (TODO: say where and how to decode name)
 
 # Top level running WRF:
 usage: runwrf [-h] -s SECTOR -r RESTART -b BEGIN_HOUR [-d RUNDATE]
 
 -s option specifies sector to use, eg. ANDES03.
-   SECTOR refers to a defined regional focus) option is mandatory.
+   SECTOR refers to a defined regional focus, option is mandatory.
    
 -r is a flag for restarting a run. RESTART=true/false. Option is mandatory.
 
--d gives a rundate. Format is YYYYMMDD. If not given then run will use yesterday's date.
+-d gives a rundate. Format is YYYYMMDD. If it is not given then the run will use yesterday's date (useful in a cron" implementation)
 
 # Example runs:
 
-$ runwrf -b 6 -s ANDES03 -r false <-d RUNDATE> &
+$ runwrf -b 6 -s ANDES03 -r false &
 
-# & puts the job in background. This is not needed, but allows the user to monitor output files in the log directory and in the sector wrf directory.
+# & puts the job in background. This is not needed, but allows the user to monitor output files in the log directory and in the SECTOR/wrf directory.
 
-# continue a run for a specific date
+# Continue a previous run for a specific date
 > runwrf -s ANDES03 -r true -d 20260902 & 
 
-# to monitor pre-processing, WRF run must in background or in another terminal
+# To monitor pre-processing, WRF run must in background or in another terminal
 > cd ~/wrf/log
 > tail -f SECTOR.log    # eg. ANDES_03.log
 
@@ -228,16 +227,16 @@ wrfGFS: running command: mpiexec -hostfile /home/agrineer/mpd.hosts ./wrf.exe
  starting wrf task            3  of            8
  starting wrf task            1  of            8
 
-If using SLURM, then at the end it says that the job was submitted. Jook in the SECTOR_slurm.log file for reports.
+If using SLURM, then at the end it will say that the job was submitted. Look in the SECTOR_slurm.log file for reports.
 
-NOTE: the floating point exceptions are normal according to team WRF at NCAR/UCAR.
+NOTE: In the above output snippet, the floating point exceptions are normal according to team WRF at NCAR/UCAR.
 
-# to monitor processing progress
+# To monitor processing progress:
 > cd ~/wrf/sectors/SECTOR/wrf
 > tail -f rsl.error.0000
 
-# to get slurm reports see SECTOR_slurm.log in log directory
+# To get slurm reports see SECTOR_slurm.log in log directory.
 
-# see example cron files for daily runs
+# See the example cron file "WRFscripts/cron/cronfile" for daily runs.
 
 # Happy WRFing!

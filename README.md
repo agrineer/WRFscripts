@@ -1,9 +1,9 @@
 
 Description
 
-This GNU/Linux and Python package is meant to facilitate the installation and
+WRFscripts, GNU/Linux and Python, package is meant to facilitate the installation and
 execution of the Weather, Research, and Forecasting (WRF) model from NCAR/UCAR.
-This package gives the code and scripts needed to run WRF/ARW on an automated basis.
+This package gives the shell and Python scripts needed to run WRF/ARW on an automated basis.
 
 It is intended to show data science students how large data sets can be
 generated and managed. It is also being used for research projects
@@ -23,6 +23,8 @@ the processing can be automated using cron. This package is hindcast oriented
 but forcasting can also be done with the appropriate Global Forecast System
 (GFS) files.
 
-Software: GNU/linux, Python 3.8 or greater, developer environment (build_essentials, etc)
+Currently implementing WRFV4.7.0 and WPS-4.6.0 versions.
+
+Software: GNU/linux, Python 3.8 or greater, developer environment (build_essentials, etc), gfortran
 
 Skills: Terminal command line navigation
