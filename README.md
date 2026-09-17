@@ -1,7 +1,7 @@
 
 Description
 
-This LINUX/PYTHON package is meant to facilitate the installation and
+This GNU/Linux and Python package is meant to facilitate the installation and
 execution of the Weather, Research, and Forecasting (WRF) model from NCAR/UCAR.
 This package gives the code and scripts needed to run WRF/ARW on an automated basis.
 
