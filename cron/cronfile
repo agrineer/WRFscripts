@@ -1,0 +1,12 @@
+# cronfile to run getdata_gfs.py and WRF
+#
+#-----------------------------------------------------------------------------
+# Min Hour Day Month  Weekday Command
+#-----------------------------------------------------------------------------
+  01   05   *   *      *       /bin/bash -c 'source ~/.bash_profile; getdata_gfs.py' > ~/wrf/log/gfs.log 2>&1
+  01   06   *   *      *       /bin/bash -c 'source ~/.bash_profile; runwrf -b 0 -s ANDES03 -r true'
+
+# 01   09   *   *      *       /bin/bash -c 'source ~/.bash_profile; runwrf -b 0 -s ANDES03 -r true -d 20230712'
+
+
+

@@ -1,0 +1,10 @@
+<!-- Example xml for in-situ analysis functionality -->
+<?xml version="1.0"?>
+<adios-config>
+  <io name="wrfout_d01_2024-06-17_06:00:00">
+      <engine type="SST">
+      <parameter key="SpeculativePreloadMode" value="OFF"/>
+      <parameter key="QueueLimit" value="1"/>
+      </engine>
+  </io>
+</adios-config>

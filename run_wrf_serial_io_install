@@ -1,0 +1,55 @@
+#!/bin/bash
+echo "Starting WRF configure and compile"
+
+export HDF5=$WRFscripts/wrf
+export NETCDF=$WRFscripts/wrf
+export NETCDF4=1
+export NETCDF_classic=1
+export WRF_EM_CORE=1
+export WRFIO_NCD_LARGE_FILE_SUPPORT=1 
+
+cd $WRFscripts/wrf/WRF
+
+if [ ${INSTALL_WRF_MPI} = "OPENMP" ]
+then
+    OPTION=33
+    echo "INSTALL: using OPENMP only"
+elif [ ${INSTALL_WRF_MPI} = "MPICH" ]
+then
+    OPTION=34
+    echo "INSTALL: using MPICH only"
+elif [ ${INSTALL_WRF_MPI} = "MPICH+OPENMP" ]
+then
+    OPTION=35
+    echo "INSTALL: using MPICH + OPENMP"
+else:
+    echo "INSTALL ERROR: ${INSTALL_WRF_MPI} option unrcognized ... exiting"
+    exit 1
+fi
+
+./clean -a
+./configure << EOF
+${OPTION}
+1
+EOF
+# 33 is smpar (symetrical memory)
+# 34 is dmpar (distributed memory)
+# 35 is smpar and dmpar
+
+status=$?
+if [ $status -gt 0 ]
+then
+    echo "INSTALL ERROR: run_wrf_serial_io_install: could not configure WRF"
+    echo "review the wrf configure build file for details ... exiting"
+    exit 1
+fi
+
+./compile em_real 2>&1 | tee WRF-build.txt
+
+if [ ${PIPESTATUS[0]} -gt 0 ]
+then
+    echo "INSTALL ERROR: run_wrf_serial_io_install: could not compile WRF"
+    echo "review the wrf configure build file for details ... exiting"
+    exit 1
+fi
+echo "End of WRF SERIAL_IO configure and compile"

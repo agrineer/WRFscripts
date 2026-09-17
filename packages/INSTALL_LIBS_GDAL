@@ -1,0 +1,210 @@
+#!/bin/bash
+
+#  INSTALL_LIBS_GDAL
+# 
+#  Copyright (c) 2020-2025 Scott L. Williams
+# 
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 3 of the License, or
+#  (at your option) any later version.
+# 
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+# 
+#  You should have received a copy of the GNU General Public License
+#  along with this program; if not, write to the Free Software
+#  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#  or visit https://www.gnu.org/licenses/gpl-3.0-standalone.html
+#
+
+INSTALL_LIBS_SERIAL_IO_copyright="INSTALL_LIBS_SERIAL_IO Copyright (c) 2024 Scott L. Williams ' + 'released under GNU GPL V3.0"
+
+untar_package()
+{
+    echo "INSTALL_LIBS_SERIAL_IO: untar'ing ${PNAME}.${SUFFIX}"
+    tar xvf $PNAME.$SUFFIX
+    status=$?
+    if [ $status -gt 0 ]
+    then
+	echo "INSTALL_LIBS_SERIAL_IO: could not untar ${PNAME}.${SUFFIX}"
+	exit 1
+    fi
+}
+
+# test and report configure
+check_configure()
+{
+    if [ ${PIPESTATUS[0]} -gt 0 ]
+    then
+	echo "INSTALL_LIBS_SERIAL_IO: could not configure ${PNAME}"
+	echo "review ${WRFscripts}/wrf/packages/${PNAME}/${PNAME}_config.log"
+	echo "and ${WRFscripts}/wrf/packages/${PNAME}/config.log for details"
+	exit 1
+    fi
+}
+
+# test and report make
+check_make()
+{
+    if [ ${PIPESTATUS[0]} -gt 0 ]
+    then
+	echo "INSTALL_LIBS_SERIAL_IO: could not make ${PNAME}"
+	echo "review ${WRFscripts}/wrf/packages/${PNAME}/${PNAME}_make.log for details"
+	exit 1
+    fi
+}
+
+# test and report make install
+check_make_install()
+{
+    if [ ${PIPESTATUS[0]} -gt 0 ]
+    then
+	echo "INSTALL_LIBS_SERIAL_IO: could not make install ${PNAME}"
+	echo "review ${WRFscripts}/wrf/packages/${PNAME}/${PNAME}_make_install.log for details"
+	exit 1
+    fi
+}
+
+print_env()
+{
+    echo ""
+    echo "INSTALL_LIBS_SERIIAL_IO: installing ${PNAME} with these variable values:"
+
+    # print variable if populated
+    
+    if [ "$CC" != "" ]
+    then
+	echo "CC=${CC}"
+    fi
+
+    if [ "$MPICC" != "" ]
+    then
+	echo "MPICC=${MPICC}"
+    fi
+
+    if [ "$CFLAGS" != "" ]
+    then
+	echo "CFLAGS=${CFLAGS}"
+    fi
+
+    if [ "$CPPFLAGS" != "" ]
+    then
+	echo "CPPFLAGS=${CPPFLAGS}"
+    fi
+
+    if [ "$FC" != "" ]
+    then
+	echo "FC=${FC}"
+    fi
+
+    if [ "$FCFLAGS" != "" ]
+    then
+	echo "FCFLAGS=${FCFLAGS}"
+    fi
+
+    if [ "$MPIF90" != "" ]
+    then
+	echo "MPIF90=${MPIF90}"
+    fi
+
+    if [ "$LD_LIBRARY_PATH" != "" ]
+    then
+	echo "LD_LIBRARY_PATH=${LD_LIBRARY_PATH}"
+    fi
+    
+    if [ "$LDFLAGS" != "" ]
+    then
+	echo "LDFLAGS=${LDFLAGS}"
+    fi
+
+    if [ "$FFLAGS" != "" ]
+    then
+	echo "CPPFLAGS=${CPPFLAGS}"
+    fi
+
+    echo "CONF_PARAMS=${CONF_PARAMS}"  # must always have CONF_PARAMS
+    echo ""
+}
+
+make_lib()
+{
+    print_env
+    
+    cd $WRFscripts/packages
+    rm -rf $PNAME
+
+    untar_package # parameters are PNAME and SUFFIX
+    cd $PNAME
+   
+    echo "configuring ${PNAME} on ${HOSTNAME}"
+
+    ./configure $CONF_PARAMS 2>&1 | tee ${PNAME}_config.log
+    check_configure
+
+    echo "making ${PNAME}"
+    make -j 4 2>&1 | tee ${PNAME}_make.log
+    check_make
+    
+    echo "make install ${PNAME}"
+    make install 2>&1 | tee ${PNAME}_make_install.log
+    check_make_install
+
+    echo "installing ${PNAME} done"
+}
+
+# clear all environment variables used in this script
+clear_vars()
+{
+    unset PNAME
+    unset SUFFIX
+    unset CC
+    unset MPICC
+    unset CFLAGS
+    unset CPPFLAGS
+    unset FC
+    unset FCFLAGS
+    unset MPIF90
+    unset LD_LIBRARY_PATH
+    unset LDFLAGS
+    unset CONF_PARAMS
+    unset FFLAGS
+}
+
+#----------------------------------------------------------------------
+# main
+
+# INSTALL SWIG first
+echo ""
+echo "INSTALL_LIBS_GDAL: installing SWIG"
+
+cd $WRFscripts/wrf/packages
+
+# SWIG
+clear_vars
+PNAME=swig-4.3.1
+SUFFIX=tar.gz
+CONF_PARAMS="--prefix=${WRFscripts}/wrf"
+make_lib
+
+# GDAL
+clear_vars
+PNAME=gdal-3.11.0
+SUFFIX=tar.gz
+
+cd $WRFscripts/packages
+rm -rf $PNAME
+
+untar_package # parameters are PNAME and SUFFIX
+cd $PNAME
+   
+echo "configuring ${PNAME} on ${HOSTNAME}"
+mkdir build
+cd build
+cmake -DCMAKE_PREFIX_PATH=${WRFscripts}/wrf ..
+cmake --build .
+cmake --build . --target install
+
+

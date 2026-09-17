@@ -1,0 +1,33 @@
+#!/bin/sh
+echo "Starting WPS configure and compile"
+
+export FC=gfortran
+#export FCFLAGS=-fopenmp
+export NETCDF=$WRFscripts/wrf
+
+cd $WRFscripts/wrf/WPS
+./clean -a
+
+./configure --build-grib2-libs << EOF
+1                 
+EOF
+
+status=$?
+if [ $status -gt 0 ]
+then
+    echo "run_wps_install: could not configure WPS"
+    exit 1
+fi
+
+# TODO: edit configure.wps to add -lgomp for OPENMP
+
+./compile 2>&1 | tee WPS-build.txt
+
+status=$?
+if [ $status -gt 0 ]
+then
+    echo "run_wps_install: could not compile WPS"
+    exit 1
+fi
+
+echo "End of WPS install"

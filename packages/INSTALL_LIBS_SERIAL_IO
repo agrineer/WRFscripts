@@ -1,0 +1,279 @@
+#!/bin/bash
+
+#  INSTALL_INSTALL_GDAL
+# 
+#  Copyright (c) 2020-2025 Scott L. Williams
+# 
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 3 of the License, or
+#  (at your option) any later version.
+# 
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+# 
+#  You should have received a copy of the GNU General Public License
+#  along with this program; if not, write to the Free Software
+#  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#  or visit https://www.gnu.org/licenses/gpl-3.0-standalone.html
+#
+
+INSTALL_LIBS_SERIAL_IO_copyright="INSTALL_LIBS_SERIAL_IO Copyright (c) 2020-2025 Scott L. Williams ' + 'released under GNU GPL V3.0"
+
+untar_package()
+{
+    echo "INSTALL_LIBS_SERIAL_IO: untar'ing ${PNAME}.${SUFFIX}"
+    tar xvf $PNAME.$SUFFIX
+    status=$?
+    if [ $status -gt 0 ]
+    then
+	echo "INSTALL_LIBS_SERIAL_IO: could not untar ${PNAME}.${SUFFIX}"
+	exit 1
+    fi
+}
+
+# test and report configure
+check_configure()
+{
+    if [ ${PIPESTATUS[0]} -gt 0 ]
+    then
+	echo "INSTALL_LIBS_SERIAL_IO: could not configure ${PNAME}"
+	echo "review ${WRFscripts}/wrf/packages/${PNAME}/${PNAME}_config.log"
+	echo "and ${WRFscripts}/wrf/packages/${PNAME}/config.log for details"
+	exit 1
+    fi
+}
+
+# test and report make
+check_make()
+{
+    if [ ${PIPESTATUS[0]} -gt 0 ]
+    then
+	echo "INSTALL_LIBS_SERIAL_IO: could not make ${PNAME}"
+	echo "review ${WRFscripts}/wrf/packages/${PNAME}/${PNAME}_make.log for details"
+	exit 1
+    fi
+}
+
+# test and report make install
+check_make_install()
+{
+    if [ ${PIPESTATUS[0]} -gt 0 ]
+    then
+	echo "INSTALL_LIBS_SERIAL_IO: could not make install ${PNAME}"
+	echo "review ${WRFscripts}/wrf/packages/${PNAME}/${PNAME}_make_install.log for details"
+	exit 1
+    fi
+}
+
+print_env()
+{
+    echo ""
+    echo "INSTALL_LIBS_SERIIAL_IO: installing ${PNAME} with these variable values:"
+
+    # print variable if populated
+    
+    if [ "$CC" != "" ]
+    then
+	echo "CC=${CC}"
+    fi
+
+    if [ "$MPICC" != "" ]
+    then
+	echo "MPICC=${MPICC}"
+    fi
+
+    if [ "$CFLAGS" != "" ]
+    then
+	echo "CFLAGS=${CFLAGS}"
+    fi
+
+    if [ "$CPPFLAGS" != "" ]
+    then
+	echo "CPPFLAGS=${CPPFLAGS}"
+    fi
+
+    if [ "$FC" != "" ]
+    then
+	echo "FC=${FC}"
+    fi
+
+    if [ "$FCFLAGS" != "" ]
+    then
+	echo "FCFLAGS=${FCFLAGS}"
+    fi
+
+    if [ "$MPIF90" != "" ]
+    then
+	echo "MPIF90=${MPIF90}"
+    fi
+
+    if [ "$LD_LIBRARY_PATH" != "" ]
+    then
+	echo "LD_LIBRARY_PATH=${LD_LIBRARY_PATH}"
+    fi
+    
+    if [ "$LDFLAGS" != "" ]
+    then
+	echo "LDFLAGS=${LDFLAGS}"
+    fi
+
+    if [ "$FFLAGS" != "" ]
+    then
+	echo "CPPFLAGS=${CPPFLAGS}"
+    fi
+
+    echo "CONF_PARAMS=${CONF_PARAMS}"  # must always have CONF_PARAMS
+    echo ""
+}
+
+make_lib()
+{
+    print_env
+    
+    cd $WRFscripts/packages
+    rm -rf $PNAME
+
+    untar_package # parameters are PNAME and SUFFIX
+    cd $PNAME
+   
+    echo "configuring ${PNAME} on ${HOSTNAME}"
+
+    ./configure $CONF_PARAMS 2>&1 | tee ${PNAME}_config.log
+    check_configure
+
+    echo "making ${PNAME}"
+    make -j 4 2>&1 | tee ${PNAME}_make.log
+    check_make
+    
+    echo "make install ${PNAME}"
+    make install 2>&1 | tee ${PNAME}_make_install.log
+    check_make_install
+
+    echo "installing ${PNAME} done"
+}
+
+# clear all environment variables used in this script
+clear_vars()
+{
+    unset PNAME
+    unset SUFFIX
+    unset CC
+    unset MPICC
+    unset CFLAGS
+    unset CPPFLAGS
+    unset FC
+    unset FCFLAGS
+    unset MPIF90
+    unset LD_LIBRARY_PATH
+    unset LDFLAGS
+    unset CONF_PARAMS
+    unset FFLAGS
+}
+
+#----------------------------------------------------------------------
+# main
+
+# INSTALL WRF dependent libraries
+echo ""
+echo "INSTALL_LIBS_SERIAL IO: installing SERIAL I/O WRF dependent libraries"
+
+cd $WRFscripts/wrf
+
+echo "INSTALL_LIBS_SERIAL_IO: cleaning ${WRFscripts}/wrf/include"
+#rm -rf include
+#mkdir include
+
+echo "INSTALL_LIBS_SERIAL_IO: cleaning ${WRFscripts}/wrf/lib"
+#rm -rf lib
+#mkdir lib
+
+echo "INSTALL_LIBS_SERIAL_IO: cleaning ${WRFscripts}/wrf/bin"
+rm -rf bin
+mkdir bin
+cd bin
+ln -s ../scripts/getdata_gfs.py
+ln -s ../scripts/runwrf
+
+# HDF5
+# you can download HDF5 from the HDF5 download page.
+# Go to https://www.hdfgroup.org/downloads/hdf5
+# Scroll down and click on "Specific release?"    
+# download and put into the tarball into ${WRFscripts}/packages
+clear_vars
+PNAME=hdf5-1.10.10
+SUFFIX=tar.bz2
+CONF_PARAMS="--prefix=${WRFscripts}/wrf --enable-fortran"
+make_lib
+
+# wget https://downloads.unidata.ucar.edu/netcdf-c/4.9.2/netcdf-c-4.9.2.tar.gz
+clear_vars
+PNAME=netcdf-c-4.9.2
+SUFFIX=tar.gz
+CONF_PARAMS="--prefix=${WRFscripts}/wrf --disable-dap --enable-netcdf4 --disable-libxml2 --disable-byterange --enable-largefile"
+export CPPFLAGS=-I$WRFscripts/wrf/include
+export LDFLAGS=-L$WRFscripts/wrf/lib
+make_lib
+
+# wget https://downloads.unidata.ucar.edu/netcdf-fortran/4.6.1/netcdf-fortran-4.6.1.tar.gz
+clear_vars
+PNAME=netcdf-fortran-4.6.1
+SUFFIX=tar.gz
+CONF_PARAMS="--prefix=${WRFscripts}/wrf --enable-largefile --enable-shared"
+export CPPFLAGS=-I$WRFscripts/wrf/include
+export LDFLAGS=-L$WRFscripts/wrf/lib
+export LD_LIBRARY_PATH=/students/agrineer/wrf/lib:$LD_LIBRARY_PATH
+export FC=gfortran
+make_lib
+
+# source URL for mpich
+# https://www.mpich.org/downloads/
+# install MPICH or OPENMP
+clear_vars
+if [ ${INSTALL_WRF_MPI} = "MPICH" ]
+then
+    PNAME=mpich-4.2.1         # package name
+    SUFFIX=tar.gz
+
+    # TODO:check for valid device
+    DEVICE="--with-device=${INSTALL_WRF_IO_CHANNEL}"
+    echo "INSTALL_LIBS_SERIAL_IO: compiling MPICH with channel ${INSTALL_WRF_IO_CHANNEL}"
+    
+    if [ ${INSTALL_WRF_USE_CUDA} = "NONE" ]
+    then
+	CUDA="--without-cuda"
+	echo "INSTALL_LIBS_SERIAL_IO: compiling MPICH without CUDA"
+    else
+	if [ -d "${INSTALL_WRF_USE_CUDA}" ]
+	then
+	    CUDA="--with-cuda=${INSTALL_WRF_USE_CUDA}"
+	    echo "INSTALL_LIBS_SERIAL_IO: compiling MPICH with CUDA=${INSTALL_WRF_USE_CUDA}"
+	else
+	    echo "INSTALL_LIBS_SERIAL_IO: CUDA directory ${INSTALL_WRF_USE_CUDA} does not exist...exiting"
+	    exit 1
+	fi
+    fi
+
+    #CONF_PARAMS="--prefix=${WRFscripts}/wrf ${CUDA} ${DEVICE} --enable-threads=multiple"
+    CONF_PARAMS="--prefix=${WRFscripts}/wrf ${CUDA} ${DEVICE}"
+    make_lib
+fi
+
+# source URL for openmpi?
+if [ ${INSTALL_WRF_MPI} = "OPENMP" ]
+then
+    # check if libgomp and mpirun exist
+
+    
+    # if not then compile OPENMP
+    echo "INSTALL_LIBS_SERIAL_IO: compiling OPENMP"
+    PNAME=openmpi-5.0.3
+    SUFFIX=tar.bz2
+    
+    CONF_PARAMS="--prefix=${WRFscripts}/wrf"
+    make_lib
+fi
+
+echo "Installing SERIAL I/O WRF dependent libraries done"

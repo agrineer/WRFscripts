@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" prefix="og: https://ogp.me/ns#">
+  <head>
+    <meta charset="utf-8" />
+<noscript><style>form.antibot * :not(.antibot-message) { display: none !important; }</style>
+</noscript><script async src="https://www.googletagmanager.com/gtag/js?id=UA-28608323-1"></script>
+<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments)};gtag("js", new Date());gtag("set", "developer_id.dMDhkMT", true);gtag("config", "UA-28608323-1", {"groups":"default","anonymize_ip":true,"link_attribution":true,"page_path":"/404.html?page=" + document.location.pathname + document.location.search + "&from=" + document.referrer});gtag("config", "G-33T5GKQVCJ", {"groups":"default","link_attribution":true,"page_location":"/404.html?page=" + document.location.pathname + document.location.search + "&from=" + document.referrer});</script>
+<link rel="canonical" href="https://ral.ucar.edu/page-not-found" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content="NCAR" />
+<link rel="icon" href="/profiles/composer/unity-profile/themes/unity/img/app-favicons/ncar/favicon.ico" />
+<link rel="icon" sizes="16x16" href="/profiles/composer/unity-profile/themes/unity/img/app-favicons/ncar/favicon-16x16.png" />
+<link rel="icon" sizes="32x32" href="/profiles/composer/unity-profile/themes/unity/img/app-favicons/ncar/favicon-32x32.png" />
+<link rel="icon" sizes="96x96" href="/profiles/composer/unity-profile/themes/unity/img/app-favicons/ncar/favicon-96x96.png" />
+<link rel="apple-touch-icon" href="/profiles/composer/unity-profile/themes/unity/img/app-favicons/ncar/apple-icon-60x60.png" />
+<link rel="apple-touch-icon" sizes="72x72" href="/profiles/composer/unity-profile/themes/unity/img/app-favicons/ncar/apple-icon-72x72.png" />
+<link rel="apple-touch-icon" sizes="76x76" href="/profiles/composer/unity-profile/themes/unity/img/app-favicons/ncar/apple-icon-76x76.png" />
+<link rel="apple-touch-icon" sizes="114x114" href="/profiles/composer/unity-profile/themes/unity/img/app-favicons/ncar/apple-icon-114x114.png" />
+<link rel="apple-touch-icon" sizes="120x120" href="/profiles/composer/unity-profile/themes/unity/img/app-favicons/ncar/apple-icon-120x120.png" />
+<link rel="apple-touch-icon" sizes="144x144" href="/profiles/composer/unity-profile/themes/unity/img/app-favicons/ncar/apple-icon-144x144.png" />
+<link rel="apple-touch-icon" sizes="152x152" href="/profiles/composer/unity-profile/themes/unity/img/app-favicons/ncar/apple-icon-152x152.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/profiles/composer/unity-profile/themes/unity/img/app-favicons/ncar/apple-icon-180x180.png" />
+<meta name="application-name" content="NCAR" />
+<meta name="msapplication-square150x150logo" content="/profiles/composer/unity-profile/themes/unity/img/app-favicons/ncar/ms-icon-150x150.png" />
+<meta name="msapplication-square310x310logo" content="/profiles/composer/unity-profile/themes/unity/img/app-favicons/ncar/ms-icon-310x310.png" />
+<meta name="msapplication-square70x70logo" content="/profiles/composer/unity-profile/themes/unity/img/app-favicons/ncar/ms-icon-70x70.png" />
+<meta name="Generator" content="Drupal 9 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<style>div#sliding-popup, div#sliding-popup .eu-cookie-withdraw-banner, .eu-cookie-withdraw-tab {background: #0779bf} div#sliding-popup.eu-cookie-withdraw-wrapper { background: transparent; } #sliding-popup h1, #sliding-popup h2, #sliding-popup h3, #sliding-popup p, #sliding-popup label, #sliding-popup div, .eu-cookie-compliance-more-button, .eu-cookie-compliance-secondary-button, .eu-cookie-withdraw-tab { color: #ffffff;} .eu-cookie-withdraw-tab { border-color: #ffffff;}</style>
+<link rel="preconnect" href="https://fonts.gstatic.com" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;1,400&amp;family=Roboto+Mono:ital@0;1&amp;display=swap" />
+
+    <title>Page Not Found | Research Applications Laboratory</title>
+    <link rel="stylesheet" media="all" href="/core/themes/stable9/css/system/components/ajax-progress.module.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/core/themes/stable9/css/system/components/align.module.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/core/themes/stable9/css/system/components/autocomplete-loading.module.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/core/themes/stable9/css/system/components/fieldgroup.module.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/core/themes/stable9/css/system/components/container-inline.module.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/core/themes/stable9/css/system/components/clearfix.module.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/core/themes/stable9/css/system/components/details.module.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/core/themes/stable9/css/system/components/hidden.module.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/core/themes/stable9/css/system/components/item-list.module.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/core/themes/stable9/css/system/components/js.module.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/core/themes/stable9/css/system/components/nowrap.module.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/core/themes/stable9/css/system/components/position-container.module.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/core/themes/stable9/css/system/components/progress.module.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/core/themes/stable9/css/system/components/reset-appearance.module.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/core/themes/stable9/css/system/components/resize.module.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/core/themes/stable9/css/system/components/sticky-header.module.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/core/themes/stable9/css/system/components/system-status-counter.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/core/themes/stable9/css/system/components/system-status-report-counters.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/core/themes/stable9/css/system/components/system-status-report-general-info.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/core/themes/stable9/css/system/components/tabledrag.module.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/core/themes/stable9/css/system/components/tablesort.module.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/core/themes/stable9/css/system/components/tree-child.module.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/modules/composer/eu_cookie_compliance/css/eu_cookie_compliance.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/modules/composer/paragraphs/css/paragraphs.unpublished.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/core/themes/stable9/css/core/assets/vendor/normalize-css/normalize.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/core/themes/stable9/css/core/normalize-fixes.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/profiles/composer/unity-profile/themes/unity/css/components/action-links.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/profiles/composer/unity-profile/themes/unity/css/components/align.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/profiles/composer/unity-profile/themes/unity/css/components/banner.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/profiles/composer/unity-profile/themes/unity/css/components/body.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/profiles/composer/unity-profile/themes/unity/css/components/breadcrumb.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/profiles/composer/unity-profile/themes/unity/css/components/button.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/profiles/composer/unity-profile/themes/unity/css/components/collapse-processed.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/profiles/composer/unity-profile/themes/unity/css/components/container-inline.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/profiles/composer/unity-profile/themes/unity/css/components/details.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/profiles/composer/unity-profile/themes/unity/css/components/exposed-filters.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/profiles/composer/unity-profile/themes/unity/css/components/field.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/profiles/composer/unity-profile/themes/unity/css/components/form.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/profiles/composer/unity-profile/themes/unity/css/components/icons.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/profiles/composer/unity-profile/themes/unity/css/components/iframe.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/profiles/composer/unity-profile/themes/unity/css/components/inline-form.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/profiles/composer/unity-profile/themes/unity/css/components/item-list.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/profiles/composer/unity-profile/themes/unity/css/components/link.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/profiles/composer/unity-profile/themes/unity/css/components/links.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/profiles/composer/unity-profile/themes/unity/css/components/main-content.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/profiles/composer/unity-profile/themes/unity/css/components/menu.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/profiles/composer/unity-profile/themes/unity/css/components/more-link.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/profiles/composer/unity-profile/themes/unity/css/components/overview.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/profiles/composer/unity-profile/themes/unity/css/components/pager.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/profiles/composer/unity-profile/themes/unity/css/components/resource.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/profiles/composer/unity-profile/themes/unity/css/components/sponsors.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/profiles/composer/unity-profile/themes/unity/css/components/table.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/profiles/composer/unity-profile/themes/unity/css/components/tabledrag.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/profiles/composer/unity-profile/themes/unity/css/components/tableselect.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/profiles/composer/unity-profile/themes/unity/css/components/tablesort.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/profiles/composer/unity-profile/themes/unity/css/components/tabs.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/profiles/composer/unity-profile/themes/unity/css/components/teaser.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/profiles/composer/unity-profile/themes/unity/css/components/textarea.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/profiles/composer/unity-profile/themes/unity/css/components/ui-dialog.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/profiles/composer/unity-profile/themes/unity/css/components/messages.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/profiles/composer/unity-profile/themes/unity/css/components/node.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/profiles/composer/unity-profile/themes/unity/css/main.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/profiles/composer/unity-profile/themes/unity/css/icomoon/style.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/profiles/composer/unity-profile/themes/unity/css/fontawesome/css/all.min.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/sites/default/files/asset_injector/css/ral_global_styles-245d91f01c2b301a67cc43a9f48f9fd6.css?rzuzi5" />
+<link rel="stylesheet" media="all" href="/sites/default/files/asset_injector/css/spacing_issues-abeecefe403fad1e1c2e087d8cb38aca.css?rzuzi5" />
+
+    
+  </head>
+  <body class="path-sites page-node-type-basic-page ncar">
+        <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
+    
+      <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    <div class="layout-container">
+
+  <header role="banner" class="sticky-top">
+      <div class="region region-header">
+    <nav role="navigation" aria-labelledby="block-main-navigation-menu" id="block-main-navigation" class="block block-menu navigation menu--main navbar navbar-expand-md navbar-light align-items-start py-0">
+            
+  <h2 class="visually-hidden" id="block-main-navigation-menu">Main navigation</h2>
+  
+
+  <div class="container-fluid px-0">
+      <div class="row gx-0 flex-grow-1">
+                <div class="col-12">
+          <div class="container-lg">
+              <div class="row gx-0 py-md-2">
+                  <div class="col col-md-7">
+                      <div class="d-flex">
+                          <div class="pe-1 pe-md-2 my-1 my-md-0 org-logo align-self-center">
+                              <a href="https://ncar.ucar.edu/" title="NCAR Home">
+                                  <img src="/profiles/composer/unity-profile/themes/unity/img/logo-ncar-active.png" alt="NCAR Logo" />
+                              </a>
+                          </div>
+                          <div class="ps-1 ps-md-2 my-1 py-md-0 align-self-center site-name">
+                              <h1 class="mb-0 small-site-name"><a href="https://ral.ucar.edu/">Research Applications Laboratory</a></h1>
+                          </div>
+                                                    <div class="p-1 py-md-0 site-acronym">
+                              <a href="https://ral.ucar.edu/">RAL</a>
+                          </div>
+                                                    <div class="ms-auto px-0 py-md-0 d-md-none justify-content-end mobile-toggler">
+                              <button id="menuIcon" class="navbar-toggler collapsed btn border-left" type="button" aria-label="Mobile Menu" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent1,#navbarSupportedContent2" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                              </button>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="utility-menu col collapse d-none d-md-flex justify-content-end align-items-center pe-0">
+                      <div>
+                          <a href="/form/contact">Contact Us</a>
+                      </div>
+                      <form class="d-flex ms-2 border-left" action="/search" method="GET" id="header-search-form">
+                          <label class="ps-2 pe-1 align-self-center" for="siteSearch">Search</label>
+                          <input name="search_api_fulltext" class="form-control" id="siteSearch" type="search" aria-label="Search">
+                          <button class="btn btn-primary" type="submit" aria-label="Search"><i class="fas fa-search"></i></button>
+                      </form>
+                  </div>
+              </div>
+          </div>
+        </div>
+        <div class="col-12 border-top">
+          <div class="container-lg collapse navbar-collapse" id="navbarSupportedContent1">
+                                      
+        <ul class="menu navbar-nav me-auto mb-2 mb-md-0">
+                            <li class="menu-item nav-item">
+                  <a href="/" class="nav-link" data-drupal-link-system-path="&lt;front&gt;">Home</a>
+                      </li>
+                            <li class="menu-item nav-item menu-item--expanded dropdown d-flex flex-wrap justify-content-between">
+                  <a href="/about" class="nav-link" data-drupal-link-system-path="node/3">About</a>
+                          <button id="about" class="btn dropdown-toggle px-3 px-md-1 mx-md-1 py-1" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Expand/Collapse About"></button>
+          <div class="dropdown-menu" aria-labelledby="about">
+                                <ul class="menu menu-grid">
+          <li class="menu-grid-item">
+        <a href="/about/leadership" class="dropdown-item" data-drupal-link-system-path="node/4770">Leadership</a>
+      </li>
+          <li class="menu-grid-item">
+        <a href="/about/programs" class="dropdown-item" data-drupal-link-system-path="node/5037">Programs</a>
+      </li>
+          <li class="menu-grid-item">
+        <a href="/about/strategic-goals-and-priorities" class="dropdown-item" data-drupal-link-system-path="node/4772">Strategic Goals</a>
+      </li>
+          <li class="menu-grid-item">
+        <a href="/about/education-and-outreach" class="dropdown-item" data-drupal-link-system-path="node/4773">Education and Outreach</a>
+      </li>
+          <li class="menu-grid-item">
+        <a href="/about/diversity-and-inclusion" class="dropdown-item" data-drupal-link-system-path="node/4771">Diversity and Inclusion</a>
+      </li>
+          <li class="menu-grid-item">
+        <a href="/about/staff" class="dropdown-item" data-drupal-link-system-path="node/5063">Staff</a>
+      </li>
+          <li class="menu-grid-item">
+        <a href="/awards-patents" class="dropdown-item" data-drupal-link-system-path="awards-patents">Awards and Patents</a>
+      </li>
+          <li class="menu-grid-item">
+        <a href="/about/ral-advisory-panel" class="dropdown-item" data-drupal-link-system-path="node/4775">RAL Advisory Panel</a>
+      </li>
+          <li class="menu-grid-item">
+        <a href="/about/fact-sheets" class="dropdown-item" data-drupal-link-system-path="node/5278">Fact Sheets</a>
+      </li>
+          <li class="menu-grid-item">
+        <a href="/about/contact" class="dropdown-item" data-drupal-link-system-path="node/4776">Contact</a>
+      </li>
+      </ul>
+
+                      </div>
+              </li>
+                            <li class="menu-item nav-item menu-item--expanded dropdown d-flex flex-wrap justify-content-between">
+                  <a href="/what-we-do" class="nav-link" data-drupal-link-system-path="what-we-do">What We Do</a>
+                          <button id="what-we-do" class="btn dropdown-toggle px-3 px-md-1 mx-md-1 py-1" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Expand/Collapse What We Do"></button>
+          <div class="dropdown-menu" aria-labelledby="what-we-do">
+                                <ul class="menu menu-grid">
+          <li class="menu-grid-item">
+        <a href="/solutions/agriculture-food" class="dropdown-item" data-drupal-link-system-path="taxonomy/term/150">Agriculture + Food</a>
+      </li>
+          <li class="menu-grid-item">
+        <a href="/solutions/air-quality" class="dropdown-item" data-drupal-link-system-path="taxonomy/term/383">Air Quality</a>
+      </li>
+          <li class="menu-grid-item">
+        <a href="/solutions/aviation" class="dropdown-item" data-drupal-link-system-path="taxonomy/term/151">Aviation</a>
+      </li>
+          <li class="menu-grid-item">
+        <a href="/solutions/climate" class="dropdown-item" data-drupal-link-system-path="taxonomy/term/384">Climate</a>
+      </li>
+          <li class="menu-grid-item">
+        <a href="/solutions/human-health-safety" class="dropdown-item">Human Health</a>
+      </li>
+          <li class="menu-grid-item">
+        <a href="/solutions/renewable-energy" class="dropdown-item">Renewable Energy</a>
+      </li>
+          <li class="menu-grid-item">
+        <a href="/solutions/surface-transportation" class="dropdown-item" data-drupal-link-system-path="taxonomy/term/157">Surface Transportation</a>
+      </li>
+          <li class="menu-grid-item">
+        <a href="/solutions/testing-evaluation" class="dropdown-item" data-drupal-link-system-path="taxonomy/term/158">Testing + Evaluation</a>
+      </li>
+          <li class="menu-grid-item">
+        <a href="/tropical-cyclones" class="dropdown-item" data-drupal-link-system-path="taxonomy/term/153">Tropical Cyclones</a>
+      </li>
+          <li class="menu-grid-item">
+        <a href="/urban-weather" class="dropdown-item" data-drupal-link-system-path="taxonomy/term/155">Urban Weather</a>
+      </li>
+          <li class="menu-grid-item">
+        <a href="/solutions/water" class="dropdown-item" data-drupal-link-system-path="taxonomy/term/159">Water</a>
+      </li>
+          <li class="menu-grid-item">
+        <a href="/solutions/wildfire" class="dropdown-item" data-drupal-link-system-path="taxonomy/term/385">Wildfire</a>
+      </li>
+      </ul>
+
+                      </div>
+              </li>
+                            <li class="menu-item nav-item">
+                  <a href="/products" class="nav-link" data-drupal-link-system-path="node/5035">Products + Tools</a>
+                      </li>
+                            <li class="menu-item nav-item menu-item--expanded dropdown d-flex flex-wrap justify-content-between">
+                  <a href="/technologies" class="nav-link" data-drupal-link-system-path="technologies">Technologies</a>
+                          <button id="technologies" class="btn dropdown-toggle px-3 px-md-1 mx-md-1 py-1" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Expand/Collapse Technologies"></button>
+          <div class="dropdown-menu" aria-labelledby="technologies">
+                                <ul class="menu menu-grid">
+          <li class="menu-grid-item">
+        <a href="/technologies/artificial-intelligence-and-machine-learning" class="dropdown-item" data-drupal-link-system-path="taxonomy/term/365">Artificial Intelligence and Machine Learning</a>
+      </li>
+          <li class="menu-grid-item">
+        <a href="/technologies/atmospheric-surface-measurements-and-evaluation" class="dropdown-item" data-drupal-link-system-path="taxonomy/term/366">Atmospheric Surface Measurements and Evaluation</a>
+      </li>
+          <li class="menu-grid-item">
+        <a href="/technologies/cloud-computing-and-software-containers" class="dropdown-item" data-drupal-link-system-path="taxonomy/term/386">Cloud Computing and Software Containers</a>
+      </li>
+          <li class="menu-grid-item">
+        <a href="/technologies/data-assimilation" class="dropdown-item" data-drupal-link-system-path="taxonomy/term/189">Data Assimilation</a>
+      </li>
+          <li class="menu-grid-item">
+        <a href="/technologies/data-services" class="dropdown-item" data-drupal-link-system-path="taxonomy/term/388">Data Services</a>
+      </li>
+          <li class="menu-grid-item">
+        <a href="/technologies/decision-support-systems" class="dropdown-item" data-drupal-link-system-path="taxonomy/term/190">Decision Support Systems</a>
+      </li>
+          <li class="menu-grid-item">
+        <a href="/technologies/forecasting-systems" class="dropdown-item" data-drupal-link-system-path="taxonomy/term/281">Forecasting Systems</a>
+      </li>
+          <li class="menu-grid-item">
+        <a href="/technologies/geographic-information-systems-gis-science" class="dropdown-item" data-drupal-link-system-path="taxonomy/term/191">Geographic Information Systems (GIS) Science</a>
+      </li>
+          <li class="menu-grid-item">
+        <a href="/technologies/measuring-forecast-quality" class="dropdown-item" data-drupal-link-system-path="taxonomy/term/279">Measuring Forecast Quality</a>
+      </li>
+          <li class="menu-grid-item">
+        <a href="/technologies/regional-climate-analysis-and-impact" class="dropdown-item" data-drupal-link-system-path="taxonomy/term/278">Regional Climate Analysis and Impact</a>
+      </li>
+          <li class="menu-grid-item">
+        <a href="/technologies/specialty-models" class="dropdown-item" data-drupal-link-system-path="taxonomy/term/367">Specialty Models</a>
+      </li>
+      </ul>
+
+                      </div>
+              </li>
+                            <li class="menu-item nav-item menu-item--expanded dropdown d-flex flex-wrap justify-content-between">
+                  <a href="/our-impacts" class="nav-link" data-drupal-link-system-path="node/4784">Our Impacts</a>
+                          <button id="our-impacts" class="btn dropdown-toggle px-3 px-md-1 mx-md-1 py-1" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Expand/Collapse Our Impacts"></button>
+          <div class="dropdown-menu" aria-labelledby="our-impacts">
+                                <ul class="menu menu-grid">
+          <li class="menu-grid-item">
+        <a href="/our-impacts/150/agriculture-and-food" class="dropdown-item" data-drupal-link-system-path="node/4778">Agriculture + Food Impacts</a>
+      </li>
+          <li class="menu-grid-item">
+        <a href="/our-impacts/383/air-quality" class="dropdown-item" data-drupal-link-system-path="node/4779">Air Quality Impacts</a>
+      </li>
+          <li class="menu-grid-item">
+        <a href="/our-impacts/151/aviation" class="dropdown-item" data-drupal-link-system-path="node/4777">Aviation Impacts</a>
+      </li>
+          <li class="menu-grid-item">
+        <a href="/our-impacts/384/climate" class="dropdown-item" data-drupal-link-system-path="node/4780">Climate Impacts</a>
+      </li>
+          <li class="menu-grid-item">
+        <a href="/our-impacts/153/high-impact-weather" class="dropdown-item" data-drupal-link-system-path="node/4781">High Impact Weather Impacts</a>
+      </li>
+          <li class="menu-grid-item">
+        <a href="/our-impacts/154/human-health" class="dropdown-item" data-drupal-link-system-path="node/4782">Human Health Impacts</a>
+      </li>
+          <li class="menu-grid-item">
+        <a href="/our-impacts/155/national-security" class="dropdown-item" data-drupal-link-system-path="node/4783">National Security Impacts</a>
+      </li>
+          <li class="menu-grid-item">
+        <a href="/our-impacts/156/renewable-energy" class="dropdown-item" data-drupal-link-system-path="node/4785">Renewable Energy Impacts</a>
+      </li>
+          <li class="menu-grid-item">
+        <a href="/our-impacts/157/surface-transportation" class="dropdown-item" data-drupal-link-system-path="node/4786">Surface Transportation Impacts</a>
+      </li>
+          <li class="menu-grid-item">
+        <a href="/our-impacts/158/testing-and-evaluation" class="dropdown-item" data-drupal-link-system-path="node/4787">Testing + Evaluation Impacts</a>
+      </li>
+          <li class="menu-grid-item">
+        <a href="/our-impacts/159/water" class="dropdown-item" data-drupal-link-system-path="node/4788">Water Impacts</a>
+      </li>
+          <li class="menu-grid-item">
+        <a href="/our-impacts/385/wildfire" class="dropdown-item" data-drupal-link-system-path="node/4789">Wildfire Impacts</a>
+      </li>
+      </ul>
+
+                      </div>
+              </li>
+                            <li class="menu-item nav-item menu-item--expanded dropdown d-flex flex-wrap justify-content-between">
+                  <a href="/work-with-us" class="nav-link" data-drupal-link-system-path="node/5044">Work With Us</a>
+                          <button id="work-with-us" class="btn dropdown-toggle px-3 px-md-1 mx-md-1 py-1" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Expand/Collapse Work With Us"></button>
+          <div class="dropdown-menu" aria-labelledby="work-with-us">
+                                <ul class="menu menu-grid">
+          <li class="menu-grid-item">
+        <a href="/work-with-us/community-collaboration" class="dropdown-item" data-drupal-link-system-path="taxonomy/term/379">Community Collaboration</a>
+      </li>
+          <li class="menu-grid-item">
+        <a href="/work-with-us/internships-and-fellowships" class="dropdown-item" data-drupal-link-system-path="taxonomy/term/375">Internships and Fellowships</a>
+      </li>
+          <li class="menu-grid-item">
+        <a href="/work-with-us/licensing-technology-transfer" class="dropdown-item" data-drupal-link-system-path="taxonomy/term/382">Licensing for Technology Transfer</a>
+      </li>
+          <li class="menu-grid-item">
+        <a href="/work-with-us/partner" class="dropdown-item" data-drupal-link-system-path="taxonomy/term/445">Partner With Us</a>
+      </li>
+          <li class="menu-grid-item">
+        <a href="/work-with-us/visitor-programs" class="dropdown-item" data-drupal-link-system-path="taxonomy/term/373">Visitor Programs</a>
+      </li>
+          <li class="menu-grid-item">
+        <a href="/work-with-us/workshops-and-tutorials" class="dropdown-item" data-drupal-link-system-path="taxonomy/term/381">Workshops and Tutorials</a>
+      </li>
+          <li class="menu-grid-item">
+        <a href="https://www.ucar.edu/opportunities/careers" class="dropdown-item">Jobs</a>
+      </li>
+      </ul>
+
+                      </div>
+              </li>
+                            <li class="menu-item nav-item menu-item--expanded dropdown d-flex flex-wrap justify-content-between">
+                  <a href="/events" title="The events parent link" class="nav-link" data-drupal-link-system-path="node/4">Events</a>
+                          <button id="events" class="btn dropdown-toggle px-3 px-md-1 mx-md-1 py-1" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Expand/Collapse Events"></button>
+          <div class="dropdown-menu" aria-labelledby="events">
+                                <ul class="menu ">
+          <li class="menu-grid-item">
+        <a href="/events" title="Upcoming events." class="dropdown-item" data-drupal-link-system-path="node/4">Upcoming</a>
+      </li>
+          <li class="menu-grid-item">
+        <a href="/past-events" class="dropdown-item" data-drupal-link-system-path="node/5">Past</a>
+      </li>
+      </ul>
+
+                      </div>
+              </li>
+                            <li class="menu-item nav-item">
+                  <a href="/news" title="The news listing page." class="nav-link" data-drupal-link-system-path="node/2">News</a>
+                      </li>
+                            <li class="menu-item nav-item menu-item--expanded dropdown d-flex flex-wrap justify-content-between">
+                  <a href="/saml_login" class="nav-link" data-drupal-link-system-path="saml_login">Staff Login</a>
+                      </li>
+        </ul>
+  
+
+
+
+                      </div>
+        </div>
+        <div class="col-12 mobile-utility-menu px-2 d-md-none">
+          <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent2">
+            <form class="flex-column" action="/search" id="mobile-search-form">
+              <div>
+                <label for="mobileSearch">Search</label>
+              </div>
+              <div class="d-flex">
+                <input name="search_api_fulltext" class="form-control" id="mobileSearch" type="search" aria-label="Search">
+                <button class="btn btn-primary" type="submit" aria-label="Search"><i class="fas fa-search"></i></button>
+              </div>
+            </form>
+            <div class="py-2 contact">
+              <a href="/form/contact">Contact Us</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</nav>
+
+  </div>
+
+  </header>
+  <main class="container-lg pt-2 pt-md-3">
+    <a id="main-content" tabindex="-1"></a>    <div class="d-print-flex">
+      <div class="layout-content main-content-wrapper">
+          <div class="region region-content">
+    <div data-drupal-messages-fallback class="hidden"></div><div id="block-unity-main-page-content" class="block block-system block-system-main-block">
+  
+    
+      
+<article role="article" class="node node--type-basic-page node--view-mode-full main-content-wrapper">
+  
+    
+  
+  <div class="node__content main-content">
+        <div class="no-contacts-added">
+
+          <div  class="layout__region layout__region--main-top breadcrumb-wrapper">
+        <div class="block block-system block-system-breadcrumb-block">
+  
+    
+      
+  <nav class="mb-3 d-print-none" role="navigation" aria-labelledby="system-breadcrumb">
+    <h2 id="system-breadcrumb" class="visually-hidden">Breadcrumb</h2>
+    <ol class="breadcrumb">
+    
+              <li class="breadcrumb-item">
+          <a href="/">Home</a>
+        </li>
+      
+        </ol>
+  </nav>
+
+  </div>
+
+      </div>
+    
+          <main  class="layout__region layout__region--main main-content-wrapper">
+        <h1>Page Not Found</h1>                <div class="block block-layout-builder block-field-blocknodebasic-pagefield-main-content">
+  
+    
+      
+      <div class="field field--name-field-main-content field--type-entity-reference-revisions field--label-hidden field__items">
+              <div class="field__item">  <div class="paragraph paragraph--type--rich-text paragraph--view-mode--default">
+          
+            <div class="clearfix text-formatted field field--name-field-body field--type-text-long field--label-hidden field__item"><p>We can't find that page, which may have been moved in our recent site update.</p>
+<h3>Please use the search field in the upper-right corner to search by keyword.</h3>
+<ul><li>You can also return to our <a href="/">home page</a> or <a href="/about/contact">contact us</a>.</li>
+</ul></div>
+      
+      </div>
+</div>
+          </div>
+  
+  </div>
+<div class="block block-layout-builder block-extra-field-blocknodebasic-pagelinks">
+  
+    
+      
+  </div>
+
+      </main>
+    
+    
+    
+  </div>
+
+  </div>
+
+</article>
+
+  </div>
+
+  </div>
+
+      </div>    </div>
+  </main>
+
+  
+<footer>
+  <div class="org-footer d-print-none">
+    <div class="container-lg py-md-3">
+      <div class="row">
+        <div class="col-12 col-md-5 py-2">
+          <div class="accordion" id="accordionNCAR">
+            <div id="ncarHeader" class="d-flex justify-content-between">
+              <h3 class="text-light pb-mb-2">NCAR</h3>
+              <button class="btn text-light px-2 collapsed" href="#ncarCollapseMenu" id="ncarCollapseButton" aria-label="NCAR Organization" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="ncarCollapseMenu"></button>
+            </div>
+            <div id="ncarCollapseMenu" class="collapse" aria-labelledby="ncarHeader" data-parent="#accordionNCAR">
+              <ul class="nav flex-column">
+                <li class="nav-item"><a class="nav-link" href="https://ncar.ucar.edu">NCAR Homepage</a></li>
+                <li class="nav-item"><a class="nav-link" href="https://www2.acom.ucar.edu/">ACOM | Atmospheric Chemistry Observations & Modeling</a></li>
+                <li class="nav-item"><a class="nav-link" href="https://www.cgd.ucar.edu/">CGD | Climate & Global Dynamics</a></li>
+                <li class="nav-item"><a class="nav-link" href="https://www2.cisl.ucar.edu">CISL | Computational & Information Systems</a></li>
+                <li class="nav-item"><a class="nav-link" href="https://edec.ucar.edu/">EdEC | Education, Engagement & Early-Career Development</a></li>
+                <li class="nav-item"><a class="nav-link" href="https://www.eol.ucar.edu/">EOL | Earth Observing Laboratory</a></li>
+                <li class="nav-item"><a class="nav-link" href="https://www2.hao.ucar.edu/">HAO | High Altitude Observatory</a></li>
+                <li class="nav-item"><a class="nav-link" href="https://www.mmm.ucar.edu/">MMM | Mesoscale & Microscale Meteorology</a></li>
+                <li class="nav-item"><a class="nav-link" href="https://ral.ucar.edu/">RAL | Research Applications Laboratory</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md py-2">
+          <div class="accordion" id="accordionUCAR">
+            <div id="ucarHeader" class="d-flex justify-content-between">
+              <h3 class="text-light pb-mb-2">UCAR</h3>
+              <button class="btn px-2 text-light collapsed" href="#ucarCollapseMenu" id="ucarCollapseButton" aria-label="UCAR Organization" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="ucarCollapseMenu"></button>
+            </div>
+            <div id="ucarCollapseMenu" class="collapse" aria-labelledby="ucarHeader" data-parent="#accordionUCAR">
+              <ul class="nav flex-column">
+                <li class="nav-item"><a class="nav-link" href="https://www.ucar.edu">UCAR Homepage</a></li>
+                <li class="nav-item"><a class="nav-link" href="https://www.ucar.edu/community-programs">Community Programs</a></li>
+                <li class="nav-item"><a class="nav-link" href="https://www.ucar.edu/who-we-are/diversity-inclusion">Diversity & Inclusion</a></li>
+                <li class="nav-item"><a class="nav-link" href="https://www.ucar.edu/what-we-offer/education-training">Education & Training</a></li>
+                <li class="nav-item"><a class="nav-link" href="https://sundog.ucar.edu/">For Staff</a></li>
+                <li class="nav-item"><a class="nav-link" href="https://www.ucar.edu/what-we-do/advocacy/office-government-relations">Government Relations & External Engagement</a></li>
+                <li class="nav-item"><a class="nav-link" href="https://www.ucar.edu/who-we-are/membership">Member Institutions</a></li>
+                <li class="nav-item"><a class="nav-link" href="https://www.ucar.edu/what-we-do/tech-transfer-engagement">Tech Transfer & Engagement</a></li>
+                <li class="nav-item"><a class="nav-link" href="https://www.ucar.edu/what-we-do/university-collaboration">University Collaboration</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md py-2">
+           
+
+<h3 class="text-light pb-mb-2">RAL</h3>
+<div class="my-special-css">
+  <!-- <ul class="nav flex-column">
+    <li class="nav-item"><a href="#" class="nav-link">My Special Ral Project</a></li>
+    <li class="nav-item"><a href="#" class="nav-link">Some other special link</a></li>
+    <li class="nav-item"><a href="#" class="nav-link">A third link</a></li>
+  </ul>-->
+  <ul class="nav flex-column">
+    <li class="nav-item"><a href="tel:303-497-8422" class="nav-link">Main Phone: 303-497-8422 <i class="fab fa-phone"></i></a></li>
+	<li class="nav-item text-gray-light"></li></ul>
+<ul class="nav flex-column">
+<li class="nav-item text-light"></li>
+    
+  </ul>
+</div>
+<div class="social pt-4">
+  <h4>Follow RAL</h4>
+  <div class="social-icons text-light">
+    <a href="https://www.linkedin.com/company/ncar-research-applications-laboratory/" aria-label="Follow RAL on Linkedin"><i class="fab fa-linkedin"></i></a>
+    <a href="https://twitter.com/NCAR_RAL" aria-label="Follow RAL on Twitter"><i class="fab fa-twitter"></i></a>
+    <a href="https://www.youtube.com/channel/UCDIFPOu2f7TortTgNYQc6wA" aria-label="Follow RAL on YouTube"><i class="fab fa-youtube"></i></a>
+    <a href="https://www.instagram.com/ncar_ucar/" aria-label="Follow RAL on Instagram"><i class="fab fa-instagram"></i></a>
+  </div>
+</div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="legal-footer py-3">
+    <div class="container-lg">
+      <div class="row">
+        <div class="col-12 d-print-none">
+          <p class="text-light copyright pe-md-2">© 2023 UCAR</p>
+          <ul class="nav flex-column flex-md-row">
+            <li class="nav-item"><a class="nav-link" href="https://www.ucar.edu/privacy-notice">Privacy</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://www.ucar.edu/cookie-other-tracking-technologies-notice">Cookies</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://www.ucar.edu/terms-of-use">Terms of Use</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://www.ucar.edu/notification-copyright-infringement-digital-millenium-copyright-act">Copyright Issues</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://nsf.gov">Sponsored by NSF</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://www.ucar.edu/who-we-are/ethics">Report Ethics Concern</a></li>
+                                          <li class="nav-item"><a class="nav-link" href="/user/login?destination=page-not-found">Staff Login</a></li>
+                                    </ul>
+        </div>
+        <div class="col-12 text-gray-light">
+          <span class="d-block d-md-inline pt-2 pt-md-0"><b>Postal Address:</b></span>
+          <span>P.O. Box 3000, Boulder, CO 80307-3000</span>
+          <span class="d-none d-md-inline">&bull;</span>
+          <span class="d-block d-md-inline pt-2 pt-md-0"><b>Shipping Address:</b></span>
+          <span>3090 Center Green Drive, Boulder, CO 80301</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="nsf-footer py-3">
+    <div class="container-lg">
+      <div class="row align-items-center">
+        <div class="col-12 col-md-1 pb-3 pb-md-0 me-md-3">
+          <img src="/profiles/composer/unity-profile/themes/unity/img/nsf-logo.png" alt="NSF Logo" />
+        </div>
+        <div class="col-12 col-md-10 flex-md-grow-1">
+          <p class="mb-0">This material is based upon work supported by the National Center for Atmospheric Research, a major facility sponsored by the National Science Foundation and managed by the University Corporation for Atmospheric Research. Any opinions, findings and conclusions or recommendations expressed in this material do not necessarily reflect the views of the National Science Foundation.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</div>
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"\/","scriptPath":null,"pathPrefix":"","currentPath":"","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"google_analytics":{"account":"UA-28608323-1","trackOutbound":true,"trackMailto":true,"trackTel":true,"trackDownload":true,"trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc(x|m)?|dot(x|m)?|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt(x|m)?|pot(x|m)?|pps(x|m)?|ppam|sld(x|m)?|thmx|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls(x|m|b)?|xlt(x|m)|xlam|xml|z|zip","trackColorbox":true,"trackDomainMode":1,"trackUrlFragments":true},"eu_cookie_compliance":{"cookie_policy_version":"1.0.0","popup_enabled":true,"popup_agreed_enabled":false,"popup_hide_agreed":false,"popup_clicking_confirmation":false,"popup_scrolling_confirmation":false,"popup_html_info":"\u003Cdiv aria-labelledby=\u0022popup-text\u0022  class=\u0022eu-cookie-compliance-banner eu-cookie-compliance-banner-info eu-cookie-compliance-banner--default\u0022\u003E\n  \u003Cdiv class=\u0022popup-content info eu-cookie-compliance-content\u0022\u003E\n        \u003Cdiv id=\u0022popup-text\u0022 class=\u0022eu-cookie-compliance-message\u0022 role=\u0022document\u0022\u003E\n      \u003Cp\u003EUCAR uses cookies to make our website function; however, UCAR cookies do not collect personal information about you. When using our website, you may encounter embedded content, such as YouTube videos and other social media links, that use their own cookies. To learn more about third-party cookies on this website, and to set your cookie preferences, click\u003C\/p\u003E\n\n              \u003Cbutton type=\u0022button\u0022 class=\u0022find-more-button eu-cookie-compliance-more-button\u0022\u003Ehere.\u003C\/button\u003E\n          \u003C\/div\u003E\n\n    \n    \u003Cdiv id=\u0022popup-buttons\u0022 class=\u0022eu-cookie-compliance-buttons\u0022\u003E\n            \u003Cbutton type=\u0022button\u0022 class=\u0022agree-button eu-cookie-compliance-default-button\u0022\u003EAcknowledge\u003C\/button\u003E\n          \u003C\/div\u003E\n  \u003C\/div\u003E\n\u003C\/div\u003E","use_mobile_message":false,"mobile_popup_html_info":"\u003Cdiv aria-labelledby=\u0022popup-text\u0022  class=\u0022eu-cookie-compliance-banner eu-cookie-compliance-banner-info eu-cookie-compliance-banner--default\u0022\u003E\n  \u003Cdiv class=\u0022popup-content info eu-cookie-compliance-content\u0022\u003E\n        \u003Cdiv id=\u0022popup-text\u0022 class=\u0022eu-cookie-compliance-message\u0022 role=\u0022document\u0022\u003E\n      \u003Ch2\u003EWe use cookies on this site to enhance your user experience\u003C\/h2\u003E\n\u003Cp\u003EBy tapping any link on this page you are giving your consent for us to set cookies.\u003C\/p\u003E\n\n              \u003Cbutton type=\u0022button\u0022 class=\u0022find-more-button eu-cookie-compliance-more-button\u0022\u003Ehere.\u003C\/button\u003E\n          \u003C\/div\u003E\n\n    \n    \u003Cdiv id=\u0022popup-buttons\u0022 class=\u0022eu-cookie-compliance-buttons\u0022\u003E\n            \u003Cbutton type=\u0022button\u0022 class=\u0022agree-button eu-cookie-compliance-default-button\u0022\u003EAcknowledge\u003C\/button\u003E\n          \u003C\/div\u003E\n  \u003C\/div\u003E\n\u003C\/div\u003E","mobile_breakpoint":768,"popup_html_agreed":false,"popup_use_bare_css":false,"popup_height":"auto","popup_width":"100%","popup_delay":1000,"popup_link":"https:\/\/www.ucar.edu\/cookie-other-tracking-technologies-notice","popup_link_new_window":true,"popup_position":false,"fixed_top_position":true,"popup_language":"en","store_consent":false,"better_support_for_screen_readers":true,"cookie_name":"gdpr_acknowledged_1","reload_page":false,"domain":"","domain_all_sites":false,"popup_eu_only":false,"popup_eu_only_js":false,"cookie_lifetime":365,"cookie_session":null,"set_cookie_session_zero_on_disagree":0,"disagree_do_not_show_popup":false,"method":"default","automatic_cookies_removal":true,"allowed_cookies":"","withdraw_markup":"\u003Cbutton type=\u0022button\u0022 class=\u0022eu-cookie-withdraw-tab\u0022\u003EPrivacy settings\u003C\/button\u003E\n\u003Cdiv aria-labelledby=\u0022popup-text\u0022 class=\u0022eu-cookie-withdraw-banner\u0022\u003E\n  \u003Cdiv class=\u0022popup-content info eu-cookie-compliance-content\u0022\u003E\n    \u003Cdiv id=\u0022popup-text\u0022 class=\u0022eu-cookie-compliance-message\u0022 role=\u0022document\u0022\u003E\n      \u003Ch2\u003EWe use cookies on this site to enhance your user experience\u003C\/h2\u003E\n\u003Cp\u003EYou have given your consent for us to set cookies.\u003C\/p\u003E\n\n    \u003C\/div\u003E\n    \u003Cdiv id=\u0022popup-buttons\u0022 class=\u0022eu-cookie-compliance-buttons\u0022\u003E\n      \u003Cbutton type=\u0022button\u0022 class=\u0022eu-cookie-withdraw-button \u0022\u003EWithdraw consent\u003C\/button\u003E\n    \u003C\/div\u003E\n  \u003C\/div\u003E\n\u003C\/div\u003E","withdraw_enabled":false,"reload_options":0,"reload_routes_list":"","withdraw_button_on_info_popup":false,"cookie_categories":[],"cookie_categories_details":[],"enable_save_preferences_button":true,"cookie_value_disagreed":"0","cookie_value_agreed_show_thank_you":"1","cookie_value_agreed":"2","containing_element":"body","settings_tab_enabled":false,"olivero_primary_button_classes":"","olivero_secondary_button_classes":"","close_button_action":"close_banner","open_by_default":true,"modules_allow_popup":true,"hide_the_banner":false,"geoip_match":true},"user":{"uid":0,"permissionsHash":"17a27d7a46b4c7a86c1a19bd08c151058e6604453f69395d95cea2a2d8cd512c"}}</script>
+<script src="/sites/default/files/js/js_qeur9jAmaFVat8TYn8wwdmmNH-M5RVqGlKC7O1OUNec.js"></script>
+<script src="/modules/composer/eu_cookie_compliance/js/eu_cookie_compliance.min.js?v=9.5.10" defer></script>
+
+  </body>
+</html>

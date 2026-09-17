@@ -1,0 +1,9 @@
+<!-- Example xml for node-local burst buffer functionality -->
+<?xml version="1.0"?>
+<adios-config>
+  <io name="wrfout_d03_2024-06-17_06:00:00">
+      <engine type="BP4">
+      <parameter key="BurstBufferPath" value="/home/agrineer/wrf/sectors/ANDES_03/ADIOS2_BURST"/>
+      </engine>
+  </io>
+</adios-config>

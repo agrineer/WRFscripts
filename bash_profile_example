@@ -1,0 +1,20 @@
+#!/bin/bash
+
+if [ -f ~/.bashrc ] 
+then
+    source ~/.bashrc # .bashrc checks if in interactive shell
+fi
+
+# start with basic paths
+export LD_LIBRARY_PATH=/usr/local/lib:/usr/lib:/lib
+export PATH=/usr/local/bin:/usr/bin:/bin:/sbin
+export PYTHONPATH=/usr/local/lib/python3.8/dist-packages:$PYTHONPATH
+
+export WRF_HOME=/home/agrineer/wrf
+export WRF_MPI=MPICH
+export WRF_JCL=NONE
+export WRF_OPENMP_NCORES=NONE
+export WRF_MPICH_HOSTS=/home/agrineer/mpd.hosts
+
+export LD_LIBRARY_PATH=/home/agrineer/wrf/lib:$LD_LIBRARY_PATH
+export PATH=/home/agrineer/bin:/home/agrineer/wrf/bin:$PATH

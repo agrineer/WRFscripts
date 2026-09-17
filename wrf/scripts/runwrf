@@ -1,0 +1,136 @@
+# bash shell script to run wrf jobs; GPLv3 license
+SCRIPTS=$WRF_HOME/scripts
+GFSHOME=$WRF_HOME/gfs_0.25
+LOGDIR=$WRF_HOME/log
+
+export LD_LIBRARY_PATH=$WRF_HOME/lib:/usr/local/lib:/usr/lib:/lib
+export MP_STACK_SIZE=64000000 
+
+usage() {                             
+    echo "runwrf: usage: $0 [-h] -s SECTOR -r RESTART -b BEGIN_HOUR [-d RUNDATE]"
+    echo "runwrf: RUNDATE has YYYYMMDD format"
+    echo "runwrf: RUNDATE is optional, if no RUNDATE then defaults to UTC yesterday"
+    echo "runwrf: RESTART is either true or false"
+    echo "runwrf: BEGIN_HOUR must be one of 0,6,12,18"
+    echo "runwrf: SECTOR example is -s ANDES03"
+    exit 1
+}
+
+if [ $# -gt 9 ];
+then
+    echo "too many arguments....exiting"
+    exit 1
+fi
+
+# grab the parameters
+while getopts "hs:r:b:d:" options; do
+                                
+    case "${options}" in
+	s) SECTOR=${OPTARG} ;;
+	r) RESTART=${OPTARG} ;;
+	d) RUNDATE=${OPTARG} ;;
+	b) BEGIN=${OPTARG} ;;
+	h) usage
+	   ;;
+	:)                                    
+	    echo "runwrf error: -${OPTARG} requires an argument."
+	    usage
+	    ;;
+	[?])
+	    usage
+	    ;;
+	*)                                 
+	    usage
+	    ;;
+    esac
+done
+
+shift $((OPTIND-1))
+
+# check parameter values
+if [ -z "${SECTOR}" ];
+then
+    echo "runwrf: please specify a sector to use with -s SECTOR ...exiting"
+    usage
+fi
+
+# check for sector directory
+if [ -e $WRF_HOME/sectors/$SECTOR ];
+then
+    echo "runwrf: sector ${SECTOR} found"
+else
+    echo "runwrf: sector ${SECTOR} NOT found...exiting"
+    usage
+fi
+
+# check if sector is already running
+LOCKPATH=$WRF_HOME/log/running_$SECTOR.lock
+if [ -f $LOCKPATH ]; then
+    echo "runwrf: $SECTOR is already running...exiting"
+    exit 1
+fi
+
+# check if begin hour is given
+if [ -z "${BEGIN}" ];
+then
+    echo "runwrf: ERROR-> begin hour must be given, one of 0,6,12,18...exiting"
+    usage
+fi
+
+# check if begin hour is in [0,6,12,18]
+hours="0 00 6 06 12 18"
+echo $hours | grep -w -q $BEGIN
+if [ $? == 1 ]
+then
+    echo "runwrf: ERROR-> given begin hour must be in [0,6,12,18], received $BEGIN...exiting"
+    usage
+    exit
+fi
+
+# check if restart flag is given
+if [ -z "${RESTART}" ];
+then
+    echo "runwrf: restart flag not given...exiting"
+    usage
+fi
+
+# check if restart is in [true,TRUE, True, t, false, FALSE, False, f]
+restart="true,TRUE, True, t, false, FALSE, False, f"
+echo $restart | grep -w -q $RESTART
+if [ $? == 1 ]
+then
+    echo "runwrf: ERROR-> given restart not in [true,TRUE, True, t, false, FALSE, False, f], received $RESTART...exiting"
+    usage
+    exit
+fi
+
+# if rundate not given then run with yesterday's UTC date
+if [ -z "${RUNDATE}" ];
+then
+    RUNDATE=`date +"%Y%m%d" --date='1 day ago --utc'`
+fi
+
+# run with given date
+echo "runwrf: running WRF sector:" ${SECTOR} "and UTC date:" ${RUNDATE}
+echo "runwrf: restart=${RESTART}"
+
+# run the WRF model
+#$SCRIPTS/run_wrfgfs.py -s $1 -b 06 -d $GFSHOME -r $DATE > $LOGDIR/$1.log 2>&1
+
+# this version separates stdin from the terminal so that when
+# ^c'ing out of 'tail -f SECTOR.log' the 'wrfGFS.py' program is not stopped
+$SCRIPTS/wrfGFS.py -b $BEGIN -s $SECTOR -g $GFSHOME -r $RESTART -d $RUNDATE < /dev/null > $LOGDIR/$SECTOR.log 2>&1
+
+# check exit status
+status=$?
+if [ $status -gt 0 ];
+then
+    # preserve error log
+    cp $LOGDIR/$SECTOR.log $LOGDIR/${SECTOR}_ERROR_$RUNDATE.log
+
+    # remove lock file so subsequent runs don't get locked out
+    rm -f $LOGDIR/running_$SECTOR.lock
+    
+    echo "runwrf: ERROR found, exiting..."
+    exit 1
+fi

@@ -1,0 +1,243 @@
+This HOWTO_INSTALL file describes how to install WRF 4.5 from scratch.
+
+-----------------------------------------------------------------------
+
+# Some WRF dependencies:
+(probably incomplete, but most systems should have these and others required)
+
+    csh 
+    gcc
+    gfortran
+    libpng-dev 
+    ncview
+    python3-gdal 
+    python3-netcdf4 
+    zlib1g-dev
+
+# Bundled in this package:
+    hdf5
+    mpich 
+    netcdf-c 
+    netcdf-f 
+    pnetcdf 
+
+------------------------------------------------------------------------
+# Decide where to put WRFscripts and untar WRFscripts.tar
+# eg. /home/user/WRFscripts
+
+$ cd ~
+$ tar xvf WRFscripts.tar
+
+# TO INSTALL:
+> cd WRFscripts
+
+Edit install_wrf_variables.bash file to suit your type of WRF implementation,
+ie. serial or parallel IO. Currently the serial and pnetcdf implementations are stable.
+Start with the serial IO implementation.
+
+This file sets the environment variables that specify how to compile the libraries and WRF.
+
+	  WRFscripts sets the location of where WRFscripts.tar was extracted.
+	  eg. export WRFscripts=/home/user/WRFscripts
+
+          INSTALL_WRF_IO_TYPE=SERIAL_IO
+	  Options are: SERIAL_IO, PNETCDF_IO, NETCDFPAR_IO, ADIOS2_IO
+	  Stable options are SERIAL_IO and PNETCDF_IO
+
+	  INSTALL_WRF_WPS_GEOG=YES
+	  Options are: YES and NO
+	  This variable determines if the large WPS_GEOG data gets downloaded.
+	  If you already have WPS_GEOG data use the NO option and after
+	  installation link your WPS_GEOG directory in $WRFscripts/wrf
+	  directory
+
+	  INSTALL_WRF_MPI=MPICH
+	  Specifies what type of MPI to use.
+	  Options are: MPICH, OPENMP, MPICH+OPENMP
+	  MPICH is stable. MPICH is used for communication between HPC nodes
+	  OPENMP is used for comunication between a node's cores.
+	  MPICH+OPENMP is used to specify a hybrid comunication.
+	  OPENMP implementation is still being developed.
+
+	  INSTALL_WRF_IO_CHANNEL=ch3:nemesis
+	  Current options are: ch3:nemesis,ch4:ofi,ch4:ucx
+	  These specify what kind of communication transport to use.
+	  Note that ch3 is a legacy transport.
+
+          INSTALL_WRF_USE_CUDA=NO
+	  Options are NO and YES
+	  Specifies if GPU (CUDA) is compiled in the MPICH MPI.
+	  This option is not yet implemented.
+
+Make these options active by sourcing the file
+$ source install_wrf_variables.bash 
+	  
+# run the INSTALL shell program with:
+$ ./INSTALL.bash 2>&1 | tee WRF-build.txt
+
+# Use "tee" to keep copy of the build output. On an older machine it takes ~80 minutes.
+
+# With a succesfull install, link the WRFscripts/wrf to a convienient locator,
+eg.
+
+$ cd /home/user
+$ ln -s WRFscripts/wrf
+
+Also, if you did not download the WPS_GEOG directly, link your existing WPS_GEOG
+directly in the ~/wrf/directory
+eg.
+$ cd ~/wrf
+$ ln -s /data/WPS_GEOG
+
+# If you have a separate gfs_0.25 directory you should link that too inthe  wrf directory.
+# Otherwise, make the gfs_0.25 in the wrf directory.
+
+# Populate sector geo directories,
+eg.
+$ cd ~/wrf/sectors/ANDES03/wps
+
+# Edit namelist.wps and namelist.wps.template files to point to WPS_GEOG directory
+eg. geog_data_path = '/home/user/wrf/WPS_GEOG',
+
+# run geogrid.exe to populate the static geo files
+$ ./geogrid.exe
+
+If running pnetcdf io:
+   go to wrf/sectors/XXXXXXX/wrf
+   edit namelist.input.template
+   under &time control:
+   io_form_history                     = 11
+   io_form_restart                     = 11
+   io_form_input                       = 2
+   io_form_boundary                    = 11    
+
+If running netcdfpar io:
+   go to wrf/sectors/XXXXXXX/wrf
+   edit namelist.input.template
+   under &time control:
+   io_form_history                     = 13
+   io_form_restart                     = 13
+   io_form_input                       = 2
+   io_form_boundary                    = 13
+
+If running serial io:
+   go to wrf/sectors/XXXXXXX/wrf
+   edit namelist.input.template
+   set io_form_* to 2                    # default
+
+for all cases leave  io_form_geogrid = 2 in the namelist.wps.template
+
+#-------------------------------------------------------------------------------
+
+If using SLURM: go to WRFscripts/test_c_mpi and test out slurm interfaces
+   	 	using mpi_hello_world.c. See the test_c_mpi/README.txt
+		
+   	 	Edit WRFscripts/wrf/sectors/SECTOR/wrf_mpich.slurm where SECTOR is a predefined
+		regions, eg.ANDES03.
+
+		mpich.slurm contains the SLURM parameters for execution. 
+		
+PBS job control is not yet implementation	
+
+#------------------------------------------------------------------------------
+
+runtime Environment variables:
+
+
+# fill out these varibles in .bash_profile
+  and source it for user configuration. see bash_profile_example.
+  TODO: edit bash_profile?
+
+eg.
+export WRF_HOME=/home/user/wrf     # here the WRF home directory is
+                                   # linked to $WRFscripts/wrf
+				   				   
+export WRF_MPI=MPICH               # specifies type of MPI. If MPICH then
+                                   # runtime program will look for the hosts
+				   # file, unless a HPC job control (JCL)
+				   # is specified
+
+export WRF_MPICH_HOSTS=/home/user/mpd.hosts # used for non JCL MPICH
+
+export WRF_JCL=NONE                # specifies the JCL to use (SLURM,PBS,NONE)
+export WRF_OPENMP_NCORES=NONE      # if using OPENMP specifies number cores
+                                   # to use
+
+-----------------------------------------------------------------------------
+# Start processing....
+
+# Get yesterday's GFS files
+
+$ getdata_gfs.py
+
+or
+
+# Get specific date GFS files
+$ getdata_gfs.py YYYYMMDD
+
+NOTE: that gfs files are only available for 10 days. To go back beyond
+      the 10 days you need to go to an archive site (TODO: say where)
+
+# Top level running WRF:
+usage: runwrf [-h] -s SECTOR -r RESTART -b BEGIN_HOUR [-d RUNDATE]
+
+-s option specifies sector to use, eg. ANDES03.
+   SECTOR refers to a defined regional focus) option is mandatory.
+   
+-r is a flag for restarting a run. RESTART=true/false. Option is mandatory.
+
+-d gives a rundate. Format is YYYYMMDD. If not given then run will use yesterday's date.
+
+# Example runs:
+
+$ runwrf -b 6 -s ANDES03 -r false <-d RUNDATE> &
+
+# & puts the job in background. This is not needed, but allows the user to monitor output files in the log directory and in the sector wrf directory.
+
+# continue a run for a specific date
+> runwrf -s ANDES03 -r true -d 20260902 & 
+
+# to monitor pre-processing, WRF run must in background or in another terminal
+> cd ~/wrf/log
+> tail -f SECTOR.log    # eg. ANDES_03.log
+
+# Typical preprocessing end of log:
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!  Successful completion of metgrid.  !
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Note: The following floating-point exceptions are signalling: IEEE_OVERFLOW_FLAG IEEE_UNDERFLOW_FLAG IEEE_DENORMAL
+wrfGFS: 2026-09-16 17:13:41.915 ---  *** Successful completion of program metgrid.exe ***
+
+wrfGFS: working directory:  /home/agrineer/wrf/sectors/ANDES03/wrf
+wrfGFS: restart = .false.
+wrfGFS: running command: ln -s  /home/agrineer/wrf/sectors/ANDES03/wps/met_em.d0* .
+wrfGFS: running real.exe...
+wrfGFS: running command: ./real.exe
+wrfGFS: d01 2026-09-16_06:00:00 real_em: SUCCESS COMPLETE REAL_EM INIT
+
+wrfGFS: running wrf.exe...
+wrfGFS: using MPICH without job control language (JCL)
+wrfGFS: running command: mpiexec -hostfile /home/agrineer/mpd.hosts ./wrf.exe
+ starting wrf task            6  of            8
+ starting wrf task            4  of            8
+ starting wrf task            5  of            8
+ starting wrf task            7  of            8
+ starting wrf task            0  of            8
+ starting wrf task            2  of            8
+ starting wrf task            3  of            8
+ starting wrf task            1  of            8
+
+If using SLURM, then at the end it says that the job was submitted. Jook in the SECTOR_slurm.log file for reports.
+
+NOTE: the floating point exceptions are normal according to team WRF at NCAR/UCAR.
+
+# to monitor processing progress
+> cd ~/wrf/sectors/SECTOR/wrf
+> tail -f rsl.error.0000
+
+# to get slurm reports see SECTOR_slurm.log in log directory
+
+# see example cron files for daily runs
+
+# Happy WRFing!
