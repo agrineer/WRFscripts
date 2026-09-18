@@ -73,7 +73,7 @@ $ source install_wrf_variables.bash
 # run the INSTALL shell program with:
 $ ./INSTALL.bash 2>&1 | tee WRF-build.txt
 
-# Use "tee" to keep copy of the build output. On an older machine it takes ~80 minutes.
+# Use "tee" to keep a copy of the build output. On an older machine it takes ~80 minutes.
 
 # With a succesfull install, link the WRFscripts/wrf to a convienient locator,
 eg.
@@ -85,7 +85,7 @@ eg.
 $ cd ~/wrf
 $ ln -s /data/WPS_GEOG
 
-# If you have a separate "gfs_0.25" directory you should remove the "gfs_0.25" directory in the "wrf" directory and your "gfs_0.25" link in the  "wrf" directory.
+# If you have a separate "gfs_0.25" directory you should remove the "gfs_0.25" directory in the "wrf" directory and put your "gfs_0.25" link in the  "wrf" directory.
 
 # Populate sector geo directories,
 eg.
@@ -176,8 +176,12 @@ or
 # Get specific date Global Forecast System (GFS) files
 $ getdata_gfs.py YYYYMMDD
 
+NOTE: getdata.py is UTC based, so your location's yesterday might be different from UTC's yesterday. This will be addressed in the future.
+
 NOTE: that GFS files are only available for 10 days. To go back beyond
       the 10 days you need to go to an archive site. (TODO: say where and how to decode name)
+
+NOTE: getdata_gfs.py will report errors for days it does not have, you can ignore those.
 
 # Top level running WRF:
 usage: runwrf [-h] -s SECTOR -r RESTART -b BEGIN_HOUR [-d RUNDATE]
