@@ -235,6 +235,8 @@ NOTE: In the above output snippet, the floating point exceptions are normal acco
 > cd ~/wrf/sectors/SECTOR/wrf
 > tail -f rsl.error.0000
 
+NOTE: To change parameter values in the "namelist.wps" and "namelist.input" files you must edit the corresponding "template" files instead. "runwrf" will update the files.
+
 # To get slurm reports see SECTOR_slurm.log in log directory.
 
 # See the example cron file "WRFscripts/cron/cronfile" for daily runs.

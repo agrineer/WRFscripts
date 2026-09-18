@@ -38,7 +38,7 @@ wrf/sectors/ANDES03/wrf/rsl.out.*
 wrf/sectors/ANDES03/wrf/wrfbdy_d01*
 wrf/sectors/ANDES03/wrf/wrfinput*
 wrf/sectors/ANDES03/wrf/wrfout*
-
+wrf/sectors/ANDES03/wrf/wrfrst*
 
 wrf/share/
 wrf/WPS/
