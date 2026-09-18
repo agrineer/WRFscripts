@@ -8,13 +8,19 @@ wrf/bin/*
 !wrf/bin/getdata_gfs.py
 !wrf/bin/runwrf
 
-wrf/WPS_GEOG
+wrf/WPS_GEOG/
 
-wrf/gfs_0.25/
+wrf/gfs_0.25/*
+!wrf/gfs_0.25/.gitkeep
+
+wrf/log/*
+!wrf/log/.gitkeep
+
+wrf/output/*
+!wrf/output/.gitkeep
+
 wrf/include/
 wrf/lib/
-wrf/log/*
-wrf/output/*
 
 wrf/sectors/*
 !wrf/sectors/ANDES03

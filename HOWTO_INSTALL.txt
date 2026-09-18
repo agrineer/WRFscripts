@@ -46,7 +46,7 @@ This shell file sets the environment variables that specify how to compile the l
 	  Options are: YES and NO
 	  This variable determines if the large WPS_GEOG data gets downloaded.
 	  If you already have WPS_GEOG data use the NO option and after
-	  installation link your WPS_GEOG directory in $WRFscripts/wrf
+	  installation link your WPS_GEOG directory in the $WRFscripts/wrf
 	  directory
 
 	  INSTALL_WRF_MPI=MPICH
@@ -165,8 +165,10 @@ export WRF_OPENMP_NCORES=NONE      # if using OPENMP specifies number cores
 -----------------------------------------------------------------------------
 # Start processing....
 
-# Get yesterday's GFS files
+# A convienient place to run WRF is from ~/wrf/log, but it can be run from anywhere.
+$ cd ~/wrf/log
 
+# Get yesterday's GFS files
 $ getdata_gfs.py
 
 or
