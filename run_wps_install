@@ -1,8 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 echo "Starting WPS configure and compile"
 
-export FC=gfortran
-#export FCFLAGS=-fopenmp
 export NETCDF=$WRF_SCRIPTS/wrf
 
 cd $WRF_SCRIPTS/wrf/WPS

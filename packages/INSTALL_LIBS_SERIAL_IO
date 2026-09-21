@@ -71,7 +71,7 @@ check_make_install()
 print_env()
 {
     echo ""
-    echo "INSTALL_LIBS_SERIIAL_IO: installing ${PNAME} with these variable values:"
+    echo "INSTALL_LIBS_SERIAL_IO: installing ${PNAME} with these variable values:"
 
     # print variable if populated
     

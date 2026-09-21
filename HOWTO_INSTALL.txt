@@ -51,7 +51,7 @@ This bash shell file sets the environment variables that specify how to compile 
 
 	  INSTALL_WRF_WPS_GEOG=YES
 	  Options are: YES and NO
-	  This variable determines if the large WPS_GEOG data gets downloaded.
+	  This determines if the large WPS_GEOG data gets downloaded.
 	  If you already have WPS_GEOG data use the NO option and after
 	  installation link your WPS_GEOG directory in the $WRFscripts/wrf
 	  directory
@@ -78,14 +78,14 @@ Make these options active by sourcing the edited file "install_wrf_variables.bas
 $ source install_wrf_variables.bash 
 
 # run the INSTALL shell program with:
-$ ./INSTALL.bash 2>&1 | tee WRF-build.txt
+$ ./INSTALL.bash 2>&1 | tee WRFscripts-build.txt
 
-# Use "tee" to keep a copy of the build output. Install time can take over an hour, depending ....
+# Use "tee" to keep a copy of the build output. Install time can take over an hour, depending on ....
 
 # With a succesfull install, link the WRF_SCRIPTS/wrf to a convienient locator,
 eg.
 $ cd ~
-$ ln -s WRF_SCRIPTS/wrf
+$ ln -s $WRF_SCRIPTS/wrf
 
 # If you did not download the "WPS_GEOG" in your install, ie. by setting INSTALL_WRF_WPS_GEOG=NO, link your existing "WPS_GEOG" directory in the ~/wrf/directory
 eg.
