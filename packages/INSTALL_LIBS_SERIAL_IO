@@ -1,8 +1,8 @@
 #!/bin/bash
 
-#  INSTALL_INSTALL_GDAL
+#  INSTALL_LIBS_SERIAL_IO
 # 
-#  Copyright (c) 2020-2025 Scott L. Williams
+#  Copyright (c) 2020-2026 Scott L. Williams
 # 
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 #  or visit https://www.gnu.org/licenses/gpl-3.0-standalone.html
 #
 
-INSTALL_LIBS_SERIAL_IO_copyright="INSTALL_LIBS_SERIAL_IO Copyright (c) 2020-2025 Scott L. Williams ' + 'released under GNU GPL V3.0"
+INSTALL_LIBS_SERIAL_IO_copyright="INSTALL_LIBS_SERIAL_IO Copyright (c) 2020-2026 Scott L. Williams ' + 'released under GNU GPL V3.0"
 
 untar_package()
 {
@@ -40,8 +40,8 @@ check_configure()
     if [ ${PIPESTATUS[0]} -gt 0 ]
     then
 	echo "INSTALL_LIBS_SERIAL_IO: could not configure ${PNAME}"
-	echo "review ${WRFscripts}/wrf/packages/${PNAME}/${PNAME}_config.log"
-	echo "and ${WRFscripts}/wrf/packages/${PNAME}/config.log for details"
+	echo "review ${WRF_SCRIPTS}/wrf/packages/${PNAME}/${PNAME}_config.log"
+	echo "and ${WRF_SCRIPTS}/wrf/packages/${PNAME}/config.log for details"
 	exit 1
     fi
 }
@@ -52,7 +52,7 @@ check_make()
     if [ ${PIPESTATUS[0]} -gt 0 ]
     then
 	echo "INSTALL_LIBS_SERIAL_IO: could not make ${PNAME}"
-	echo "review ${WRFscripts}/wrf/packages/${PNAME}/${PNAME}_make.log for details"
+	echo "review ${WRF_SCRIPTS}/wrf/packages/${PNAME}/${PNAME}_make.log for details"
 	exit 1
     fi
 }
@@ -63,7 +63,7 @@ check_make_install()
     if [ ${PIPESTATUS[0]} -gt 0 ]
     then
 	echo "INSTALL_LIBS_SERIAL_IO: could not make install ${PNAME}"
-	echo "review ${WRFscripts}/wrf/packages/${PNAME}/${PNAME}_make_install.log for details"
+	echo "review ${WRF_SCRIPTS}/wrf/packages/${PNAME}/${PNAME}_make_install.log for details"
 	exit 1
     fi
 }
@@ -133,7 +133,7 @@ make_lib()
 {
     print_env
     
-    cd $WRFscripts/packages
+    cd $WRF_SCRIPTS/packages
     rm -rf $PNAME
 
     untar_package # parameters are PNAME and SUFFIX
@@ -180,17 +180,17 @@ clear_vars()
 echo ""
 echo "INSTALL_LIBS_SERIAL IO: installing SERIAL I/O WRF dependent libraries"
 
-cd $WRFscripts/wrf
+cd $WRF_SCRIPTS/wrf
 
-echo "INSTALL_LIBS_SERIAL_IO: cleaning ${WRFscripts}/wrf/include"
-#rm -rf include
-#mkdir include
+echo "INSTALL_LIBS_SERIAL_IO: cleaning ${WRF_SCRIPTS}/wrf/include"
+rm -rf include
+mkdir include
 
-echo "INSTALL_LIBS_SERIAL_IO: cleaning ${WRFscripts}/wrf/lib"
-#rm -rf lib
-#mkdir lib
+echo "INSTALL_LIBS_SERIAL_IO: cleaning ${WRF_SCRIPTS}/wrf/lib"
+rm -rf lib
+mkdir lib
 
-echo "INSTALL_LIBS_SERIAL_IO: cleaning ${WRFscripts}/wrf/bin"
+echo "INSTALL_LIBS_SERIAL_IO: cleaning ${WRF_SCRIPTS}/wrf/bin"
 rm -rf bin
 mkdir bin
 cd bin
@@ -201,29 +201,29 @@ ln -s ../scripts/runwrf
 # you can download HDF5 from the HDF5 download page.
 # Go to https://www.hdfgroup.org/downloads/hdf5
 # Scroll down and click on "Specific release?"    
-# download and put into the tarball into ${WRFscripts}/packages
+# download and put into the tarball into ${WRF_SCRIPTS}/packages
 clear_vars
 PNAME=hdf5-1.10.10
 SUFFIX=tar.bz2
-CONF_PARAMS="--prefix=${WRFscripts}/wrf --enable-fortran"
+CONF_PARAMS="--prefix=${WRF_SCRIPTS}/wrf --enable-fortran"
 make_lib
 
 # wget https://downloads.unidata.ucar.edu/netcdf-c/4.9.2/netcdf-c-4.9.2.tar.gz
 clear_vars
 PNAME=netcdf-c-4.9.2
 SUFFIX=tar.gz
-CONF_PARAMS="--prefix=${WRFscripts}/wrf --disable-dap --enable-netcdf4 --disable-libxml2 --disable-byterange --enable-largefile"
-export CPPFLAGS=-I$WRFscripts/wrf/include
-export LDFLAGS=-L$WRFscripts/wrf/lib
+CONF_PARAMS="--prefix=${WRF_SCRIPTS}/wrf --disable-dap --enable-netcdf4 --disable-libxml2 --disable-byterange --enable-largefile"
+export CPPFLAGS=-I$WRF_SCRIPTS/wrf/include
+export LDFLAGS=-L$WRF_SCRIPTS/wrf/lib
 make_lib
 
 # wget https://downloads.unidata.ucar.edu/netcdf-fortran/4.6.1/netcdf-fortran-4.6.1.tar.gz
 clear_vars
 PNAME=netcdf-fortran-4.6.1
 SUFFIX=tar.gz
-CONF_PARAMS="--prefix=${WRFscripts}/wrf --enable-largefile --enable-shared"
-export CPPFLAGS=-I$WRFscripts/wrf/include
-export LDFLAGS=-L$WRFscripts/wrf/lib
+CONF_PARAMS="--prefix=${WRF_SCRIPTS}/wrf --enable-largefile --enable-shared"
+export CPPFLAGS=-I$WRF_SCRIPTS/wrf/include
+export LDFLAGS=-L$WRF_SCRIPTS/wrf/lib
 export LD_LIBRARY_PATH=/students/agrineer/wrf/lib:$LD_LIBRARY_PATH
 export FC=gfortran
 make_lib
@@ -256,8 +256,8 @@ then
 	fi
     fi
 
-    #CONF_PARAMS="--prefix=${WRFscripts}/wrf ${CUDA} ${DEVICE} --enable-threads=multiple"
-    CONF_PARAMS="--prefix=${WRFscripts}/wrf ${CUDA} ${DEVICE}"
+    #CONF_PARAMS="--prefix=${WRF_SCRIPTS}/wrf ${CUDA} ${DEVICE} --enable-threads=multiple"
+    CONF_PARAMS="--prefix=${WRF_SCRIPTS}/wrf ${CUDA} ${DEVICE}"
     make_lib
 fi
 
@@ -272,7 +272,7 @@ then
     PNAME=openmpi-5.0.3
     SUFFIX=tar.bz2
     
-    CONF_PARAMS="--prefix=${WRFscripts}/wrf"
+    CONF_PARAMS="--prefix=${WRF_SCRIPTS}/wrf"
     make_lib
 fi
 

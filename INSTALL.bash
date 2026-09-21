@@ -35,17 +35,17 @@ WSUFFIX=tar.gz    # also rename WPS tarball to WPS-4.5.tar.gz
 
 # check INSTALL environment bash variables
 
-# check if WRFscripts enviroment variable has been set
-if [ -z "${WRFscripts}" ]
+# check if WRF_SCRIPTS enviroment variable has been set
+if [ -z "${WRF_SCRIPTS}" ]
 then
-    echo "INSTALL ERROR: WRFscripts environment variable needs to be set:"
-    echo "eg. export WRFscripts=/home/user/WRFscripts ... exiting"
+    echo "INSTALL ERROR: WRF_SCRIPTS environment variable needs to be set:"
+    echo "eg. export WRF_SCRIPTS=/home/user/WRF_SCRIPTS ... exiting"
     exit 1
 fi
 
-# check if WRFscripts directory exists
-if [ ! -d ${WRFscripts} ]; then
-    echo "INSTALL ERROR: file ${WRFscripts} not found!"
+# check if WRF_SCRIPTS directory exists
+if [ ! -d ${WRF_SCRIPTS} ]; then
+    echo "INSTALL ERROR: file ${WRF_SCRIPTS} not found!"
     echo "INSTALL ERROR: exiting"
     exit 1
 fi
@@ -131,7 +131,7 @@ then
 fi
 
 echo "WRF build environment variable values:" | tee wrf/build.conf
-echo "    WRFscripts directory  : ${WRFscripts}" | tee -a wrf/build.conf
+echo "    WRF_SCRIPTS directory  : ${WRF_SCRIPTS}" | tee -a wrf/build.conf
 echo "    INSTALL_WRF_IO_TYPE     : ${INSTALL_WRF_IO_TYPE}" | tee -a wrf/build.conf
 echo "    INSTALL_WRF_WPS_GEOG    : ${INSTALL_WRF_WPS_GEOG}" | tee -a wrf/build.conf
 echo "    INSTALL_WRF_MPI         : ${INSTALL_WRF_MPI}" | tee -a wrf/build.conf
@@ -145,7 +145,7 @@ echo ""
 if [ ${INSTALL_WRF_IO_TYPE} = "SERIAL_IO" ]
 then
     #echo "INSTALL: installing SERIAL_IO libraries"
-    $WRFscripts/packages/INSTALL_LIBS_SERIAL_IO
+    $WRF_SCRIPTS/packages/INSTALL_LIBS_SERIAL_IO
     status=$?
     if [ $status -gt 0 ]
     then
@@ -157,7 +157,7 @@ fi
 if [  ${INSTALL_WRF_IO_TYPE} = "PNETCDF_IO" ]
 then
     #echo "INSTALL: installing PNETCDF_IO libraries"
-    $WRFscripts/packages/INSTALL_LIBS_PNETCDF_IO
+    $WRF_SCRIPTS/packages/INSTALL_LIBS_PNETCDF_IO
     status=$?
     if [ $status -gt 0 ]
     then
@@ -169,7 +169,7 @@ fi
 if [ ${INSTALL_WRF_IO_TYPE} = "NETCDFPAR_IO" ]
 then
     #echo "INSTALL: installing NETCDFPAR_IO libraries"
-    $WRFscripts/packages/INSTALL_LIBS_NETCDFPAR_IO
+    $WRF_SCRIPTS/packages/INSTALL_LIBS_NETCDFPAR_IO
     status=$?
     if [ $status -gt 0 ]
     then
@@ -181,7 +181,7 @@ fi
 if [ ${INSTALL_WRF_IO_TYPE} = "ADIOS2_IO" ]
 then
     #echo "INSTALL: installing ADIOS2_IO libraries"
-    $WRFscripts/packages/INSTALL_LIBS_ADIOS2_IO
+    $WRF_SCRIPTS/packages/INSTALL_LIBS_ADIOS2_IO
     status=$?
     if [ $status -gt 0 ]case 
     then
@@ -192,12 +192,12 @@ fi
 
 # make WPS and WRF
 
-# add WRFscripts locations to paths (set these after LIB installs)
-export PATH=$WRFscripts/wrf/bin:$PATH
-export LD_LIBRARY_PATH=$WRFscripts/wrf/lib:$LD_LIBRARY_PATH
+# add WRF_SCRIPTS locations to paths (set these after LIB installs)
+export PATH=$WRF_SCRIPTS/wrf/bin:$PATH
+export LD_LIBRARY_PATH=$WRF_SCRIPTS/wrf/lib:$LD_LIBRARY_PATH
 
 # remove old versions if there
-cd $WRFscripts/wrf
+cd $WRF_SCRIPTS/wrf
 rm -rf WRF WPS
 
 # get WRF and WPS latest versions (not implemented)
@@ -206,10 +206,10 @@ rm -rf WRF WPS
 
 # rejoin split WRF tar ball
 echo "Rejoining $WRFVER.tar.gz"
-cat $WRFscripts/packages/$WRFVER\_part_* > $WRFscripts/packages/$WRFVER.tar.gz
+cat $WRF_SCRIPTS/packages/$WRFVER\_part_* > $WRF_SCRIPTS/packages/$WRFVER.tar.gz
 
 echo "untar'ing ${WRFVER}.${WSUFFIX} package"
-tar xvfz $WRFscripts/packages/$WRFVER.$WSUFFIX
+tar xvfz $WRF_SCRIPTS/packages/$WRFVER.$WSUFFIX
 status=$?
 if [ $status -gt 0 ]
 then
@@ -221,7 +221,7 @@ echo "INSTALL: renaming $WRFVER to WRF"
 mv $WRFVER WRF
 
 echo "INSTALL: untar'ing ${WPSVER}.${WSUFFIX} package"
-tar xvf $WRFscripts/packages/$WPSVER.$WSUFFIX
+tar xvf $WRF_SCRIPTS/packages/$WPSVER.$WSUFFIX
 status=$?
 if [ $status -gt 0 ]
 then
@@ -234,8 +234,8 @@ mv $WPSVER WPS
 
 # edit WRF/Registry file to include SFCEVP variable output
 echo "INSTALL: editing REGISTRY"
-cd $WRFscripts/wrf/WRF/Registry
-$WRFscripts/fix_registry
+cd $WRF_SCRIPTS/wrf/WRF/Registry
+$WRF_SCRIPTS/fix_registry
 status=$?
 if [ $status -gt 0 ]
 then
@@ -247,7 +247,7 @@ fi
 if [ ${INSTALL_WRF_IO_TYPE} = "SERIAL_IO" ]
 then
     echo "INSTALL: installing ${WRFVER} SERIAL_IO"
-    $WRFscripts/run_wrf_serial_io_install
+    $WRF_SCRIPTS/run_wrf_serial_io_install
     status=$?
     if [ $status -gt 0 ]
     then
@@ -259,7 +259,7 @@ fi
 if [ ${INSTALL_WRF_IO_TYPE} = "PNETCDF_IO" ]
 then
     echo "INSTALL: installing ${WRFVER} PNETCDF_IO"
-    $WRFscripts/run_wrf_pnetcdf_io_install
+    $WRF_SCRIPTS/run_wrf_pnetcdf_io_install
     status=$?
     if [ $status -gt 0 ]
     then
@@ -271,7 +271,7 @@ fi
 if [ ${INSTALL_WRF_IO_TYPE} = "NETCDFPAR_IO" ]
 then
     echo "INSTALL: installing ${WRFVER} NETCDFPAR_IO"
-    $WRFscripts/run_wrf_netcdfpar_io_install
+    $WRF_SCRIPTS/run_wrf_netcdfpar_io_install
     status=$?
     if [ $status -gt 0 ]
     then
@@ -283,7 +283,7 @@ fi
 if [ ${INSTALL_WRF_IO_TYPE} = "ADIOS2_IO" ]
 then
     echo "INSTALL: installing ${WRFVER} ADIOS2_IO"
-    $WRFscripts/run_wrf_adios2_io_install
+    $WRF_SCRIPTS/run_wrf_adios2_io_install
     status=$?
     if [ $status -gt 0 ]
     then
@@ -293,7 +293,7 @@ then
 fi
 
 # build WPS after WRF build_
-$WRFscripts/run_wps_install
+$WRF_SCRIPTS/run_wps_install
 status=$?
 if [ $status -gt 0 ]
 then
@@ -302,16 +302,16 @@ then
 fi   
 
 # some sector housekeeping
-cd $WRFscripts/wrf/sectors/ANDES03/wps
+cd $WRF_SCRIPTS/wrf/sectors/ANDES03/wps
 cp namelist.wps.template namelist.wps
 
-cd $WRFscripts/wrf/sectors/ANDES03/wrf
+cd $WRF_SCRIPTS/wrf/sectors/ANDES03/wrf
 cp namelist.input.template namelist.input
 
 if [ ${INSTALL_WRF_WPS_GEOG} = "NO" ]
 then
     echo "WRF ${INSTALL_WRF_IO_TYPE} INSTALLATION complete with NO WPS_GEOG files."
-    echo "Be sure to link your WPS_GEOG to $WRFscripts/wrf/WPS_GEOG."
+    echo "Be sure to link your WPS_GEOG to $WRF_SCRIPTS/wrf/WPS_GEOG."
     echo "You must populate geo files in wrf/sectors/XXXXX/wps, set io_forms"
     echo "parameters in SECTOR/wrf/namelist.input.template, link to GFS input" 
     echo "directory if available, etc.  See README.txt"
@@ -319,7 +319,7 @@ then
 fi
 
 # get static geo files, WPS_GEOG
-cd $WRFscripts/wrf
+cd $WRF_SCRIPTS/wrf
 echo "INSTALL: getting geog_high_res_mandatory.tar.gz from UCAR"
 curl -SLO http://www2.mmm.ucar.edu/wrf/src/wps_files/geog_high_res_mandatory.tar.gz
 status=$?
@@ -341,7 +341,7 @@ fi
 rm geog_high_res_mandatory.tar.gz
 
 # add some more geo files
-cd $WRFscripts/wrf/WPS_GEOG
+cd $WRF_SCRIPTS/wrf/WPS_GEOG
 echo "INSTALL: getting topo_gmted2010_30s.tar.bz2 from UCAR"
 curl -SLO http://www2.mmm.ucar.edu/wrf/src/wps_files/topo_gmted2010_30s.tar.bz2
 status=$?
@@ -382,5 +382,5 @@ rm modis_landuse_20class_30s.tar.bz2
 
 echo "WRF ${IO} INSTALLATION complete with WPS_GEOG files."
 echo "You must populate geo files in wrf/sectors/XXXXX/wps, "
-echo "and set io_forms in $WRFscripts/wrf/sectors/XXXXX/wrf/namelist.input.org"
+echo "and set io_forms in $WRF_SCRIPTS/wrf/sectors/XXXXX/wrf/namelist.input.org"
 echo "See README.txt"

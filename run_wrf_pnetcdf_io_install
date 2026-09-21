@@ -1,16 +1,16 @@
 #!/bin/bash
 echo "Starting WRF configure and compile"
 
-#export HDF5=$AGRINEER_WRF/wrf
-export PHDF5=$AGRINEER_WRF/wrf
-export NETCDF=$AGRINEER_WRF/wrf
+#export HDF5=$WRF_SCRIPTS/wrf
+export PHDF5=$WRF_SCRIPTS/wrf
+export NETCDF=$WRF_SCRIPTS/wrf
 export NETCDF4=1
 export NETCDF_classic=1
-export PNETCDF=$AGRINEER_WRF/wrf
+export PNETCDF=$WRF_SCRIPTS/wrf
 export WRF_EM_CORE=1
 export WRFIO_NCD_LARGE_FILE_SUPPORT=1
 
-cd $AGRINEER_WRF/wrf/WRF
+cd $WRF_SCRIPTS/wrf/WRF
 
 if [ ${INSTALL_WRF_MPI} = "OPENMP" ]
 then

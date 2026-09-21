@@ -1,13 +1,13 @@
 #!/bin/bash
 
 echo "Starting WRF ADIOS2 configure and compile"
-export HDF5=$AGRINEER_WRF/wrf
-export NETCDF=$AGRINEER_WRF/wrf
-export ADIOS2=$AGRINEER_WRF/wrf
+export HDF5=$WRF_SCRIPTS/wrf
+export NETCDF=$WRF_SCRIPTS/wrf
+export ADIOS2=$WRF_SCRIPTS/wrf
 export WRF_EM_CORE=1
 #export WRFIO_NCD_LARGE_FILE_SUPPORT=1 
 
-cd $AGRINEER_WRF/wrf/WRF
+cd $WRF_SCRIPTS/wrf/WRF
 
 if [ ${INSTALL_WRF_MPI} = "OPENMP" ]
 then

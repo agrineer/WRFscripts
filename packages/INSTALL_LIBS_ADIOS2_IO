@@ -20,6 +20,7 @@
 #  or visit https://www.gnu.org/licenses/gpl-3.0-standalone.html
 #
 
+# UNDER CONSTRUCTION  !!!!
 INSTALL_LIBS_ADIOS2_IO_copyright="INSTALL_LIBS_ADIOS2_IO Copyright (c) 2020-2026 Scott L. Williams ' + 'released under GNU GPL V3.0"
 
 untar_package()
@@ -183,15 +184,15 @@ echo "Installing ADIOS2 I/O WRF dependent libraries"
 
 cd $WRFscripts/wrf
 
-echo "cleaning ${WRFscripts}/wrf/include"
+echo "cleaning ${WRF_SCRIPTS}/wrf/include"
 #rm -rf include
 #mkdir include
 
-echo "cleaning ${WRFscripts}/wrf/lib"
+echo "cleaning ${WRF_SCRIPTS}/wrf/lib"
 #rm -rf lib
 #mkdir lib
 
-echo "cleaning ${WRFscripts}/wrf/bin"
+echo "cleaning ${WRF_SCRIPTS}/wrf/bin"
 #rm -rf bin
 #mkdir bin
 #cd bin
@@ -204,7 +205,7 @@ echo "cleaning ${WRFscripts}/wrf/bin"
 clear_vars
 PNAME=mpich-4.2.1         # package name
 SUFFIX=tar.gz
-CONF_PARAMS="--prefix=${WRFscripts}/wrf --without-cuda"
+CONF_PARAMS="--prefix=${WRF_SCRIPTS}/wrf --without-cuda"
 #make_lib
 
 # DOES ADIOS@ need HDF5 and NETCDF?????
@@ -217,7 +218,7 @@ CONF_PARAMS="--prefix=${WRFscripts}/wrf --without-cuda"
 clear_vars
 PNAME=hdf5-1.10.10
 SUFFIX=tar.bz2
-CONF_PARAMS="--prefix=$WRFscripts/wrf --enable-fortran --enable-parallel"
+CONF_PARAMS="--prefix=$WRF_SCRIPTS/wrf --enable-fortran --enable-parallel"
 make_lib
 
 # wget https://downloads.unidata.ucar.edu/netcdf-c/4.9.2/netcdf-c-4.9.2.tar.gz
@@ -225,7 +226,7 @@ make_lib
 clear_vars
 PNAME=netcdf-c-4.9.2
 SUFFIX=tar.gz
-CONF_PARAMS="--prefix=${WRFscripts}/wrf --disable-dap --enable-netcdf4 --disable-libxml2 --disable-byterange --enable-parallel-tests"
+CONF_PARAMS="--prefix=${WRF_SCRIPTS}/wrf --enable-netcdf4 --disable-byterange --enable-parallel-tests"
 export CPPFLAGS=-I$WRFscripts/wrf/include
 export LDFLAGS=-L$WRFscripts/wrf/lib
 #make_lib

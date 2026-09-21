@@ -3,9 +3,9 @@ echo "Starting WPS configure and compile"
 
 export FC=gfortran
 #export FCFLAGS=-fopenmp
-export NETCDF=$WRFscripts/wrf
+export NETCDF=$WRF_SCRIPTS/wrf
 
-cd $WRFscripts/wrf/WPS
+cd $WRF_SCRIPTS/wrf/WPS
 ./clean -a
 
 ./configure --build-grib2-libs << EOF

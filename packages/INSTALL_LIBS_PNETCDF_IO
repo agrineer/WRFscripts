@@ -20,6 +20,7 @@
 #  or visit https://www.gnu.org/licenses/gpl-3.0-standalone.html
 #
 
+# UNDER CONSTRUCTION !!!
 INSTALL_LIBS_PNETCDF_IO_copyright="INSTALL_LIBS_PNETCDF_IO Copyright (c) 2020-2025 Scott L. Williams ' + 'released under GNU GPL V3.0"
 
 untar_package()
