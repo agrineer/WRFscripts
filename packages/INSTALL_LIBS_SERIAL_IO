@@ -212,7 +212,7 @@ make_lib
 clear_vars
 PNAME=netcdf-c-4.9.2
 SUFFIX=tar.gz
-CONF_PARAMS="--prefix=${WRF_SCRIPTS}/wrf --disable-dap --enable-netcdf4 --disable-libxml2 --disable-byterange --enable-largefile"
+CONF_PARAMS="--prefix=${WRF_SCRIPTS}/wrf --enable-netcdf4 --disable-byterange --enable-largefile"
 export CPPFLAGS=-I$WRF_SCRIPTS/wrf/include
 export LDFLAGS=-L$WRF_SCRIPTS/wrf/lib
 make_lib
