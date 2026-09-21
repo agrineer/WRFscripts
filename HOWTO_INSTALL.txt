@@ -28,6 +28,10 @@ How to install WRFscripts and WRF/WPS from scratch.
 $ cd ~
 $ tar xvf WRF_SCRIPTS.tar.gz
 
+or git clone:
+
+$ git clone https:github/agrineer/WRFscripts
+
 # TO INSTALL:
 $ cd WRF_SCRIPTS
 
@@ -42,7 +46,8 @@ This bash shell file sets the environment variables that specify how to compile 
 	  
           INSTALL_WRF_IO_TYPE=SERIAL_IO
 	  Options are: SERIAL_IO, PNETCDF_IO, NETCDFPAR_IO, ADIOS2_IO
-	  Stable options are SERIAL_IO and PNETCDF_IO, Other options  are under construction.
+	  Stable options are SERIAL_IO and PNETCDF_IO,
+	  Other options  are under construction.
 
 	  INSTALL_WRF_WPS_GEOG=YES
 	  Options are: YES and NO

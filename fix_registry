@@ -1,13 +1,17 @@
-#!/bin/sh
+#!/bin/bash
+
+# using sed -i.bak and && rm Registry.EM_COMMON.bak
+# as a workaround for compatibility with MAC OS X
+
 echo -n "INSTALL: fixing registry values..."
 
-cd $WRF_SCRIPTS/wrf/WRF/Registry
+cd $WRF_SCRIPTS/wrf/WRF/Registry and 
 
 # save the original
 cp Registry.EM_COMMON Registry.EM_COMMON.ORG
 
 # include these variables in output by adding 'h'
-sed -i 's/state    real   SFCEVP           ij     misc        1         -      r /state    real   SFCEVP           ij     misc        1         -      rh/' ./Registry.EM_COMMON
+sed -i.bak 's/state    real   SFCEVP           ij     misc        1         -      r /state    real   SFCEVP           ij     misc        1         -      rh/' ./Registry.EM_COMMON && rm Registry.EM_COMMON.bak
 status=$?
 if [ $status -gt 0 ]
 then
@@ -15,77 +19,77 @@ then
     exit 1
 fi
 
-sed -i 's/state    real  GSW              ij      misc        1         -      rd /state    real  GSW              ij      misc        1         -      rhd/' ./Registry.EM_COMMON 
+sed -i.bak 's/state    real  GSW              ij      misc        1         -      rd /state    real  GSW              ij      misc        1         -      rhd/' ./Registry.EM_COMMON && rm Registry.EM_COMMON.bak
 if [ $status -gt 0 ]
 then
     echo "fix_registry: could not edit Registry.EM_COMMON for variable GSW"
     exit 1
 fi
 
-sed -i 's/state    real  diffuse_frac     ij      misc        1         -      rd /state    real  diffuse_frac     ij      misc        1         -      rhd/' ./Registry.EM_COMMON
+sed -i.bak 's/state    real  diffuse_frac     ij      misc        1         -      rd /state    real  diffuse_frac     ij      misc        1         -      rhd/' ./Registry.EM_COMMON && rm Registry.EM_COMMON.bak
 if [ $status -gt 0 ]
 then
     echo "fix_registry: could not edit Registry.EM_COMMON for variable DIFFUSE_FRAC"
     exit 1
 fi
 
-sed -i 's/state   real    swddir       ij     misc         1         -     rd /state   real    swddir       ij     misc         1         -     rhd/' ./Registry.EM_COMMON
+sed -i.bak 's/state   real    swddir       ij     misc         1         -     rd /state   real    swddir       ij     misc         1         -     rhd/' ./Registry.EM_COMMON && rm Registry.EM_COMMON.bak
 if [ $status -gt 0 ]
 then
     echo "fix_registry: could not edit Registry.EM_COMMON for variable SWDDIR"
     exit 1
 fi
 
-sed -i 's/state   real    swddir2      ij     misc         1         -     rd /state   real    swddir2      ij     misc         1         -     rhd/' ./Registry.EM_COMMON
+sed -i.bak 's/state   real    swddir2      ij     misc         1         -     rd /state   real    swddir2      ij     misc         1         -     rhd/' ./Registry.EM_COMMON && rm Registry.EM_COMMON.bak
 if [ $status -gt 0 ]
 then
     echo "fix_registry: could not edit Registry.EM_COMMON for variable SWDDIR2"
     exit 1
 fi
 
-sed -i 's/state   real    swddirc      ij     misc         1         -     rd /state   real    swddirc      ij     misc         1         -     rhd/' ./Registry.EM_COMMON
+sed -i.bak 's/state   real    swddirc      ij     misc         1         -     rd /state   real    swddirc      ij     misc         1         -     rhd/' ./Registry.EM_COMMON && rm Registry.EM_COMMON.bak
 if [ $status -gt 0 ]
 then
     echo "fix_registry: could not edit Registry.EM_COMMON for variable SWDDIRC"
     exit 1
 fi
 
-sed -i 's/state   real    swddni       ij     misc         1         -     rd /state   real    swddni       ij     misc         1         -     rhd/' ./Registry.EM_COMMON
+sed -i.bak 's/state   real    swddni       ij     misc         1         -     rd /state   real    swddni       ij     misc         1         -     rhd/' ./Registry.EM_COMMON && rm Registry.EM_COMMON.bak
 if [ $status -gt 0 ]
 then
     echo "fix_registry: could not edit Registry.EM_COMMON for variable SWDDNI"
     exit 1
 fi
 
-sed -i 's/state   real    swddni2      ij     misc         1         -     rd /state   real    swddni2      ij     misc         1         -     rhd/' ./Registry.EM_COMMON
+sed -i.bak 's/state   real    swddni2      ij     misc         1         -     rd /state   real    swddni2      ij     misc         1         -     rhd/' ./Registry.EM_COMMON && rm Registry.EM_COMMON.bak
 if [ $status -gt 0 ]
 then
     echo "fix_registry: could not edit Registry.EM_COMMON for variable SWDDNI2"
     exit 1
 fi
 
-sed -i 's/state   real    swddnic      ij     misc         1         -     rd /state   real    swddnic      ij     misc         1         -     rhd/' ./Registry.EM_COMMON
+sed -i.bak 's/state   real    swddnic      ij     misc         1         -     rd /state   real    swddnic      ij     misc         1         -     rhd/' ./Registry.EM_COMMON && rm Registry.EM_COMMON.bak
 if [ $status -gt 0 ]
 then
     echo "fix_registry: could not edit Registry.EM_COMMON for variable SWDDNIC"
     exit 1
 fi
 
-sed -i 's/state   real    swddif       ij     misc         1         -     rd /state   real    swddif       ij     misc         1         -     rhd/' ./Registry.EM_COMMON
+sed -i.bak 's/state   real    swddif       ij     misc         1         -     rd /state   real    swddif       ij     misc         1         -     rhd/' ./Registry.EM_COMMON && rm Registry.EM_COMMON.bak
 if [ $status -gt 0 ]
 then
     echo "fix_registry: could not edit Registry.EM_COMMON for variable SWDDIF"
     exit 1
 fi
 
-sed -i 's/state   real    swddif2      ij     misc         1         -     rd /state   real    swddif2      ij     misc         1         -     rhd/' ./Registry.EM_COMMON  
+sed -i.bak 's/state   real    swddif2      ij     misc         1         -     rd /state   real    swddif2      ij     misc         1         -     rhd/' ./Registry.EM_COMMON  && rm Registry.EM_COMMON.bak
 if [ $status -gt 0 ]
 then
     echo "fix_registry: could not edit Registry.EM_COMMON for variable SWDDIF2"
     exit 1
 fi
 
-#sed -i 's/state    real  MAVAIL           ij      misc        1         -      r /state    real  MAVAIL           ij      misc        1         -      rh /' ./Registry.EM_COMMON  
+#sed -i.bak 's/state    real  MAVAIL           ij      misc        1         -      r /state    real  MAVAIL           ij      misc        1         -      rh /' ./Registry.EM_COMMON  && rm Registry.EM_COMMON.bak
 #if [ $status -gt 0 ]
 #then
 #    echo "fix_registry: could not edit Registry.EM_COMMON for variable MAVAIL"

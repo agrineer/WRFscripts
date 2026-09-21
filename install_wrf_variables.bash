@@ -2,13 +2,13 @@
 
 # example install variable asignation for WRF INSTALL bash script
 # change too your location:
-export WRF_SCRIPTS=/home/user/WRFscripts # installation home; from tarball
+export WRF_SCRIPTS=/home/agrineer/WRFscripts # installation home
 
 export INSTALL_WRF_IO_TYPE=SERIAL_IO  # file input/output type
                                       # options are: SERIAL_IO, PNETCDF_IO,
                                       # NETCDFPAR_IO, ADIOS2_IO
 
-export INSTALL_WRF_WPS_GEOG=YES        # download earth static data
+export INSTALL_WRF_WPS_GEOG=NO        # download earth static data
                                       # options are: NO and YES
 
 export INSTALL_WRF_MPI=MPICH          # MPI memory access mode
