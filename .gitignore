@@ -51,7 +51,10 @@ wrf/WPS/
 wrf/WRF/
 wrf/build.conf
 
+WRFscripts-build.txt
+WPS-build.txt
 WRF-build.txt
+
 *.tmp
 *~
 

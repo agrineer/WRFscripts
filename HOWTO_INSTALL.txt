@@ -155,7 +155,7 @@ PBS job control is not yet implementation
   and source it for user configuration. see bash_profile_example.
 
 eg.
-export WRF_HOME=/home/user/wrf     # here the WRF home directory is
+export WRF_HOME=/home/user/wrf     # here the "wrf" directory is
                                    # linked to $WRF_SCRIPTS/wrf
 				   				   
 export WRF_MPI=MPICH               # specifies type of MPI. If MPICH then
@@ -163,11 +163,10 @@ export WRF_MPI=MPICH               # specifies type of MPI. If MPICH then
 				   # file, unless a HPC job control (JCL)
 				   # is specified
 
-export WRF_MPICH_HOSTS=/home/user/mpd.hosts # used for non JCL MPICH
-
 export WRF_JCL=NONE                # specifies the JCL to use (SLURM,PBS,NONE)
+export WRF_MPICH_HOSTS=/home/user/mpd.hosts # used for non-JCL MPICH, eg.desktop
 export WRF_OPENMP_NCORES=NONE      # if using OPENMP specifies number cores
-                                   # to use
+                                   # to use (under construction)
 
 -----------------------------------------------------------------------------
 # Start processing....
@@ -186,7 +185,7 @@ $ getdata_gfs.py YYYYMMDD
 NOTE: getdata.py is UTC based, so your location's yesterday might be different from UTC's yesterday. This will be addressed in the future.
 
 NOTE: that GFS files are only available for 10 days. To go back beyond
-      the 10 days you need to go to an archive site. (TODO: say where and how to decode name)
+      the 10 days you need to go to an archive site. (TODO: where and how to decode name)
 
 NOTE: getdata_gfs.py will report errors for days it does not have, you can ignore those.
 
@@ -198,7 +197,7 @@ usage: runwrf [-h] -s SECTOR -r RESTART -b BEGIN_HOUR [-d RUNDATE]
    
 -r is a flag for restarting a run. RESTART=true/false. Option is mandatory.
 
--d RUNDATE. Format is YYYYMMDD. If it is not given then the run will use yesterday's date (useful in a cron" implementation)
+-d RUNDATE. Format is YYYYMMDD. If it is not given then the run will use yesterday's date (useful in a "cron" implementation)
 
 # Example runs:
 
@@ -214,7 +213,7 @@ $ cd ~/wrf/log
 $ tail -f SECTOR.log    # eg. ANDES_03.log
 
 # Typical preprocessing end of log:
-# ---------------------------------------------------------------------------------------------
+# -------------------------------------------------------------------------
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !  Successful completion of metgrid.  !
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -239,7 +238,7 @@ wrfGFS: running command: mpiexec -hostfile /home/agrineer/mpd.hosts ./wrf.exe
  starting wrf task            2  of            8
  starting wrf task            3  of            8
  starting wrf task            1  of            8
-#---------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------
 If using SLURM it will say that the job was submitted. Look in the SECTOR/slurm.log file for reports.
 
 NOTE: The number of cores to use depends on the platform. For example, using a HPC the optimal number of cores is eight. On a desktop the optimal is four. On the HPC it about it about 1.5 hours to run ANDES03 and for the desktop about 5.0h hours.
