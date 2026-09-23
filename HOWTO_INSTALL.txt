@@ -22,20 +22,21 @@ How to install WRFscripts and WRF/WPS from scratch.
     pnetcdf 
 
 #------------------------------------------------------------------------
-# Decide where to put WRF_SCRIPTS and untar WRFscripts.tar.gz
-# eg. /home/user/WRF_SCRIPTS
+# Decide where to put WRFscripts and untar WRFscripts.tar.gz
+# eg. /home/user/WRFscripts
 
 $ cd ~
-$ tar xvf WRF_SCRIPTS.tar.gz
+$ tar xvf WRFscripts.tar.gz
 
 or git clone:
 
-$ git clone https:github/agrineer/WRFscripts
+$ git clone https://github.com/agrineer/WRFscripts
 
 # TO INSTALL:
-$ cd WRF_SCRIPTS
+# change directory to WRFscripts
+$ cd WRFscripts
 
-Edit the file "install_wrf_variables.bash" to suit your type of WRF implementation, ie. serial or parallel IO. Currently the serial and pnetcdf implementations are stable, However, pnetcdf version doesn't seem to improve execution time. Best practice is to start with the default implementation.
+Edit the file "install_wrf_variables.bash" to suit your type of WRF implementation, ie. serial or parallel IO. Currently the serial and pnetcdf implementations are stable, However, pnetcdf version doesn't seem to improve execution time. Best practice is to start with the default implementation, SERIAL_IO.
 
 This bash shell file sets the environment variables that specify how to compile the libraries and WRF.
 
@@ -64,7 +65,7 @@ This bash shell file sets the environment variables that specify how to compile 
 	  MPICH+OPENMP is used to specify a hybrid comunication.
 	  OPENMP implementation is still being developed.
 
-	  INSTALL_WRF_IO_CHANNEL=ch3:nemesis
+	  INSTALL_WRF_IO_CHANNEL=ch4:ofi
 	  Current options are: ch3:nemesis,ch4:ofi,ch4:ucx
 	  These specify what kind of communication transport to use.
 	  Note that ch3 is a legacy transport.
@@ -82,17 +83,20 @@ $ ./INSTALL.bash 2>&1 | tee WRFscripts-build.txt
 
 # Use "tee" to keep a copy of the build output. Install time can take over an hour, depending on ....
 
+-------------------------------------------------------------------------------
 # With a succesfull install, link the WRF_SCRIPTS/wrf to a convienient locator,
 eg.
 $ cd ~
 $ ln -s $WRF_SCRIPTS/wrf
 
-# If you did not download the "WPS_GEOG" in your install, ie. by setting INSTALL_WRF_WPS_GEOG=NO, link your existing "WPS_GEOG" directory in the ~/wrf/directory
+# This link makes navigation to "wrf" easier without going through "WRFscripts. Indeed, "WRFscripts" will not be needed from this point on. The construction of the directory "wrf" is now almost complete but for populating SECTOR/wps and some links, if needed.
+
+# If you did not download the "WPS_GEOG" in your install, ie. by setting INSTALL_WRF_WPS_GEOG=NO, link your existing "WPS_GEOG" directory in the "~/wrf" directory.
 eg.
 $ cd ~/wrf
 $ ln -s /data/WPS_GEOG
 
-# If you have a separate "gfs_0.25" directory you should remove the "gfs_0.25" directory in the "wrf" directory and put your "gfs_0.25" link in the  "wrf" directory.
+# If you have a separate "gfs_0.25" directory you should remove the "gfs_0.25" directory in the "wrf" directory and put your "gfs_0.25" link in the  "~/wrf" directory.
 
 # Populate sector geo directories,
 eg.
@@ -105,9 +109,9 @@ eg. geog_data_path = '/home/user/wrf/WPS_GEOG',
 $ ./geogrid.exe
 
 -------------------------------------------------------------------------------
-Adjust the file "SECTOR/wrf/namelist.input", if needed, where SECTOR is a predefined regions, eg.ANDES03.
+# Adjust the file "SECTOR/wrf/namelist.input", if needed, where SECTOR is a predefined regions, eg.ANDES03.
 
-If running pnetcdf io:
+# If running pnetcdf io:
    go to wrf/sectors/XXXXXXX/wrf
    edit namelist.input.template
    under &time control:
@@ -116,7 +120,7 @@ If running pnetcdf io:
    io_form_input                       = 2
    io_form_boundary                    = 11    
 
-If running netcdfpar io:
+# If running netcdfpar io:
    go to wrf/sectors/XXXXXXX/wrf
    edit namelist.input.template
    under &time control:
@@ -125,15 +129,15 @@ If running netcdfpar io:
    io_form_input                       = 2
    io_form_boundary                    = 13
 
-# default in distribution, no need to edit namelist.input
-If running serial io:
+# default in distribution, no need to edit namelist.input if using INSTALL_WRF_IO_TYPE=SERIAL_IO
+#If running serial io:
    go to wrf/sectors/XXXXXXX/wrf
    edit namelist.input.template
    set io_form_* to 2
 
-for all cases above leave io_form_geogrid = 2 in the namelist.wps.template
+For all cases above leave io_form_geogrid = 2 in the namelist.wps.template
 
-# Sector "ANDES03" is distributed with this release. This project is open to receiving and distributing user's sector "namelist.* Currently, send to git at agrineer.org
+# Sector "ANDES03" is distributed with this release and will be used as an example. This project is open to receiving and distributing user's sector "namelist.* Currently, send to git at agrineer.org
 
 #-------------------------------------------------------------------------------
 
@@ -164,9 +168,17 @@ export WRF_MPI=MPICH               # specifies type of MPI. If MPICH then
 				   # is specified
 
 export WRF_JCL=NONE                # specifies the JCL to use (SLURM,PBS,NONE)
-export WRF_MPICH_HOSTS=/home/user/mpd.hosts # used for non-JCL MPICH, eg.desktop
+
 export WRF_OPENMP_NCORES=NONE      # if using OPENMP specifies number cores
                                    # to use (under construction)
+
+export WRF_MPICH_HOSTS=/home/user/mpd.hosts # used for non-JCL MPICH, eg.desktop and small networked computers. Format for mpd.hosts is simple:
+
+# host:slices
+curiosity:4
+opportunit:4
+
+# Where "host" is the name of the computer to use and "slices" are number of cores to use in each host.
 
 -----------------------------------------------------------------------------
 # Start processing....
@@ -189,7 +201,7 @@ NOTE: that GFS files are only available for 10 days. To go back beyond
 
 NOTE: getdata_gfs.py will report errors for days it does not have, you can ignore those.
 
-# Top level running WRF:
+# Running WRF:
 usage: runwrf [-h] -s SECTOR -r RESTART -b BEGIN_HOUR [-d RUNDATE]
 
 -s option specifies sector to use, eg. ANDES03.
@@ -203,16 +215,16 @@ usage: runwrf [-h] -s SECTOR -r RESTART -b BEGIN_HOUR [-d RUNDATE]
 
 $ runwrf -b 6 -s ANDES03 -r false &
 
-# & puts the job in background. This is not needed, but allows the user to monitor output files in the log directory and in the SECTOR/wrf directory.
+# & puts the job in background. This is not needed, but allows the user to monitor output files in the same terminal shell.
 
 # Continue a previous run for a specific date
 $ runwrf -s ANDES03 -r true -d 20260902 & 
 
 # To monitor pre-processing, WRF run must in background or in another terminal
 $ cd ~/wrf/log
-$ tail -f SECTOR.log    # eg. ANDES_03.log
+$ tail -f SECTOR.log    # eg. ANDES03.log. Use Cntrl-c to stop the "tail".
 
-# Typical preprocessing end of log:
+# Typical preprocessing output at the end of the log:
 # -------------------------------------------------------------------------
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !  Successful completion of metgrid.  !
@@ -239,15 +251,16 @@ wrfGFS: running command: mpiexec -hostfile /home/agrineer/mpd.hosts ./wrf.exe
  starting wrf task            3  of            8
  starting wrf task            1  of            8
 #------------------------------------------------------------------------
-If using SLURM it will say that the job was submitted. Look in the SECTOR/slurm.log file for reports.
+End of output.
+
+# If using SLURM it will say that the job was submitted. Look in the SECTOR/slurm.log file for reports.
 
 NOTE: The number of cores to use depends on the platform. For example, using a HPC the optimal number of cores is eight. On a desktop the optimal is four. On the HPC it about it about 1.5 hours to run ANDES03 and for the desktop about 5.0h hours.
 
 NOTE: In the above output snippet, the floating point exceptions are normal according to team WRF at NCAR/UCAR.
 
 # To monitor processing progress:
-$ cd ~/wrf/sectors/SECTOR/wrf
-$ tail -f rsl.error.0000
+$ tail -f ~/wrf/sectors/SECTOR/wrf/rsl.error.0000
 
 NOTE: To change parameter values in the "namelist.wps" and "namelist.input" files you must edit the corresponding "template" files instead. "runwrf" will update the files.
 
