@@ -53,8 +53,8 @@ wrf/build.conf
 
 WRFscripts-build.txt
 
-packages/WPS-4.7.0.tar.gz
-packages/WPS-4.8.0.tar.gz
+packages/WRFV4.8.0.tar.gz
+
 *.tmp
 *~
 

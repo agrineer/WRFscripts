@@ -208,7 +208,7 @@ rm -rf WRF WPS
 echo "Rejoining ${WRFVER}.tar.gz"
 cat $WRF_SCRIPTS/packages/$WRFVER\_part_* > $WRF_SCRIPTS/packages/$WRFVER.tar.gz
 
-echo "untar'ing ${WRFVER}.${WSUFFIX} package"
+echo "INSTALL: untar'ing ${WRFVER}.${WSUFFIX} package"
 tar xvfz $WRF_SCRIPTS/packages/$WRFVER.$WSUFFIX
 status=$?
 if [ $status -gt 0 ]
@@ -216,9 +216,6 @@ then
     echo "INSTALL ERROR: could not untar ${WRFVER}.${WSUFFIX} ... exiting"
     exit 1
 fi
-
-#echo "INSTALL: renaming $WRFVER to WRF"
-#mv $WRFVER WRF
 
 echo "INSTALL: untar'ing ${WPSVER}.${WSUFFIX} package"
 tar xvf $WRF_SCRIPTS/packages/$WPSVER.$WSUFFIX
@@ -228,9 +225,6 @@ then
     echo "INSTALL ERROR: could not untar ${WPSVER}.${WSUFFIX} ... exiting"
     exit 1
 fi
-
-#echo "INSTALL: renaming $WPSVER to WPS"
-#mv $WPSVER WPS
 
 # edit WRF/Registry file to include SFCEVP variable output
 echo "INSTALL: editing REGISTRY"

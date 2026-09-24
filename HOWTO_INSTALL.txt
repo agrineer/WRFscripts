@@ -27,17 +27,18 @@ Current versions are WRFV4.8.0 and WPSv4.7.0
 # eg. /home/user/WRFscripts
 
 $ cd ~
-$ tar xvf WRFscripts.tar.gz
+$ tar xvfz WRFscripts.tar.gz
 
 or git clone:
 
 $ git clone https://github.com/agrineer/WRFscripts
 
 # TO INSTALL:
+
 # change directory to WRFscripts
 $ cd WRFscripts
 
-Edit the file "install_wrf_variables.bash" to suit your type of WRF implementation, ie. serial or parallel IO. Currently the serial and pnetcdf implementations are stable, However, pnetcdf version doesn't seem to improve execution time. Best practice is to start with the default implementation, SERIAL_IO.
+# Edit the file "install_wrf_variables.bash" to suit your type of WRF implementation, ie. serial or parallel IO. Currently the serial and pnetcdf implementations are stable, However, pnetcdf version doesn't seem to improve execution time. Best practice is to start with the default implementation, SERIAL_IO.
 
 This bash shell file sets the environment variables that specify how to compile the libraries and WRF.
 
