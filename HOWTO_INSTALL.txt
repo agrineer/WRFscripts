@@ -40,7 +40,7 @@ $ cd WRFscripts
 
 # Edit the file "install_wrf_variables.bash" to suit your type of WRF implementation, ie. serial or parallel IO. Currently the serial and pnetcdf implementations are stable, However, pnetcdf version doesn't seem to improve execution time. Best practice is to start with the default implementation, SERIAL_IO.
 
-This bash shell file sets the environment variables that specify how to compile the libraries and WRF.
+# This bash shell file sets the environment variables that specify how to compile the libraries and WRF.
 
 	  WRF_SCRIPTS sets the location of where WRFscripts.tar was extracted or
 	  cloned.  Change "/home/user/" to your environment.
@@ -77,7 +77,8 @@ This bash shell file sets the environment variables that specify how to compile 
 	  Specifies if GPU (CUDA) is compiled in the MPICH MPI.
 	  This option is not yet implemented.
 
-Make these options active by sourcing the edited file "install_wrf_variables.bash". ie.
+# Make these options active by sourcing the edited file "install_wrf_variables.bash".
+ie.
 $ source install_wrf_variables.bash 
 
 # run the INSTALL shell program with:
@@ -137,7 +138,7 @@ $ ./geogrid.exe
    io_form_boundary                    = 13
 
 # default in distribution, no need to edit namelist.input if using INSTALL_WRF_IO_TYPE=SERIAL_IO
-#If running serial io:
+# If running serial io:
    go to wrf/sectors/XXXXXXX/wrf
    edit namelist.input.template
    set io_form_* to 2

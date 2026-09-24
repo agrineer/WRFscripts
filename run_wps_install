@@ -6,6 +6,8 @@ export NETCDF=$WRF_SCRIPTS/wrf
 cd $WRF_SCRIPTS/wrf/WPS
 ./clean -a
 
+OPTION=1  # GNU/Linux gfortran configure option
+
 # MAC OSX jason configure fix (workaround)
 if [[ "$OSTYPE" == "darwin"* ]]; then
 
@@ -18,7 +20,10 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     # versions of these definitions to allow compilation to proceed.
     
     # Check for automake and install it if not available
-    if ! command -v automake &> /dev/null; then brew install automake; fi
+    if ! command -v automake &> /dev/null
+    then
+	brew install automake;
+    fi
 
     # Copy required configuration files for macOS build
     cp $(brew --prefix)/share/automake-*/config.{guess,sub} external/jasper-1.900.29/ac_aux
@@ -33,11 +38,13 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     chmod +x external/jasper-1.900.29/ac_aux/config.guess external/jasper-1.900.29/ac_aux/config.sub
     ls -l external/jasper-1.900.29/ac_aux/config.*
 
+    OPTION=17 # MAC OSX gfortran configure option
+
     # now let WPS "make" configure and compile jason
 fi
-
+ 
 ./configure --build-grib2-libs << EOF
-1                 
+${OPTION}                
 EOF
 
 status=$?

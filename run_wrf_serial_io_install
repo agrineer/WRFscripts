@@ -14,10 +14,17 @@ if [ ${INSTALL_WRF_MPI} = "OPENMP" ]
 then
     OPTION=33
     echo "INSTALL: using OPENMP only"
+    
 elif [ ${INSTALL_WRF_MPI} = "MPICH" ]
 then
-    OPTION=34
+    if [[ "$OSTYPE" == "darwin"* ]]
+    then
+	OPTION=17 # MAC OSX
+    else
+        OPTION=34 # GNU/Linux
+    fi
     echo "INSTALL: using MPICH only"
+	
 elif [ ${INSTALL_WRF_MPI} = "MPICH+OPENMP" ]
 then
     OPTION=35
