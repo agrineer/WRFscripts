@@ -2,7 +2,7 @@ packages/hdf5-1.10.10
 packages/mpich-4.2.1
 packages/netcdf-c-4.9.2
 packages/netcdf-fortran-4.6.1
-packages/WRFV4.7.0.tar.gz
+packages/WRFV4.8.0.tar.gz
 
 wrf/bin/*
 !wrf/bin/getdata_gfs.py
@@ -52,9 +52,9 @@ wrf/WRF/
 wrf/build.conf
 
 WRFscripts-build.txt
-WPS-build.txt
-WRF-build.txt
 
+packages/WPS-4.7.0.tar.gz
+packages/WPS-4.8.0.tar.gz
 *.tmp
 *~
 

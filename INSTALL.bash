@@ -29,9 +29,9 @@ INSTALL_COPYRIGHT="INSTALL.bash Copyright (c) 2024-2026 Scott L. Williams ' + 'r
 # and then source the file
 
 # WRF versions used
-WRFVER=WRFV4.7.0  # release tarball name is WRFv4.5.1.tar.gz but extracted main
-WPSVER=WPS-4.6.0  # directory is WRFV4.5.1; rename it to WRFV4.5.1.tar.gz
-WSUFFIX=tar.gz    # also rename WPS tarball to WPS-4.5.tar.gz
+WRFVER=WRFV4.8.0  # release tarballs
+WPSVER=WPSV4.7.0  # 
+WSUFFIX=tar.gz    #
 
 # check INSTALL environment bash variables
 
@@ -205,7 +205,7 @@ rm -rf WRF WPS
 #git clone https://github.com/wrf-model/WPS
 
 # rejoin split WRF tar ball
-echo "Rejoining $WRFVER.tar.gz"
+echo "Rejoining ${WRFVER}.tar.gz"
 cat $WRF_SCRIPTS/packages/$WRFVER\_part_* > $WRF_SCRIPTS/packages/$WRFVER.tar.gz
 
 echo "untar'ing ${WRFVER}.${WSUFFIX} package"
@@ -217,8 +217,8 @@ then
     exit 1
 fi
 
-echo "INSTALL: renaming $WRFVER to WRF"
-mv $WRFVER WRF
+#echo "INSTALL: renaming $WRFVER to WRF"
+#mv $WRFVER WRF
 
 echo "INSTALL: untar'ing ${WPSVER}.${WSUFFIX} package"
 tar xvf $WRF_SCRIPTS/packages/$WPSVER.$WSUFFIX
@@ -229,8 +229,8 @@ then
     exit 1
 fi
 
-echo "INSTALL: renaming $WPSVER to WPS"
-mv $WPSVER WPS
+#echo "INSTALL: renaming $WPSVER to WPS"
+#mv $WPSVER WPS
 
 # edit WRF/Registry file to include SFCEVP variable output
 echo "INSTALL: editing REGISTRY"

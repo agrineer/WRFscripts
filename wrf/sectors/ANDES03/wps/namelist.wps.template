@@ -24,7 +24,7 @@
  truelat1  = -1.65,
  ;truelat2  = 30.000,
  stand_lon = -77.0,
- geog_data_path = '/home/agrineer/wrf/WPS_GEOG',
+ geog_data_path = '/home/user/wrf/WPS_GEOG',
 /
 
 &ungrib
