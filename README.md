@@ -8,10 +8,10 @@ Once the user has settled on parameter values for WRF (sectors,namelists,etc) th
 
 This package can be run on desktops, preferably multi-core, as well as on High Performance Computers (HPC) using SLURM.
 
-Currently implementing WRFV4.7.0 and WPS-4.6.0 versions.
+Currently implementing WRFV4.8.0 and WPS-4.7.0 versions.
 
 Software: GNU/Linux, Python 3.8 or greater, developer environment with gfortran, etc. 
-          Developed using Linux Mint 22.1 Xia 64-bit, Kernel 6.8.0-137-generic_x86_64, AMD FX-8350 8 core, 32GB
+          Developed using Mint 22.1 Xia 64-bit, Kernel 6.8.0-137-generic_x86_64, AMD FX-8350 8 core, 32GB
 
 Skills: Terminal command line navigation.
 
