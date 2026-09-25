@@ -13,5 +13,7 @@ Currently implementing WRFV4.8.0 and WPS-4.7.0 versions.
 Software: GNU/Linux, Python 3.8 or greater, developer environment with gfortran, etc. 
           Developed using Mint 22.1 Xia 64-bit, Kernel 6.8.0-137-generic_x86_64, AMD FX-8350 8 core, 32GB
 
-Skills: Terminal command line navigation.
+Skills: Terminal navigation and shell commands.
+
+PLEASE NOTE: Under development.
 

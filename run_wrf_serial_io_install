@@ -51,7 +51,7 @@ then
     exit 1
 fi
 
-./compile -j 4 em_real 2>&1 | tee WRF-build.txt
+./compile -j $NUM_CORES em_real 2>&1 | tee WRF-build.txt
 
 if [ ${PIPESTATUS[0]} -gt 0 ]
 then

@@ -130,13 +130,14 @@ then
     fi
 fi
 
-echo "WRF build environment variable values:" | tee wrf/build.conf
-echo "    WRF_SCRIPTS directory  : ${WRF_SCRIPTS}" | tee -a wrf/build.conf
-echo "    INSTALL_WRF_IO_TYPE     : ${INSTALL_WRF_IO_TYPE}" | tee -a wrf/build.conf
-echo "    INSTALL_WRF_WPS_GEOG    : ${INSTALL_WRF_WPS_GEOG}" | tee -a wrf/build.conf
-echo "    INSTALL_WRF_MPI         : ${INSTALL_WRF_MPI}" | tee -a wrf/build.conf
-echo "    INSTALL_WRF_IO_CHANNEL  : ${INSTALL_WRF_IO_CHANNEL}" | tee -a wrf/build.conf
-echo "    INSTALL_WRF_USE_CUDA    : ${INSTALL_WRF_USE_CUDA}" | tee -a wrf/build.conf
+echo "WRF build environment variable values:" 
+echo "    WRF_SCRIPTS directory   : ${WRF_SCRIPTS}" 
+echo "    NUM_CORES (Compile)     : ${NUM_CORES}" 
+echo "    INSTALL_WRF_IO_TYPE     : ${INSTALL_WRF_IO_TYPE}" 
+echo "    INSTALL_WRF_WPS_GEOG    : ${INSTALL_WRF_WPS_GEOG}" 
+echo "    INSTALL_WRF_MPI         : ${INSTALL_WRF_MPI}"
+echo "    INSTALL_WRF_IO_CHANNEL  : ${INSTALL_WRF_IO_CHANNEL}" 
+echo "    INSTALL_WRF_USE_CUDA    : ${INSTALL_WRF_USE_CUDA}" 
 echo ""
 
 #----------------------------------------------------------------------

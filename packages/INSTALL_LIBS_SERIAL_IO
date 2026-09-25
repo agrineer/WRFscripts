@@ -71,7 +71,7 @@ check_make_install()
 print_env()
 {
     echo ""
-    echo "INSTALL_LIBS_SERIAL_IO: installing ${PNAME} with these variable values:"
+    echo "INSTALL_LIBS_SERIAL_IO: installing ${PNAME} with these variable values and flags:"
 
     # print variable if populated
     
@@ -145,7 +145,7 @@ make_lib()
     check_configure
 
     echo "making ${PNAME}"
-    make -j 4 2>&1 | tee ${PNAME}_make.log
+    make -j $NUM_CORES 2>&1 | tee ${PNAME}_make.log
     check_make
     
     echo "make install ${PNAME}"
@@ -224,7 +224,6 @@ SUFFIX=tar.gz
 CONF_PARAMS="--prefix=${WRF_SCRIPTS}/wrf --enable-largefile --enable-shared"
 export CPPFLAGS=-I$WRF_SCRIPTS/wrf/include
 export LDFLAGS=-L$WRF_SCRIPTS/wrf/lib
-export LD_LIBRARY_PATH=/students/agrineer/wrf/lib:$LD_LIBRARY_PATH
 export FC=gfortran
 make_lib
 
@@ -256,7 +255,6 @@ then
 	fi
     fi
 
-    #CONF_PARAMS="--prefix=${WRF_SCRIPTS}/wrf ${CUDA} ${DEVICE} --enable-threads=multiple"
     CONF_PARAMS="--prefix=${WRF_SCRIPTS}/wrf ${CUDA} ${DEVICE}"
     make_lib
 fi
