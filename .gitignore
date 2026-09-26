@@ -1,26 +1,23 @@
+
+WRFscripts-build.txt
+
 packages/hdf5-1.10.10
 packages/mpich-4.2.1
 packages/netcdf-c-4.9.2
 packages/netcdf-fortran-4.6.1
 packages/WRFV4.8.0.tar.gz
 
-wrf/bin/*
-!wrf/bin/getdata_gfs.py
-!wrf/bin/runwrf
-
-wrf/WPS_GEOG
-
-wrf/gfs_0.25/*
-!wrf/gfs_0.25/.gitkeep
-
-wrf/log/*
-!wrf/log/.gitkeep
-
-wrf/output/*
-!wrf/output/.gitkeep
-
+wrf/bin/
+wrf/gfs_0.25/
 wrf/include/
 wrf/lib/
+wrf/log/
+wrf/output/
+wrf/share/
+wrf/WPS/
+wrf/WPS_GEOG/
+
+wrf/build.conf
 
 wrf/sectors/*
 !wrf/sectors/ANDES03
@@ -46,15 +43,8 @@ wrf/sectors/ANDES03/wrf/wrfinput*
 wrf/sectors/ANDES03/wrf/wrfout*
 wrf/sectors/ANDES03/wrf/wrfrst*
 
-wrf/share/
-wrf/WPS/
-wrf/WRF/
-wrf/build.conf
 
-WRFscripts-build.txt
-
-packages/WRFV4.8.0.tar.gz
-
+*.old
 *.tmp
 *~
 
