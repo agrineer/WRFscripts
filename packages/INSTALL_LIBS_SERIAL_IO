@@ -17,7 +17,8 @@
 #  You should have received a copy of the GNU General Public License
 #  along with this program; if not, write to the Free Software
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-#  or visit https://www.gnu.org/licenses/gpl-3.0-standalone.html
+#  or visit https://www.gnu.org/licenses/gpl-3.0-standalone.html or
+#  see http://www.gnu.org/licenses/gpl-3.0.html
 #
 
 INSTALL_LIBS_SERIAL_IO_copyright="INSTALL_LIBS_SERIAL_IO Copyright (c) 2020-2026 Scott L. Williams ' + 'released under GNU GPL V3.0"
@@ -27,7 +28,7 @@ untar_package()
     echo "INSTALL_LIBS_SERIAL_IO: untar'ing ${PNAME}.${SUFFIX}"
     tar xvf $PNAME.$SUFFIX
     status=$?
-    if [ $status -gt 0 ]
+    if [[ $status -gt 0 ]]
     then
 	echo "INSTALL_LIBS_SERIAL_IO: could not untar ${PNAME}.${SUFFIX}"
 	exit 1
@@ -37,7 +38,7 @@ untar_package()
 # test and report configure
 check_configure()
 {
-    if [ ${PIPESTATUS[0]} -gt 0 ]
+    if [[ ${PIPESTATUS[0]} -gt 0 ]]
     then
 	echo "INSTALL_LIBS_SERIAL_IO: could not configure ${PNAME}"
 	echo "review ${WRF_SCRIPTS}/wrf/packages/${PNAME}/${PNAME}_config.log"
@@ -49,7 +50,7 @@ check_configure()
 # test and report make
 check_make()
 {
-    if [ ${PIPESTATUS[0]} -gt 0 ]
+    if [[ ${PIPESTATUS[0]} -gt 0 ]]
     then
 	echo "INSTALL_LIBS_SERIAL_IO: could not make ${PNAME}"
 	echo "review ${WRF_SCRIPTS}/wrf/packages/${PNAME}/${PNAME}_make.log for details"
@@ -60,7 +61,7 @@ check_make()
 # test and report make install
 check_make_install()
 {
-    if [ ${PIPESTATUS[0]} -gt 0 ]
+    if [[ ${PIPESTATUS[0]} -gt 0 ]]
     then
 	echo "INSTALL_LIBS_SERIAL_IO: could not make install ${PNAME}"
 	echo "review ${WRF_SCRIPTS}/wrf/packages/${PNAME}/${PNAME}_make_install.log for details"
@@ -75,54 +76,59 @@ print_env()
 
     # print variable if populated
     
-    if [ "$CC" != "" ]
+    if [[ -n "${CC}" ]]
     then
 	echo "CC=${CC}"
     fi
 
-    if [ "$MPICC" != "" ]
+    if [[ -n "${MPICC}" ]]
     then
 	echo "MPICC=${MPICC}"
     fi
 
-    if [ "$CFLAGS" != "" ]
+    if [[ -n "${CFLAGS}" ]]
     then
 	echo "CFLAGS=${CFLAGS}"
     fi
 
-    if [ "$CPPFLAGS" != "" ]
+    if [[ -n "${CPPFLAGS}" ]]
     then
 	echo "CPPFLAGS=${CPPFLAGS}"
     fi
 
-    if [ "$FC" != "" ]
+    if [[ -n "${CXXFLAGS}" ]]
+    then
+	echo "CXXFLAGS=${CXXFLAGS}"
+    fi
+
+    if [[ -n "${FC}" ]]
     then
 	echo "FC=${FC}"
     fi
 
-    if [ "$FCFLAGS" != "" ]
+    if [[ -n "${FCFLAGS}" ]]
     then
 	echo "FCFLAGS=${FCFLAGS}"
     fi
 
-    if [ "$MPIF90" != "" ]
+    if [[ -n "${MPIF90}" ]]
     then
 	echo "MPIF90=${MPIF90}"
     fi
 
-    if [ "$LD_LIBRARY_PATH" != "" ]
+    if [[ -n "${LD_LIBRARY_PATH}" ]]
     then
 	echo "LD_LIBRARY_PATH=${LD_LIBRARY_PATH}"
     fi
     
-    if [ "$LDFLAGS" != "" ]
+    if [[ -n "${LDFLAGS}" ]]
     then
 	echo "LDFLAGS=${LDFLAGS}"
     fi
 
-    if [ "$FFLAGS" != "" ]
+    if [[ -n "${FFLAGS}" ]]
     then
-	echo "CPPFLAGS=${CPPFLAGS}"
+	echo "FFLAGS=${FFLAGS}"
     fi
 
     echo "CONF_PARAMS=${CONF_PARAMS}"  # must always have CONF_PARAMS
@@ -145,7 +151,7 @@ make_lib()
     check_configure
 
     echo "making ${PNAME}"
-    make -j $NUM_CORES 2>&1 | tee ${PNAME}_make.log
+    make -j $INSTALL_WRF_NUM_CORES 2>&1 | tee ${PNAME}_make.log
     check_make
     
     echo "make install ${PNAME}"
@@ -176,11 +182,19 @@ clear_vars()
 #----------------------------------------------------------------------
 # main
 
-# INSTALL WRF dependent libraries
+# make directories and WRF/WPS dependent libraries
 echo ""
 echo "INSTALL_LIBS_SERIAL IO: installing SERIAL I/O WRF dependent libraries"
 
 cd $WRF_SCRIPTS/wrf
+
+echo "INSTALL_LIBS_SERIAL_IO: cleaning ${WRF_SCRIPTS}/wrf/bin"
+rm -rf bin
+mkdir bin
+cd bin
+ln -s ../scripts/getdata_gfs.py
+ln -s ../scripts/runwrf
+cd ../
 
 echo "INSTALL_LIBS_SERIAL_IO: cleaning ${WRF_SCRIPTS}/wrf/include"
 rm -rf include
@@ -190,12 +204,23 @@ echo "INSTALL_LIBS_SERIAL_IO: cleaning ${WRF_SCRIPTS}/wrf/lib"
 rm -rf lib
 mkdir lib
 
-echo "INSTALL_LIBS_SERIAL_IO: cleaning ${WRF_SCRIPTS}/wrf/bin"
-rm -rf bin
-mkdir bin
-cd bin
-ln -s ../scripts/getdata_gfs.py
-ln -s ../scripts/runwrf
+echo "INSTALL_LIBS_SERIAL_IO: cleaning ${WRF_SCRIPTS}/wrf/log"
+rm -rf log
+mkdir log
+
+echo "INSTALL_LIBS_SERIAL_IO: cleaning ${WRF_SCRIPTS}/wrf/share"
+rm -rf share
+mkdir share
+
+mkdir -p gfs_0.25 output
+
+echo "INSTAll_LIBS_SERIAL_IO: if this is a re-build (not cloned install) then directories:"
+echo "         gfs_0.25"
+echo "         output"
+echo "         sectors"
+echo "         WPS_GEOG"
+echo " "
+echo "         are preserved."
 
 # HDF5
 # you can download HDF5 from the HDF5 download page.
@@ -231,21 +256,17 @@ make_lib
 # https://www.mpich.org/downloads/
 # install MPICH or OPENMP
 clear_vars
-if [ ${INSTALL_WRF_MPI} = "MPICH" ]
+if [[ ${INSTALL_WRF_MPI} == "MPICH" ]]
 then
     PNAME=mpich-4.2.1         # package name
     SUFFIX=tar.gz
 
-    # TODO:check for valid device
-    DEVICE="--with-device=${INSTALL_WRF_IO_CHANNEL}"
-    echo "INSTALL_LIBS_SERIAL_IO: compiling MPICH with channel ${INSTALL_WRF_IO_CHANNEL}"
-    
-    if [ ${INSTALL_WRF_USE_CUDA} = "NONE" ]
+    if [[ ${INSTALL_WRF_USE_CUDA} == "NONE" ]]
     then
 	CUDA="--without-cuda"
 	echo "INSTALL_LIBS_SERIAL_IO: compiling MPICH without CUDA"
     else
-	if [ -d "${INSTALL_WRF_USE_CUDA}" ]
+	if [[ -d "${INSTALL_WRF_USE_CUDA}" ]]
 	then
 	    CUDA="--with-cuda=${INSTALL_WRF_USE_CUDA}"
 	    echo "INSTALL_LIBS_SERIAL_IO: compiling MPICH with CUDA=${INSTALL_WRF_USE_CUDA}"
@@ -255,12 +276,25 @@ then
 	fi
     fi
 
-    CONF_PARAMS="--prefix=${WRF_SCRIPTS}/wrf ${CUDA} ${DEVICE}"
+    if [[ ${OSTYPE} == "darwin" ]]
+    then
+	CFLAGS="$CFLAGS -fcommon"  # needed for newer gcc compatibility
+	CXXFLAGS="$CXXFLAGS -fcommon"
+	CONF_PARAMS="--prefix=${WRF_SCRIPTS}/wrf ${CUDA}" 
+    else
+
+       echo "INSTALL_LIBS_SERIAL_IO: compiling MPICH with channel ${INSTALL_WRF_IO_CHANNEL}"
+
+	# TODO:check for valid device
+	DEVICE="--with-device=${INSTALL_WRF_IO_CHANNEL}"
+	CONF_PARAMS="--prefix=${WRF_SCRIPTS}/wrf ${CUDA} ${DEVICE}"
+    fi
+
     make_lib
 fi
 
 # source URL for openmpi?
-if [ ${INSTALL_WRF_MPI} = "OPENMP" ]
+if [[ ${INSTALL_WRF_MPI} == "OPENMP" ]]
 then
     # check if libgomp and mpirun exist
 

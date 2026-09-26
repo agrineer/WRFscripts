@@ -15,8 +15,8 @@ wrf/log/
 wrf/output/
 wrf/share/
 wrf/WPS/
-wrf/WPS_GEOG/
-
+wrf/WPS_GEOG
+wrf/WRF/
 wrf/build.conf
 
 wrf/sectors/*

@@ -1,16 +1,19 @@
 #!/usr/bin/env /bin/bash
 
-# example install variable assignation for WRF INSTALL bash script
-# change too your location:
-export WRF_SCRIPTS=/home/agrineer/WRFscripts # installation home
+# install_wrf_variables.bash Copyright (c) 2016-2026 Scott L. Williams
+# released under GNU GPL V3.0, see http://www.gnu.org/licenses/gpl-3.0.html   
 
-export NUM_CORES=6                    # number of cores for compilation
+# example install variable assignation for WRF INSTALL bash script
+# change too your location; replace "/home/user"
+export WRF_SCRIPTS=/home/user/WRFscripts # installation home
+
+export INSTALL_WRF_NUM_CORES=6        # number of cores for compilation
 
 export INSTALL_WRF_IO_TYPE=SERIAL_IO  # file input/output type
                                       # options are: SERIAL_IO, PNETCDF_IO,
                                       # NETCDFPAR_IO, ADIOS2_IO
 
-export INSTALL_WRF_WPS_GEOG=NO       # download earth static data
+export INSTALL_WRF_WPS_GEOG=YES       # download earth static data
                                       # options are: NO and YES
 
 export INSTALL_WRF_MPI=MPICH          # MPI memory access mode

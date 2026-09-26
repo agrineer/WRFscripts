@@ -1,4 +1,8 @@
 #!/bin/bash
+
+# run_wrf_serial_io_install Copyright (c) 2016-2026 Scott L. Williams
+# released under GNU GPL V3.0, see http://www.gnu.org/licenses/gpl-3.0.html   
+
 echo "Starting WRF configure and compile"
 
 export HDF5=$WRF_SCRIPTS/wrf
@@ -10,12 +14,12 @@ export WRFIO_NCD_LARGE_FILE_SUPPORT=1
 
 cd $WRF_SCRIPTS/wrf/WRF
 
-if [ ${INSTALL_WRF_MPI} = "OPENMP" ]
+if [[ ${INSTALL_WRF_MPI} == "OPENMP" ]]
 then
     OPTION=33
     echo "INSTALL: using OPENMP only"
     
-elif [ ${INSTALL_WRF_MPI} = "MPICH" ]
+elif [[ ${INSTALL_WRF_MPI} == "MPICH" ]]
 then
     if [[ "$OSTYPE" == "darwin"* ]]
     then
@@ -25,7 +29,7 @@ then
     fi
     echo "INSTALL: using MPICH only"
 	
-elif [ ${INSTALL_WRF_MPI} = "MPICH+OPENMP" ]
+elif [[ ${INSTALL_WRF_MPI} == "MPICH+OPENMP" ]]
 then
     OPTION=35
     echo "INSTALL: using MPICH + OPENMP"
@@ -44,16 +48,16 @@ EOF
 # 35 is smpar and dmpar
 
 status=$?
-if [ $status -gt 0 ]
+if [[ $status -gt 0 ]]
 then
     echo "INSTALL ERROR: run_wrf_serial_io_install: could not configure WRF"
     echo "review the wrf configure build file for details ... exiting"
     exit 1
 fi
 
-./compile -j $NUM_CORES em_real 2>&1 | tee WRF-build.txt
+./compile -j $INSTALL_WRF_NUM_CORES em_real 2>&1 | tee WRF-build.txt
 
-if [ ${PIPESTATUS[0]} -gt 0 ]
+if [[ ${PIPESTATUS[[0]} -gt 0 ]]
 then
     echo "INSTALL ERROR: run_wrf_serial_io_install: could not compile WRF"
     echo "review the wrf configure build file for details ... exiting"

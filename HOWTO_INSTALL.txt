@@ -47,8 +47,8 @@ $ cd WRFscripts
 	  
 	  WRF_SCRIPTS=/home/user/WRFscripts
 
-	  NUM_CORES=6
-	  NUM_CORES sets the number of cores to use for compilation.
+	  INSTALL_WRF_NUM_CORES=6
+	  Sets the number of cores to use for compilation.
 	  
           INSTALL_WRF_IO_TYPE=SERIAL_IO
 	  Options are: SERIAL_IO, PNETCDF_IO, NETCDFPAR_IO, ADIOS2_IO

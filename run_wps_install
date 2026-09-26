@@ -8,7 +8,7 @@ cd $WRF_SCRIPTS/wrf/WPS
 
 OPTION=1  # GNU/Linux gfortran configure option
 
-# MAC OSX jason configure fix (workaround)
+# MAC OS X jason configure fix (workaround)
 if [[ "$OSTYPE" == "darwin"* ]]; then
 
     # Source: https://github.com/scottlynn73/build_wrf_macos
@@ -48,7 +48,7 @@ ${OPTION}
 EOF
 
 status=$?
-if [ $status -gt 0 ]
+if [[ $status -gt 0 ]]
 then
     echo "run_wps_install: could not configure WPS"
     exit 1
@@ -58,7 +58,7 @@ fi
 ./compile 2>&1 | tee WPS-build.txt
 
 status=$?
-if [ $status -gt 0 ]
+if [[ $status -gt 0 ]]
 then
     echo "run_wps_install: could not compile WPS"
     exit 1
