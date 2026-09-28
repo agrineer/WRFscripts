@@ -133,7 +133,7 @@ fi
 
 echo "WRF build environment variable values:" 
 echo "    WRF_SCRIPTS directory   : ${WRF_SCRIPTS}" 
-echo "    NUM_CORES (Compile)     : ${NUM_CORES}" 
+echo "    INSTALL WRF_NUM_CORES   : ${INSTALL_WRF_NUM_CORES}" 
 echo "    INSTALL_WRF_IO_TYPE     : ${INSTALL_WRF_IO_TYPE}" 
 echo "    INSTALL_WRF_WPS_GEOG    : ${INSTALL_WRF_WPS_GEOG}" 
 echo "    INSTALL_WRF_MPI         : ${INSTALL_WRF_MPI}"
@@ -156,7 +156,7 @@ then
     fi   
 fi
 
-if [[  ${INSTALL_WRF_IO_TYPE} == "PNETCDF_IO" ]]
+if [[ ${INSTALL_WRF_IO_TYPE} == "PNETCDF_IO" ]]
 then
     #echo "INSTALL: installing PNETCDF_IO libraries"
     $WRF_SCRIPTS/packages/INSTALL_LIBS_PNETCDF_IO
