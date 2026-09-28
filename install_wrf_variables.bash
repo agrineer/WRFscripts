@@ -33,13 +33,13 @@ export INSTALL_WRF_USE_CUDA=/usr/local/cuda
                                       #       compiles and runs with ch3:nemesis
                                       #       does not apply for WRF       
 
-echo "Install shell Varibles are set as:"
-echo "             WRF_SCRIPTS = ${WRF_SCRIPTS}"
-echo "   INSTALL_WRF_NUM_CORES = ${INSTALL_WRF_NUM_CORES}"
-echo "     INSTALL_WRF_IO_TYPE = ${INSTALL_WRF_IO_TYPE=SERIAL_IO}"
-echo "    INSTALL_WRF_WPS_GEOG = ${INSTALL_WRF_WPS_GEOG}"
-echo "         INSTALL_WRF_MPI = ${INSTALL_WRF_MPI}"
-echo "  INSTALL_WRF_IO_CHANNEL = ${INSTALL_WRF_IO_CHANNEL}"
-echo "    INSTALL_WRF_USE_CUDA = ${INSTALL_WRF_USE_CUDA}"
+echo "WRF build environment variable values:"
+echo "    WRF_SCRIPTS            = ${WRF_SCRIPTS}"
+echo "    INSTALL_WRF_NUM_CORES  = ${INSTALL_WRF_NUM_CORES}"
+echo "    INSTALL_WRF_IO_TYPE    = ${INSTALL_WRF_IO_TYPE=SERIAL_IO}"
+echo "    INSTALL_WRF_WPS_GEOG   = ${INSTALL_WRF_WPS_GEOG}"
+echo "    INSTALL_WRF_MPI        = ${INSTALL_WRF_MPI}"
+echo "    INSTALL_WRF_IO_CHANNEL = ${INSTALL_WRF_IO_CHANNEL}"
+echo "    INSTALL_WRF_USE_CUDA   = ${INSTALL_WRF_USE_CUDA}"
 echo " "
 echo " Now run: ./INSTALL.bash 2>&1 | tee WRFscripts-build.txt"

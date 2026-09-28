@@ -880,12 +880,12 @@ if __name__ == '__main__':
     wrf_home, sectors_dir, log_dir, out_dir = get_directories()
 
     try:
-        build = open( wrf_home + '/build.conf' )
+        build = open( wrf_home + '/build.txt' )
         for line in build:
             eprint( line.strip() )
         build.close()
     except:
-        eprint( 'cannot open ' + wrf_home + '/build.conf ' + 'continuing...' )
+        eprint( 'cannot open ' + wrf_home + '/build.txt ' + 'continuing...' )
 
     wrf_mpi = get_mpi_env_variable()
 
