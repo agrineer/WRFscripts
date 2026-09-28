@@ -1,4 +1,3 @@
-
 WRFscripts-build.txt
 
 packages/hdf5-1.10.10
@@ -13,35 +12,13 @@ wrf/include/
 wrf/lib/
 wrf/log/
 wrf/output/
+wrf/sectors/
 wrf/share/
 wrf/WPS/
 wrf/WPS_GEOG
 wrf/WRF/
 wrf/build.conf
 
-wrf/sectors/*
-!wrf/sectors/ANDES03
-wrf/sectors/ANDES03/wps/GFS*
-wrf/sectors/ANDES03/wps/GRIBFILE*
-
-wrf/sectors/ANDES03/wps/geo_em.*.nc
-wrf/sectors/ANDES03/wps/geogrid.log
-wrf/sectors/ANDES03/wps/met_em.*
-wrf/sectors/ANDES03/wps/metgrid.log
-wrf/sectors/ANDES03/wps/namelist.wps
-wrf/sectors/ANDES03/wps/namelist.wps.old
-wrf/sectors/ANDES03/wps/ungrib.log
-
-wrf/sectors/ANDES03/wrf/met_em.*
-wrf/sectors/ANDES03/wrf/namelist.input
-wrf/sectors/ANDES03/wrf/namelist.input.old
-wrf/sectors/ANDES03/wrf/namelist.output
-wrf/sectors/ANDES03/wrf/rsl.error.*
-wrf/sectors/ANDES03/wrf/rsl.out.*
-wrf/sectors/ANDES03/wrf/wrfbdy_d01*
-wrf/sectors/ANDES03/wrf/wrfinput*
-wrf/sectors/ANDES03/wrf/wrfout*
-wrf/sectors/ANDES03/wrf/wrfrst*
 
 
 *.old
