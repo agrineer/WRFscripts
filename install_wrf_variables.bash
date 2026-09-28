@@ -1,10 +1,9 @@
-#!/usr/bin/env /bin/bash
 
 # install_wrf_variables.bash Copyright (c) 2016-2026 Scott L. Williams
 # released under GNU GPL V3.0, see http://www.gnu.org/licenses/gpl-3.0.html   
 
 # example install variable assignation for WRF INSTALL bash script
-# change too your location; replace "/home/user"
+# change to your location; replace "/home/user"
 export WRF_SCRIPTS=/home/agrineer/WRFscripts # installation home
 
 export INSTALL_WRF_NUM_CORES=6        # number of cores for compilation
@@ -42,5 +41,5 @@ echo "    INSTALL_WRF_WPS_GEOG = ${INSTALL_WRF_WPS_GEOG}"
 echo "         INSTALL_WRF_MPI = ${INSTALL_WRF_MPI}"
 echo "  INSTALL_WRF_IO_CHANNEL = ${INSTALL_WRF_IO_CHANNEL}"
 echo "    INSTALL_WRF_USE_CUDA = ${INSTALL_WRF_USE_CUDA}"
-
+echo " "
 echo " Now run: ./INSTALL.bash 2>&1 | tee WRFscripts-build.txt"
