@@ -113,10 +113,10 @@ then
     # transport channel
     if [[ -z ${INSTALL_WRF_IO_CHANNEL} ]]
     then
-	echo "INSTALL ERROR: INSTALL_WRF_IO_CHANNEL environment variable needs to be set:"
-	echo "eg. export INSTALL_WRF_IO_CHANNEL=ch4:ofi"
-	echo "see example install_wrf_variables.bash...exiting"
-	exit 1
+        echo "INSTALL ERROR: INSTALL_WRF_IO_CHANNEL environment variable needs to be set:"
+        echo "eg. export INSTALL_WRF_IO_CHANNEL=ch4:ofi"
+        echo "see example install_wrf_variables.bash...exiting"
+        exit 1
     fi
 
     # TODO: get colon arg for ch3
@@ -124,10 +124,10 @@ then
       && ! [[ ${INSTALL_WRF_IO_CHANNEL} == "ch4:ofi" ]]         \
       && ! [[ ${INSTALL_WRF_IO_CHANNEL} == "ch4:ucx" ]]
     then
-	echo "INSTALL error: given INSTALL_WRF_IO_CHANNEL value: ${INSTALL_WRF_IO_CHANNEL} is not recognized"
-	echo "eg. export INSTALL_WRF_CHANNEL=ch4:ofi"
-	echo "see example install_wrf_variables.bash...exiting"
-	exit 1
+        echo "INSTALL error: given INSTALL_WRF_IO_CHANNEL value: ${INSTALL_WRF_IO_CHANNEL} is not recognized"
+        echo "eg. export INSTALL_WRF_CHANNEL=ch4:ofi"
+        echo "see example install_wrf_variables.bash...exiting"
+        exit 1
     fi
 fi
 
@@ -147,48 +147,48 @@ echo ""
 if [[ ${INSTALL_WRF_IO_TYPE} == "SERIAL_IO" ]]
 then
     #echo "INSTALL: installing SERIAL_IO libraries"
-    $WRF_SCRIPTS/packages/INSTALL_LIBS_SERIAL_IO
+    source $WRF_SCRIPTS/packages/INSTALL_LIBS_SERIAL_IO.bash
     status=$?
     if [[ $status -gt 0 ]]
     then
-	echo "INSTALL ERROR: could not install SERIAL_IO libs ... exiting"
-	exit 1
+        echo "INSTALL ERROR: could not install SERIAL_IO libs ... exiting"
+        exit 1
     fi   
 fi
 
 if [[ ${INSTALL_WRF_IO_TYPE} == "PNETCDF_IO" ]]
 then
     #echo "INSTALL: installing PNETCDF_IO libraries"
-    $WRF_SCRIPTS/packages/INSTALL_LIBS_PNETCDF_IO
+    source $WRF_SCRIPTS/packages/INSTALL_LIBS_PNETCDF_IO.bash
     status=$?
     if [[ $status -gt 0 ]]
     then
-	echo "INSTALL ERROR: could not install PNETCDF_IO libs ... exiting"
-	exit 1
+        echo "INSTALL ERROR: could not install PNETCDF_IO libs ... exiting"
+        exit 1
     fi   
 fi
 
 if [[ ${INSTALL_WRF_IO_TYPE} == "NETCDFPAR_IO" ]]
 then
     #echo "INSTALL: installing NETCDFPAR_IO libraries"
-    $WRF_SCRIPTS/packages/INSTALL_LIBS_NETCDFPAR_IO
+    source $WRF_SCRIPTS/packages/INSTALL_LIBS_NETCDFPAR_IO.bash
     status=$?
     if [[ $status -gt 0 ]]
     then
-	echo "INSTALL ERROR: could not install NETCDFPAR_IO libs ... exiting"
-	exit 1
+        echo "INSTALL ERROR: could not install NETCDFPAR_IO libs ... exiting"
+        exit 1
     fi   
 fi
 
 if [[ ${INSTALL_WRF_IO_TYPE} == "ADIOS2_IO" ]]
 then
     #echo "INSTALL: installing ADIOS2_IO libraries"
-    $WRF_SCRIPTS/packages/INSTALL_LIBS_ADIOS2_IO
+    source $WRF_SCRIPTS/packages/INSTALL_LIBS_ADIOS2_IO.bash
     status=$?
     if [[ $status -gt 0 ]]
     then
-	echo "INSTALL ERROR: could not install ADIOS2_IO libs ... exiting"
-	exit 1
+        echo "INSTALL ERROR: could not install ADIOS2_IO libs ... exiting"
+        exit 1
     fi   
 fi
 
@@ -232,7 +232,7 @@ fi
 # edit WRF/Registry file to include SFCEVP variable output
 #echo "INSTALL: editing REGISTRY"
 cd $WRF_SCRIPTS/wrf/WRF/Registry
-$WRF_SCRIPTS/fix_registry
+source $WRF_SCRIPTS/fix_registry.bash
 status=$?
 if [[ $status -gt 0 ]]
 then
@@ -244,53 +244,53 @@ fi
 if [[ ${INSTALL_WRF_IO_TYPE} == "SERIAL_IO" ]]
 then
     echo "INSTALL: installing ${WRFVER} SERIAL_IO"
-    $WRF_SCRIPTS/run_wrf_serial_io_install
+    source $WRF_SCRIPTS/run_wrf_serial_io_install.bash
     status=$?
     if [[ $status -gt 0 ]]
     then
-	echo "INSTALL ERROR: could not install ${WRFVER} SERIAL_IO ... exiting"
-	exit 1
+        echo "INSTALL ERROR: could not install ${WRFVER} SERIAL_IO ... exiting"
+        exit 1
     fi
 fi
 
 if [[ ${INSTALL_WRF_IO_TYPE} == "PNETCDF_IO" ]]
 then
     echo "INSTALL: installing ${WRFVER} PNETCDF_IO"
-    $WRF_SCRIPTS/run_wrf_pnetcdf_io_install
+    source $WRF_SCRIPTS/run_wrf_pnetcdf_io_install.bash
     status=$?
     if [[ $status -gt 0 ]]
     then
-	echo "INSTALL ERROR: could not install ${WRFVER} PNETCDF_IO ... exiting"
-	exit 1
+        echo "INSTALL ERROR: could not install ${WRFVER} PNETCDF_IO ... exiting"
+        exit 1
     fi
 fi
 
 if [[ ${INSTALL_WRF_IO_TYPE} == "NETCDFPAR_IO" ]]
 then
     echo "INSTALL: installing ${WRFVER} NETCDFPAR_IO"
-    $WRF_SCRIPTS/run_wrf_netcdfpar_io_install
+    source $WRF_SCRIPTS/run_wrf_netcdfpar_io_install.bash
     status=$?
     if [[ $status -gt 0 ]]
     then
-	echo "INSTALL ERROR: could not install ${WRFVER} NETCDFPAR_IO ... exiting"
-	exit 1
+        echo "INSTALL ERROR: could not install ${WRFVER} NETCDFPAR_IO ... exiting"
+        exit 1
     fi
 fi
 
 if [[ ${INSTALL_WRF_IO_TYPE} == "ADIOS2_IO" ]]
 then
     echo "INSTALL: installing ${WRFVER} ADIOS2_IO"
-    $WRF_SCRIPTS/run_wrf_adios2_io_install
+    source $WRF_SCRIPTS/run_wrf_adios2_io_install.bash
     status=$?
     if [[ $status -gt 0 ]]
     then
-	echo "INSTALL ERROR: could not install ${WRFVER} ADIOS2_IO ... exiting"
-	exit 1
+        echo "INSTALL ERROR: could not install ${WRFVER} ADIOS2_IO ... exiting"
+        exit 1
     fi   
 fi
 
 # build WPS after WRF build_
-$WRF_SCRIPTS/run_wps_install
+source $WRF_SCRIPTS/run_wps_install.bash
 status=$?
 if [[ $status -gt 0 ]]
 then
