@@ -37,7 +37,7 @@ WSUFFIX=tar.gz    #
 # check INSTALL environment bash variables
 
 # check if WRF_SCRIPTS enviroment variable has been set
-if [[ -z "${WRF_SCRIPTS}" ]]
+if [[ -z ${WRF_SCRIPTS} ]]
 then
     echo "INSTALL ERROR: WRF_SCRIPTS environment variable needs to be set:"
     echo "eg. export WRF_SCRIPTS=/home/user/WRF_SCRIPTS ... exiting"
@@ -51,7 +51,7 @@ if [[ ! -d ${WRF_SCRIPTS} ]]; then
     exit 1
 fi
 # error check IO_TYPE
-if [[ -z "${INSTALL_WRF_IO_TYPE}" ]]
+if [[ -z ${INSTALL_WRF_IO_TYPE} ]]
 then
     echo "INSTALL ERROR: INSTALL_WRF_IO_TYPE environment variable needs to be set:"
     echo "eg. export INSTALL_WRF_IO_TYPE=PNETCDF"
@@ -70,7 +70,7 @@ then
 fi
 
 # error check for WPS_GEOG flag
-if [[ -z "${INSTALL_WRF_WPS_GEOG}" ]]
+if [[ -z ${INSTALL_WRF_WPS_GEOG} ]]
 then
     echo "INSTALL ERROR: INSTALL_WRF_WPS_GEOG environment variable needs to be set:"
     echo "eg. export INSTALL_WRF_WPS_GEOG=NO"
@@ -88,7 +88,7 @@ then
 fi
 
 # error check WRF_MPI
-if [[ -z "${INSTALL_WRF_MPI}" ]]
+if [[ -z ${INSTALL_WRF_MPI} ]]
 then
     echo "INSTALL ERROR: INSTALL_WRF_MPI environment variable needs to be set:"
     echo "eg. export INSTALL_WRF_MPI=MPICH"
@@ -111,7 +111,7 @@ if     [[ ${INSTALL_WRF_MPI} == "MPICH" ]]        \
     || [[ ${INSTALL_WRF_MPI} == "MPICH+OPENMP" ]]
 then
     # transport channel
-    if [[ -z "${INSTALL_WRF_IO_CHANNEL}" ]]
+    if [[ -z ${INSTALL_WRF_IO_CHANNEL} ]]
     then
 	echo "INSTALL ERROR: INSTALL_WRF_IO_CHANNEL environment variable needs to be set:"
 	echo "eg. export INSTALL_WRF_IO_CHANNEL=ch4:ofi"
@@ -367,6 +367,7 @@ then
     exit 1
 fi
 
+select 
 echo "INSTALL: untar'ing modis_landuse_20class_30s.tar.bz2"
 tar xvf modis_landuse_20class_30s.tar.bz2
 status=$?
