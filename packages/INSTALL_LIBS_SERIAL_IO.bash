@@ -140,22 +140,22 @@ make_lib()
     print_env
     
     cd $WRF_SCRIPTS/packages
-    rm -rf $PNAME
+    rm -rf $PNAME # remove old package dir
 
     untar_package # parameters are PNAME and SUFFIX
     cd $PNAME
    
     echo "configuring ${PNAME} on ${HOSTNAME}"
 
-    ./configure $CONF_PARAMS 2>&1 | tee $(PNAME)\_config.log
+    ./configure $CONF_PARAMS 2>&1 | tee $PNAME\_config.log
     check_configure
 
     echo "making ${PNAME}"
-    make -j $INSTALL_WRF_NUM_CORES 2>&1 | tee $(PNAME)\_make.log
+    make -j $INSTALL_WRF_NUM_CORES 2>&1 | tee $PNAME\_make.log
     check_make
     
     echo "make install ${PNAME}"
-    make install 2>&1 | tee $(PNAME)\_make_install.log
+    make install 2>&1 | tee $PNAME\_make_install.log
     check_make_install
 
     echo "installing ${PNAME} done"
@@ -286,7 +286,7 @@ then
         CC=gcc # needed?
         CFLAGS="-fcommon -Wno-error=incompatible-pointer-types"
         CXXFLAGS="-fcommon -Wno-error=incompatible-pointer-types"
-        CONF_PARAMS="--prefix=${WRF_SCRIPTS}/wrf" # no CUDA or DEVICE for now
+        CONF_PARAMS="--prefix=${WRF_SCRIPTS}/wrf --with-device=ch4:ucx " # no CUDA or DEVICE for now
     else
         
         echo "INSTALL_LIBS_SERIAL_IO: compiling MPICH with channel ${INSTALL_WRF_IO_CHANNEL}"
