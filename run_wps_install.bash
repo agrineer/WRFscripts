@@ -9,7 +9,7 @@ cd $WRF_SCRIPTS/wrf/WPS
 OPTION=1  # GNU/Linux gfortran configure option
 
 # MAC OS X jason configure fix (workaround)
-if [[ "$OSTYPE" == "darwin"* ]]; then
+if [[ ${OSTYPE} == "darwin"* ]]; then
 
     # Source: https://github.com/scottlynn73/build_wrf_macos
 
