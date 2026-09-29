@@ -56,7 +56,7 @@ fi
 
 ./compile -j $INSTALL_WRF_NUM_CORES em_real 2>&1 | tee WRF-build.txt
 
-if [[ ${PIPESTATUS[[0]} -gt 0 ]]
+if [[ ${PIPESTATUS[0]} -gt 0 ]]
 then
     echo "INSTALL ERROR: run_wrf_serial_io_install: could not compile WRF"
     echo "review the wrf configure build file for details ... exiting"
