@@ -1,11 +1,12 @@
-#!/bin/bash
 
-echo "Starting WRF ADIOS2 configure and compile"
-export HDF5=$WRF_SCRIPTS/wrf
-export NETCDF=$WRF_SCRIPTS/wrf
-export ADIOS2=$WRF_SCRIPTS/wrf
+echo "Starting WRF configure and compile"
+
+#export HDF5=$WRF_SCRIPTS/wrf
+export PHDF5=$WRF_SCRIPTS/wrf
+export NETCDFPAR=$WRF_SCRIPTS/wrf
+export NETCDF_classic=1
 export WRF_EM_CORE=1
-#export WRFIO_NCD_LARGE_FILE_SUPPORT=1 
+export WRFIO_NCD_LARGE_FILE_SUPPORT=1 
 
 cd $WRF_SCRIPTS/wrf/WRF
 
@@ -31,7 +32,6 @@ fi
 ${OPTION}
 1
 EOF
-
 # 33 is smpar (symetrical memory)
 # 34 is dmpar (distributed memory)
 # 35 is smpar and dmpar
@@ -39,18 +39,18 @@ EOF
 status=$?
 if [ $status -gt 0 ]
 then
-    echo "run_wrf_adios2_io_install: could not configure WRF"
+    echo "run_wrf_netcdfpar_io_install: could not configure WRF"
     echo "review the wrf configure build file for details"
     exit 1
 fi
 
-./compile em_real 2>&1 | tee wrf-build.txt
+./compile em_real 2>&1 | tee WRF-build.txt
 
 if [ ${PIPESTATUS[0]} -gt 0 ]
 then
-    echo "run_wrf_adios2_io_install: could not compile WRF"
+    echo "run_wrf_pnetcdf_io_install: could not compile WRF"
     echo "review the wrf configure build file for details"
     exit 1
 fi
 
-echo "End of WRF ADIOS2_IO configure and compile"
+echo "End of WRF NETCDFPAR configure and compile"

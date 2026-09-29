@@ -30,8 +30,8 @@ untar_package()
     status=$?
     if [[ $status -gt 0 ]]
     then
-	echo "INSTALL_LIBS_SERIAL_IO: could not untar ${PNAME}.${SUFFIX}"
-	exit 1
+        echo "INSTALL_LIBS_SERIAL_IO: could not untar ${PNAME}.${SUFFIX}"
+        exit 1
     fi
 }
 
@@ -40,10 +40,10 @@ check_configure()
 {
     if [[ ${PIPESTATUS[0]} -gt 0 ]]
     then
-	echo "INSTALL_LIBS_SERIAL_IO: could not configure ${PNAME}"
-	echo "review ${WRF_SCRIPTS}/wrf/packages/${PNAME}/${PNAME}_config.log"
-	echo "and ${WRF_SCRIPTS}/wrf/packages/${PNAME}/config.log for details"
-	exit 1
+        echo "INSTALL_LIBS_SERIAL_IO: could not configure ${PNAME}"
+        echo "review ${WRF_SCRIPTS}/wrf/packages/${PNAME}/${PNAME}_config.log"
+        echo "and ${WRF_SCRIPTS}/wrf/packages/${PNAME}/config.log for details"
+        exit 1
     fi
 }
 
@@ -52,9 +52,9 @@ check_make()
 {
     if [[ ${PIPESTATUS[0]} -gt 0 ]]
     then
-	echo "INSTALL_LIBS_SERIAL_IO: could not make ${PNAME}"
-	echo "review ${WRF_SCRIPTS}/wrf/packages/${PNAME}/${PNAME}_make.log for details"
-	exit 1
+        echo "INSTALL_LIBS_SERIAL_IO: could not make ${PNAME}"
+        echo "review ${WRF_SCRIPTS}/wrf/packages/${PNAME}/${PNAME}_make.log for details"
+        exit 1
     fi
 }
 
@@ -63,9 +63,9 @@ check_make_install()
 {
     if [[ ${PIPESTATUS[0]} -gt 0 ]]
     then
-	echo "INSTALL_LIBS_SERIAL_IO: could not make install ${PNAME}"
-	echo "review ${WRF_SCRIPTS}/wrf/packages/${PNAME}/${PNAME}_make_install.log for details"
-	exit 1
+        echo "INSTALL_LIBS_SERIAL_IO: could not make install ${PNAME}"
+        echo "review ${WRF_SCRIPTS}/wrf/packages/${PNAME}/${PNAME}_make_install.log for details"
+        exit 1
     fi
 }
 
@@ -78,57 +78,57 @@ print_env()
     
     if [[ -n "${CC}" ]]
     then
-	echo "CC=${CC}"
+        echo "CC=${CC}"
     fi
 
     if [[ -n "${MPICC}" ]]
     then
-	echo "MPICC=${MPICC}"
+        echo "MPICC=${MPICC}"
     fi
 
     if [[ -n "${CFLAGS}" ]]
     then
-	echo "CFLAGS=${CFLAGS}"
+        echo "CFLAGS=${CFLAGS}"
     fi
 
     if [[ -n "${CPPFLAGS}" ]]
     then
-	echo "CPPFLAGS=${CPPFLAGS}"
+        echo "CPPFLAGS=${CPPFLAGS}"
     fi
 
     if [[ -n "${CXXFLAGS}" ]]
     then
-	echo "CXXFLAGS=${CXXFLAGS}"
+        echo "CXXFLAGS=${CXXFLAGS}"
     fi
 
     if [[ -n "${FC}" ]]
     then
-	echo "FC=${FC}"
+        echo "FC=${FC}"
     fi
 
     if [[ -n "${FCFLAGS}" ]]
     then
-	echo "FCFLAGS=${FCFLAGS}"
+        echo "FCFLAGS=${FCFLAGS}"
     fi
 
     if [[ -n "${MPIF90}" ]]
     then
-	echo "MPIF90=${MPIF90}"
+        echo "MPIF90=${MPIF90}"
     fi
 
     if [[ -n "${LD_LIBRARY_PATH}" ]]
     then
-	echo "LD_LIBRARY_PATH=${LD_LIBRARY_PATH}"
+        echo "LD_LIBRARY_PATH=${LD_LIBRARY_PATH}"
     fi
     
     if [[ -n "${LDFLAGS}" ]]
     then
-	echo "LDFLAGS=${LDFLAGS}"
+        echo "LDFLAGS=${LDFLAGS}"
     fi
 
     if [[ -n "${FFLAGS}" ]]
     then
-	echo "FFLAGS=${FFLAGS}"
+        echo "FFLAGS=${FFLAGS}"
     fi
 
     echo "CONF_PARAMS=${CONF_PARAMS}"  # must always have CONF_PARAMS
@@ -219,8 +219,8 @@ echo "         gfs_0.25"
 echo "         output"
 echo "         sectors"
 echo "         WPS_GEOG"
-echo " "
-echo "         are preserved."
+echo ""
+echo "are preserved."
 
 # HDF5
 # you can download HDF5 from the HDF5 download page.
@@ -265,35 +265,35 @@ then
     echo "INSTALL_LIBS_SERIAL_IO: using INSTALL_WRF_USE_CUDA=${INSTALL_WRF_USE_CUDA}"
     if [[ ${INSTALL_WRF_USE_CUDA} == "NONE" ]]
     then
-	CUDA="--without-cuda"
-	echo "INSTALL_LIBS_SERIAL_IO: compiling MPICH without CUDA"
+        CUDA="--without-cuda"
+        echo "INSTALL_LIBS_SERIAL_IO: compiling MPICH without CUDA"
     else
-	if [[ -d ${INSTALL_WRF_USE_CUDA} ]] # check directory 
-	then
-	    CUDA="--with-cuda=${INSTALL_WRF_USE_CUDA}"
-	    echo "INSTALL_LIBS_SERIAL_IO: compiling MPICH with CUDA=${INSTALL_WRF_USE_CUDA}"
-	else
-	    echo "INSTALL_LIBS_SERIAL_IO: CUDA directory ${INSTALL_WRF_USE_CUDA} does not exist...exiting"
-	    exit 1
-	fi
+        if [[ -d ${INSTALL_WRF_USE_CUDA} ]] # check directory 
+        then
+            CUDA="--with-cuda=${INSTALL_WRF_USE_CUDA}"
+            echo "INSTALL_LIBS_SERIAL_IO: compiling MPICH with CUDA=${INSTALL_WRF_USE_CUDA}"
+        else
+            echo "INSTALL_LIBS_SERIAL_IO: CUDA directory ${INSTALL_WRF_USE_CUDA} does not exist...exiting"
+            exit 1
+        fi
     fi
 
     # MAC OS ?
     if [[ ${OSTYPE} == "darwin"* ]]
     then
-	echo "INSTALL_LIBS_SERIAL_IO: compiling MPICH for MAC OS X"
-	
-	CC=gcc # needed?
-	CFLAGS="-fcommon -Wno-error=incompatible-pointer-types"
-	CXXFLAGS="-fcommon -Wno-error=incompatible-pointer-types"
-	CONF_PARAMS="--prefix=${WRF_SCRIPTS}/wrf" # no CUDA or DEVICE for now
+        echo "INSTALL_LIBS_SERIAL_IO: compiling MPICH for MAC OS X"
+        
+        CC=gcc # needed?
+        CFLAGS="-fcommon -Wno-error=incompatible-pointer-types"
+        CXXFLAGS="-fcommon -Wno-error=incompatible-pointer-types"
+        CONF_PARAMS="--prefix=${WRF_SCRIPTS}/wrf" # no CUDA or DEVICE for now
     else
-	
-	echo "INSTALL_LIBS_SERIAL_IO: compiling MPICH with channel ${INSTALL_WRF_IO_CHANNEL}"
-	
-	# TODO:check for valid device
-	DEVICE="--with-device=${INSTALL_WRF_IO_CHANNEL}"
-	CONF_PARAMS="--prefix=${WRF_SCRIPTS}/wrf ${CUDA} ${DEVICE}"
+        
+        echo "INSTALL_LIBS_SERIAL_IO: compiling MPICH with channel ${INSTALL_WRF_IO_CHANNEL}"
+        
+        # TODO:check for valid device
+        DEVICE="--with-device=${INSTALL_WRF_IO_CHANNEL}"
+        CONF_PARAMS="--prefix=${WRF_SCRIPTS}/wrf ${CUDA} ${DEVICE}"
     fi
     
     make_lib

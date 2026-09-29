@@ -1,20 +1,15 @@
-#!/bin/bash
-echo "Starting WRF configure and compile"
 
-#export HDF5=$WRF_SCRIPTS/wrf
-export PHDF5=$WRF_SCRIPTS/wrf
+echo "Starting WRF ADIOS2 configure and compile"
+export HDF5=$WRF_SCRIPTS/wrf
 export NETCDF=$WRF_SCRIPTS/wrf
-export NETCDF4=1
-export NETCDF_classic=1
-export PNETCDF=$WRF_SCRIPTS/wrf
+export ADIOS2=$WRF_SCRIPTS/wrf
 export WRF_EM_CORE=1
-export WRFIO_NCD_LARGE_FILE_SUPPORT=1
+#export WRFIO_NCD_LARGE_FILE_SUPPORT=1 
 
 cd $WRF_SCRIPTS/wrf/WRF
 
 if [ ${INSTALL_WRF_MPI} = "OPENMP" ]
 then
-    export FCFLAGS=-fopenmp
     OPTION=33
     echo "INSTALL: using OPENMP only"
 elif [ ${INSTALL_WRF_MPI} = "MPICH" ]
@@ -23,7 +18,6 @@ then
     echo "INSTALL: using MPICH only"
 elif [ ${INSTALL_WRF_MPI} = "MPICH+OPENMP" ]
 then
-    export FCFLAGS=-fopenmp
     OPTION=35
     echo "INSTALL: using MPICH + OPENMP"
 else:
@@ -33,9 +27,10 @@ fi
 
 ./clean -a
 ./configure << EOF
-${OPTION}                       
+${OPTION}
 1
 EOF
+
 # 33 is smpar (symetrical memory)
 # 34 is dmpar (distributed memory)
 # 35 is smpar and dmpar
@@ -43,18 +38,18 @@ EOF
 status=$?
 if [ $status -gt 0 ]
 then
-    echo "run_wrf_pnetcdf_io_install: could not configure WRF"
+    echo "run_wrf_adios2_io_install: could not configure WRF"
     echo "review the wrf configure build file for details"
     exit 1
 fi
 
-./compile em_real 2>&1 | tee WRF-build.txt
+./compile em_real 2>&1 | tee wrf-build.txt
 
 if [ ${PIPESTATUS[0]} -gt 0 ]
 then
-    echo "run_wrf_pnetcdf_io_install: could not compile WRF"
+    echo "run_wrf_adios2_io_install: could not compile WRF"
     echo "review the wrf configure build file for details"
     exit 1
 fi
 
-echo "End of WRF PNETCDF_IO configure and compile"
+echo "End of WRF ADIOS2_IO configure and compile"

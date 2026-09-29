@@ -3,7 +3,7 @@
 # fix_registry Copyright (c) 2016-2026 Scott L. Williams
 # released under GNU GPL V3.0 see http://www.gnu.org/licenses/gpl-3.0.html   
 
-# using sed -i.bak and && rm Registry.EM_COMMON.bak
+# using sed -i.bak and && rm Registry/EM_COMMON.bak
 # as a workaround for compatibility with MAC OS X
 
 echo -n "INSTALL: fixing registry values..."

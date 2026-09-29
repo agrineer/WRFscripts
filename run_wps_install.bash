@@ -1,4 +1,4 @@
-#!/bin/bash
+
 echo "Starting WPS configure and compile"
 
 export NETCDF=$WRF_SCRIPTS/wrf
@@ -22,7 +22,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     # Check for automake and install it if not available
     if ! command -v automake &> /dev/null
     then
-	brew install automake;
+        brew install automake;
     fi
 
     # Copy required configuration files for macOS build

@@ -1,4 +1,3 @@
-#!/bin/bash
 
 # run_wrf_serial_io_install Copyright (c) 2016-2026 Scott L. Williams
 # released under GNU GPL V3.0, see http://www.gnu.org/licenses/gpl-3.0.html   
