@@ -74,57 +74,57 @@ print_env()
 
     # print variable if populated
     
-    if [[ -n "${CC}" ]]
+    if [[ -n ${CC} ]]
     then
         echo "CC=${CC}"
     fi
 
-    if [[ -n "${MPICC}" ]]
+    if [[ -n ${MPICC} ]]
     then
         echo "MPICC=${MPICC}"
     fi
 
-    if [[ -n "${CFLAGS}" ]]
+    if [[ -n ${CFLAGS} ]]
     then
         echo "CFLAGS=${CFLAGS}"
     fi
 
-    if [[ -n "${CPPFLAGS}" ]]
+    if [[ -n ${CPPFLAGS} ]]
     then
         echo "CPPFLAGS=${CPPFLAGS}"
     fi
 
-    if [[ -n "${CXXFLAGS}" ]]
+    if [[ -n ${CXXFLAGS} ]]
     then
         echo "CXXFLAGS=${CXXFLAGS}"
     fi
 
-    if [[ -n "${FC}" ]]
+    if [[ -n ${FC} ]]
     then
         echo "FC=${FC}"
     fi
 
-    if [[ -n "${FCFLAGS}" ]]
+    if [[ -n ${FCFLAGS} ]]
     then
         echo "FCFLAGS=${FCFLAGS}"
     fi
 
-    if [[ -n "${MPIF90}" ]]
+    if [[ -n ${MPIF90} ]]
     then
         echo "MPIF90=${MPIF90}"
     fi
 
-    if [[ -n "${LD_LIBRARY_PATH}" ]]
+    if [[ -n ${LD_LIBRARY_PATH} ]]
     then
         echo "LD_LIBRARY_PATH=${LD_LIBRARY_PATH}"
     fi
     
-    if [[ -n "${LDFLAGS}" ]]
+    if [[ -n ${LDFLAGS} ]]
     then
         echo "LDFLAGS=${LDFLAGS}"
     fi
 
-    if [[ -n "${FFLAGS}" ]]
+    if [[ -n ${FFLAGS} ]]
     then
         echo "FFLAGS=${FFLAGS}"
     fi
