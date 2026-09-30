@@ -280,12 +280,28 @@ then
     if [[ ${OSTYPE} == "darwin"* ]]
     then
         echo "INSTALL_LIBS_SERIAL_IO: compiling MPICH for MAC OS X"
-        
-        CC=gcc # needed?
-        CFLAGS="-fcommon -Wno-error=incompatible-pointer-types"
-        CXXFLAGS="-fcommon -Wno-error=incompatible-pointer-types"
+
+	GNUBIN=/opt/local/bin
+	
+	export FC=$GNUBIN/gfortran
+	export F77=$FC
+	echo "FC=${FC} F77=${F77}"
+	
+	export CC=$GNUBIN/gcc
+	export CXX=$GNUBIN/g++
+
+	echo "CC=${CC} CXX=${CXX}"
+
+        export FFLAGS="-fPIC -m64 -fallow-argument-mismatch -I /opt/local/include/unistring/cdefs.h"
+        export CFLAGS="-fPIC -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -m64 -I /opt/local/include/unistring/cdefs.h"
+
+	CONF_PARAMS="--prefix=${WRF_SCRIPTS}/wrf --enable-shared=no --enable-fast=O3,ndebug --disable-error-checking --enable-fortran=all --enable-cxx --enable-romio"
+
+        #export CC=gcc 
+        #export CFLAGS="-fcommon -Wno-error=incompatible-pointer-types"
+        #export CXXFLAGS="-fcommon -Wno-error=incompatible-pointer-types"
 	#-Wincompatible-pointer-types
-        CONF_PARAMS="--prefix=${WRF_SCRIPTS}/wrf --with-device=ch4:ucx " # no CUDA or DEVICE for now
+        #CONF_PARAMS="--prefix=${WRF_SCRIPTS}/wrf --with-device=ch4:ucx " # no CUDA or DEVICE for now
     else
         
         echo "INSTALL_LIBS_SERIAL_IO: compiling MPICH with channel ${INSTALL_WRF_IO_CHANNEL}"
