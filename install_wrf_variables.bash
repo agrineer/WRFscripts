@@ -5,7 +5,7 @@
 # example install variable assignation for WRF INSTALL bash script
 # change to your location; replace "/home/user"\
     
-export WRF_SCRIPTS=/home/user/WRFscripts # installation home
+export WRF_SCRIPTS=/home/agrineer/WRFscripts # installation home
 
 export INSTALL_WRF_NUM_CORES=6        # number of cores for compilation
 
@@ -14,21 +14,21 @@ export INSTALL_WRF_IO_TYPE=SERIAL_IO  # file input/output type
                                       # NETCDFPAR_IO, ADIOS2_IO.
                                       # SERIAL_IO is the only stable one for this release
 
-export INSTALL_WRF_WPS_GEOG=YES       # download earth static data
+export INSTALL_WRF_WPS_GEOG=NO        # download earth static data
                                       # options are: NO and YES
 
 export INSTALL_WRF_MPI=MPICH          # MPI memory access mode
                                       # option are: MPICH, OPENMP and
                                       # MPICH+OPENMP
                                       
-export INSTALL_WRF_IO_CHANNEL=ch4:ofi
+export INSTALL_WRF_IO_CHANNEL=ch4:ucx
                                       # options are: ch3:nemesis,ch4:ofi,ch4:ucx
                                       # used with MPICH or MPICH+OPENMP
                                       # and is ignored if MPICH is not used. 
                                       # eg. INSTALL. OPENMP
  
 
-export INSTALL_WRF_USE_CUDA=NONE
+export INSTALL_WRF_USE_CUDA=/usr/local/cuda
                                       # use GPU, options are: CUDA directory, 
                                       # eg. /usr/local/cuda, or NONE
                                       # NOTE: does not compile with ch4:ofi.
@@ -45,4 +45,4 @@ echo "    INSTALL_WRF_MPI        = ${INSTALL_WRF_MPI}"
 echo "    INSTALL_WRF_IO_CHANNEL = ${INSTALL_WRF_IO_CHANNEL}"
 echo "    INSTALL_WRF_USE_CUDA   = ${INSTALL_WRF_USE_CUDA}"
 echo " "
-echo " Now run: ./INSTALL.bash 2>&1 | tee WRFscripts-build.txt"
+echo " Now run: source INSTALL.bash 2>&1 | tee WRFscripts-build.txt"

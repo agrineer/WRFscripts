@@ -20,7 +20,7 @@ then
     
 elif [[ ${INSTALL_WRF_MPI} == "MPICH" ]]
 then
-    if [[ "$OSTYPE" == "darwin"* ]]
+    if [[ ${OSTYPE} == "darwin"* ]]
     then
 	OPTION=17 # MAC OSX
     else

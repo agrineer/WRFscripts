@@ -1,5 +1,3 @@
-#!/bin/bash
-
 #  INSTALL_LIBS_SERIAL_IO
 # 
 #  Copyright (c) 2020-2026 Scott L. Williams
@@ -286,6 +284,7 @@ then
         CC=gcc # needed?
         CFLAGS="-fcommon -Wno-error=incompatible-pointer-types"
         CXXFLAGS="-fcommon -Wno-error=incompatible-pointer-types"
+	#-Wincompatible-pointer-types
         CONF_PARAMS="--prefix=${WRF_SCRIPTS}/wrf --with-device=ch4:ucx " # no CUDA or DEVICE for now
     else
         

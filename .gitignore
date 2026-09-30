@@ -19,7 +19,7 @@ wrf/WPS_GEOG
 wrf/WRF/
 wrf/build.txt
 
-
+install_wrf_variables.bash
 
 *.old
 *.tmp
