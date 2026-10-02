@@ -1,29 +1,16 @@
 WRFscripts-build.txt
+install_wrf_variables.bash
 
-packages/hdf5-1.10.10/
-packages/mpich-5.0.2/
-packages/netcdf-c-4.10.1/
-packages/netcdf-fortran-4.6.4/
-packages/WRFV4.8.0.tar.gz
+packages/
+#packages/hdf5-1.10.10/
+#packages/mpich-5.0.2/
+#packages/netcdf-c-4.10.1/
+#packages/netcdf-fortran-4.6.4/
+#packages/WRFV4.8.0.tar.gz
 
+#wrf/sectors/ANDES03/
 wrf/
 !wrf/scripts
-#wrfbin
-#wrfbin/
-#wrf/etc/
-#wrf/gfs_0.25/
-#wrf/include/
-#wrf/lib/
-#wrf/log/
-#wrf/output/
-#wrf/sectors/
-#wrf/share/
-#wrf/WPS/
-#wrf/WPS_GEOG
-#wrf/WRF/
-#wrf/build.txt
-
-install_wrf_variables.bash
 
 *.old
 *.tmp
