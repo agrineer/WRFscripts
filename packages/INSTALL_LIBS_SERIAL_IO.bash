@@ -233,7 +233,8 @@ make_lib
 
 # wget https://downloads.unidata.ucar.edu/netcdf-c/4.9.2/netcdf-c-4.9.2.tar.gz
 clear_vars
-PNAME=netcdf-c-4.9.2
+
+PNAME=netcdf-c-4.10.1
 SUFFIX=tar.gz
 CONF_PARAMS="--prefix=${WRF_SCRIPTS}/wrf --enable-netcdf4 --disable-byterange --enable-largefile"
 export CPPFLAGS=-I$WRF_SCRIPTS/wrf/include
@@ -242,7 +243,7 @@ make_lib
 
 # wget https://downloads.unidata.ucar.edu/netcdf-fortran/4.6.1/netcdf-fortran-4.6.1.tar.gz
 clear_vars
-PNAME=netcdf-fortran-4.6.1
+PNAME=netcdf-fortran-4.6.4
 SUFFIX=tar.gz
 CONF_PARAMS="--prefix=${WRF_SCRIPTS}/wrf --enable-largefile --enable-shared"
 export CPPFLAGS=-I$WRF_SCRIPTS/wrf/include
@@ -256,7 +257,7 @@ make_lib
 clear_vars
 if [[ ${INSTALL_WRF_MPI} == "MPICH" ]]
 then
-    PNAME=mpich-4.2.1         # package name
+    PNAME=mpich-5.0.2         # package name
     SUFFIX=tar.gz
     
     # compile with CUDA?

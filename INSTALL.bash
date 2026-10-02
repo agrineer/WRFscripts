@@ -380,5 +380,5 @@ rm modis_landuse_20class_30s.tar.bz2
 
 echo "WRF ${IO} INSTALLATION complete with WPS_GEOG files."
 echo "You must populate geo files in wrf/sectors/XXXXX/wps, "
-echo "and set io_forms in $WRF_SCRIPTS/wrf/sectors/XXXXX/wrf/namelist.input.org"
-echo "See README.txt"
+echo "and set io_forms in $WRF_SCRIPTS/wrf/sectors/XXXXX/wrf/namelist.input.template"
+echo "See HOWTO_INSTALL.txt
