@@ -1,6 +1,6 @@
 ./WRFscripts-build.txt
 ./install_wrf_variables.bash
-
+WRFscripts-build.txt
 packages/
 #packages/hdf5-1.10.10/
 #packages/mpich-5.0.2/
@@ -8,9 +8,11 @@ packages/
 #packages/netcdf-fortran-4.6.4/
 #packages/WRFV4.8.0.tar.gz
 
-#wrf/sectors/ANDES03/
 wrf/
-!wrf/scripts
+!wrf/scripts/
+#wrf/sectors/ANDES03/
+
+
 
 *.old
 *.tmp
