@@ -262,7 +262,7 @@ then
     
     # compile with CUDA?
     echo "INSTALL_LIBS_SERIAL_IO: using INSTALL_WRF_USE_CUDA=${INSTALL_WRF_USE_CUDA}"
-    if [[ ${INSTALL_WRF_USE_CUDA} == "NONE" ]]
+    if [[ ${INSTALL_WRF_USE_CUDA} == "NO" ]]
     then
         CUDA="--without-cuda"
         echo "INSTALL_LIBS_SERIAL_IO: compiling MPICH without CUDA"
