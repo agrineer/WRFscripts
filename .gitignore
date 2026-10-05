@@ -7,8 +7,9 @@ packages/
 !netcdf-c-4.10.1.gz
 !netcdf-fortran-4.6.4.gz
 !WRFV4.8.0._part_*
+!WPSV4.7.0.tar.gz
+!INSTALL_LIBS_SERIAL_IO.bash
 
-#wrf/sectors/ANDES03/
 wrf/
 !runwrf
 !getdata_gfs.py
