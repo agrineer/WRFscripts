@@ -1,4 +1,3 @@
-
 # install_wrf_variables.bash Copyright (c) 2016-2026 Scott L. Williams
 # released under GNU GPL V3.0, see http://www.gnu.org/licenses/gpl-3.0.html   
 
@@ -28,9 +27,9 @@ export INSTALL_WRF_IO_CHANNEL=ch4:ucx
                                       # eg. INSTALL. OPENMP
  
 
-export INSTALL_WRF_USE_CUDA=/usr/local/cuda
+export INSTALL_WRF_USE_CUDA=NO
                                       # use GPU, options are: CUDA directory, 
-                                      # eg. /usr/local/cuda, or NONE
+                                      # eg. /usr/local/cuda, or NO
                                       # NOTE: does not compile with ch4:ofi.
                                       #       compiles and runs with ch3:nemesis and ch4:ucx.
                                       #       this is not used in WRF, but can be used
@@ -45,4 +44,4 @@ echo "    INSTALL_WRF_MPI        = ${INSTALL_WRF_MPI}"
 echo "    INSTALL_WRF_IO_CHANNEL = ${INSTALL_WRF_IO_CHANNEL}"
 echo "    INSTALL_WRF_USE_CUDA   = ${INSTALL_WRF_USE_CUDA}"
 echo " "
-echo " Now run: source INSTALL.bash 2>&1 | tee WRFscripts-build.txt"
+echo " Now run: $ source INSTALL.bash 2>&1 | tee WRFscripts-build.txt"
