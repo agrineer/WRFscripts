@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #  INSTALL.bash WRF with environment variables parameters 
 # 
@@ -36,7 +36,7 @@ WSUFFIX=tar.gz    #
 
 # check INSTALL environment bash variables
 
-# check if WRF_SCRIPTS enviroment variable has been set
+# check if WRF_SCRIPTS environment variable has been set
 if [[ -z ${WRF_SCRIPTS} ]]
 then
     echo "INSTALL ERROR: WRF_SCRIPTS environment variable needs to be set:"
@@ -50,19 +50,17 @@ if [[ ! -d ${WRF_SCRIPTS} ]]; then
     echo "INSTALL ERROR: exiting"
     exit 1
 fi
+
 # error check IO_TYPE
 if [[ -z ${INSTALL_WRF_IO_TYPE} ]]
 then
     echo "INSTALL ERROR: INSTALL_WRF_IO_TYPE environment variable needs to be set:"
-    echo "eg. export INSTALL_WRF_IO_TYPE=PNETCDF"
+    echo "eg. export INSTALL_WRF_IO_TYPE=SERIAL_IO"
     echo "see example install_wrf_variables.bash ... exiting"
     exit 1
 fi
 
-if   ! [[ ${INSTALL_WRF_IO_TYPE} == "SERIAL_IO" ]]    \
-  && ! [[ ${INSTALL_WRF_IO_TYPE} == "PNETCDF_IO" ]]   \
-  && ! [[ ${INSTALL_WRF_IO_TYPE} == "NETCDFPAR_IO" ]] \
-  && ! [[ ${INSTALL_WRF_IO_TYPE} == "ADIOS2_IO" ]]
+if   ! [[ ${INSTALL_WRF_IO_TYPE} == "SERIAL_IO" ]] 
 then
     echo "INSTALL ERROR: given INSTALL_WRF_IO_TYPE value: ${INSTALL_WRF_IO_TYPE} is not recognized"
     echo "see example install_wrf_variables.bash...exiting"
@@ -131,6 +129,15 @@ then
     fi
 fi
 
+if   ! [[ ${INSTALL_WRF_USE_CUDA} == "NO" ]] \
+  && ! [[ ${INSTALL_WRF_USE_CUDA} == "YES" ]]
+then 
+    echo "INSTALL ERROR: given USE_CUDA value: ${INSTALL_WRF_USE_CUDA} is not recognized"
+    echo "should be YES or NO"
+    echo "see example install_wrf_variables.bash...exiting"
+    exit 1
+fi
+
 echo "WRF build environment variable values:" | tee wrf/build.txt
 echo "    WRF_SCRIPTS directory  = ${WRF_SCRIPTS}" | tee -a wrf/build.txt
 echo "    INSTALL WRF_NUM_CORES  = ${INSTALL_WRF_NUM_CORES}" | tee -a wrf/build.txt
@@ -146,48 +153,12 @@ echo ""
 # install library packages needed for WRF
 if [[ ${INSTALL_WRF_IO_TYPE} == "SERIAL_IO" ]]
 then
-    #echo "INSTALL: installing SERIAL_IO libraries"
+    echo "INSTALL: installing SERIAL_IO libraries"
     source $WRF_SCRIPTS/packages/INSTALL_LIBS_SERIAL_IO.bash
     status=$?
     if [[ $status -gt 0 ]]
     then
         echo "INSTALL ERROR: could not install SERIAL_IO libs ... exiting"
-        exit 1
-    fi   
-fi
-
-if [[ ${INSTALL_WRF_IO_TYPE} == "PNETCDF_IO" ]]
-then
-    #echo "INSTALL: installing PNETCDF_IO libraries"
-    source $WRF_SCRIPTS/packages/INSTALL_LIBS_PNETCDF_IO.bash
-    status=$?
-    if [[ $status -gt 0 ]]
-    then
-        echo "INSTALL ERROR: could not install PNETCDF_IO libs ... exiting"
-        exit 1
-    fi   
-fi
-
-if [[ ${INSTALL_WRF_IO_TYPE} == "NETCDFPAR_IO" ]]
-then
-    #echo "INSTALL: installing NETCDFPAR_IO libraries"
-    source $WRF_SCRIPTS/packages/INSTALL_LIBS_NETCDFPAR_IO.bash
-    status=$?
-    if [[ $status -gt 0 ]]
-    then
-        echo "INSTALL ERROR: could not install NETCDFPAR_IO libs ... exiting"
-        exit 1
-    fi   
-fi
-
-if [[ ${INSTALL_WRF_IO_TYPE} == "ADIOS2_IO" ]]
-then
-    #echo "INSTALL: installing ADIOS2_IO libraries"
-    source $WRF_SCRIPTS/packages/INSTALL_LIBS_ADIOS2_IO.bash
-    status=$?
-    if [[ $status -gt 0 ]]
-    then
-        echo "INSTALL ERROR: could not install ADIOS2_IO libs ... exiting"
         exit 1
     fi   
 fi
