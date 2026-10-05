@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#! python3
 
 #  getdata_gfs.py                                                       
 #                                                                               
