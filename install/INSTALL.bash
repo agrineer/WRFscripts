@@ -203,7 +203,7 @@ fi
 # edit WRF/Registry file to include SFCEVP variable output
 #echo "INSTALL: editing REGISTRY"
 cd $WRF_SCRIPTS/wrf/WRF/Registry
-source $WRF_SCRIPTS/fix_registry.bash
+source $WRF_SCRIPTS/install/fix_registry.bash
 status=$?
 if [[ $status -gt 0 ]]
 then
@@ -215,7 +215,7 @@ fi
 if [[ ${INSTALL_WRF_IO_TYPE} == "SERIAL_IO" ]]
 then
     echo "INSTALL: installing ${WRFVER} SERIAL_IO"
-    source $WRF_SCRIPTS/run_wrf_serial_io_install.bash
+    source $WRF_SCRIPTS/install/run_wrf_serial_io_install.bash
     status=$?
     if [[ $status -gt 0 ]]
     then
@@ -224,44 +224,8 @@ then
     fi
 fi
 
-if [[ ${INSTALL_WRF_IO_TYPE} == "PNETCDF_IO" ]]
-then
-    echo "INSTALL: installing ${WRFVER} PNETCDF_IO"
-    source $WRF_SCRIPTS/run_wrf_pnetcdf_io_install.bash
-    status=$?
-    if [[ $status -gt 0 ]]
-    then
-        echo "INSTALL ERROR: could not install ${WRFVER} PNETCDF_IO ... exiting"
-        exit 1
-    fi
-fi
-
-if [[ ${INSTALL_WRF_IO_TYPE} == "NETCDFPAR_IO" ]]
-then
-    echo "INSTALL: installing ${WRFVER} NETCDFPAR_IO"
-    source $WRF_SCRIPTS/run_wrf_netcdfpar_io_install.bash
-    status=$?
-    if [[ $status -gt 0 ]]
-    then
-        echo "INSTALL ERROR: could not install ${WRFVER} NETCDFPAR_IO ... exiting"
-        exit 1
-    fi
-fi
-
-if [[ ${INSTALL_WRF_IO_TYPE} == "ADIOS2_IO" ]]
-then
-    echo "INSTALL: installing ${WRFVER} ADIOS2_IO"
-    source $WRF_SCRIPTS/run_wrf_adios2_io_install.bash
-    status=$?
-    if [[ $status -gt 0 ]]
-    then
-        echo "INSTALL ERROR: could not install ${WRFVER} ADIOS2_IO ... exiting"
-        exit 1
-    fi   
-fi
-
 # build WPS after WRF build_
-source $WRF_SCRIPTS/run_wps_install.bash
+source $WRF_SCRIPTS/install/run_wps_install.bash
 status=$?
 if [[ $status -gt 0 ]]
 then
