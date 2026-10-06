@@ -280,29 +280,58 @@ then
     # MAC OS ?
     if [[ ${OSTYPE} == "darwin"* ]]
     then
-        echo "INSTALL_LIBS_SERIAL_IO: compiling MPICH for MAC OS X"
+        echo "INSTALL_LIBS_SERIAL_IO: compiling MPICH for MAC OS X ${OSTYPE}"
 
-	GNUBIN=/opt/local/bin
-	
-	export FC=$GNUBIN/gfortran
-	export F77=$FC
+	# Make sure Apple’s developer tools are selected
+	echo "DPW: Make sure Apple’s developer tools are selected..."
+	sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer # sudo ?
+
+	# Identify the GNU bin directory.
+	#GNUBIN=/opt/homebrew/bin
+	export GCC=`which gcc`
+	export GNUBIN=`dirname $GCC`
+	echo "GCC=${GCC} GNUBIN=${GNUBIN}"
+
+	# Add the SDKROOT environment variable to CFLAGS and CXXFLAGS to
+	# reconfigure with Apple frameworks available to the linker.
+	export SDKROOT="$(xcrun --sdk macosx --show-sdk-path)"
+
+	export FC=`which gfortran`
+	export F77=`which gfortran`
 	echo "FC=${FC} F77=${F77}"
+
+	export FCFLAGS="-m64 -fallow-argument-mismatch"
+	export CLANG=`which clang`
+	export FLANG=`which flang`
+	echo "CLANG=${CLANG} FLANG=${FLANG}"
 	
-	export CC=$GNUBIN/gcc
-	export CXX=$GNUBIN/g++
+	export CFLAGS="-w -fPIE -Wno-implicit-function-declaration -I$SDKROOT/usr/include"
+	export CXXFLAGS="-w -fPIE -Wno-implicit-function-declaration -I$SDKROOT/usr/include"
+	export LDFLAGS="-Wl,-framework,CoreFoundation -Wl,-framework,IOKit"
 
-	echo "CC=${CC} CXX=${CXX}"
+#-------------------------------------------------------------------------------
+	#GNUBIN=/opt/local/bin
+	
+	#export FC=$GNUBIN/gfortran
+	#export F77=$FC
+	#echo "FC=${FC} F77=${F77}"
+	
+	#export CC=$GNUBIN/gcc
+	#export CXX=$GNUBIN/g++
 
-        export FFLAGS="-fPIC -m64 -fallow-argument-mismatch -I /opt/local/include/unistring/cdefs.h"
-        export CFLAGS="-fPIC -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -m64 -I /opt/local/include/unistring/cdefs.h"
+	#echo "CC=${CC} CXX=${CXX}"
 
-	CONF_PARAMS="--prefix=${WRF_SCRIPTS}/wrf --enable-shared=no --enable-fast=O3,ndebug --disable-error-checking --enable-fortran=all --enable-cxx --enable-romio"
+        #export FFLAGS="-fPIC -m64 -fallow-argument-mismatch -I /opt/local/include/unistring/cdefs.h"
+        #export CFLAGS="-fPIC -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -m64 -I /opt/local/include/unistring/cdefs.h"
+
+	#CONF_PARAMS="--prefix=${WRF_SCRIPTS}/wrf --enable-shared=no --enable-fast=O3,ndebug --disable-error-checking --enable-fortran=all --enable-cxx --enable-romio"
 
         #export CC=gcc 
         #export CFLAGS="-fcommon -Wno-error=incompatible-pointer-types"
         #export CXXFLAGS="-fcommon -Wno-error=incompatible-pointer-types"
 	#-Wincompatible-pointer-types
-        #CONF_PARAMS="--prefix=${WRF_SCRIPTS}/wrf --with-device=ch4:ucx " # no CUDA or DEVICE for now
+#---------------------------------------------------------------------------------
+        CONF_PARAMS="--prefix=${WRF_SCRIPTS}/wrf" # no CUDA or DEVICE for now
     else
         
         echo "INSTALL_LIBS_SERIAL_IO: compiling MPICH with channel ${INSTALL_WRF_IO_CHANNEL}"

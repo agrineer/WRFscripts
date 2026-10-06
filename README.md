@@ -1,4 +1,4 @@
-WRFscripts is a package that runs on GNU/Linux and is meant to facilitate the installation and execution of the Weather, Research, and Forecasting (WRF) model from NCAR/UCAR. This package compiles and installs libraries for WRF-ARW and WRF-ARW itself, and provides shell and Python scripts needed to run WRF-ARW on an automated basis.
+WRFscripts is a package that runs on GNU/Linux, meant to facilitate the installation and execution of the Weather, Research, and Forecasting (WRF) model from NCAR/UCAR. This package compiles and installs libraries for WRF-ARW and WRF-ARW itself, and provides shell and Python scripts needed to run WRF-ARW on an automated basis.
 
 WRFscripts is intended to show data science students how large data sets can be generated and managed. It is also being used for research projects involving weather and climate.
 
@@ -14,6 +14,8 @@ Software: GNU/Linux, Python 3.8 or greater, developer environment with gfortran,
           Developed using Mint 22.1 Xia 64-bit, Kernel 6.8.0-137-generic_x86_64, AMD FX-8350 8 core, 32GB
 
 Skills: Terminal navigation and shell commands.
+
+To install: After cloning or untar'ing, go to WRFscripts/install and follow directions in HOWTO_INSTALL.txt
 
 PLEASE NOTE: Under development.
 
