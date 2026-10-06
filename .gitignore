@@ -1,5 +1,5 @@
 WRFscripts-build.txt
-install_wrf_variables.bash
+#install_wrf_variables.bash
 
 packages/
 !hdf5-1.10.10.tar.bz2
