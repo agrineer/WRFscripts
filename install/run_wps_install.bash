@@ -6,10 +6,10 @@ export NETCDF=$WRF_SCRIPTS/wrf
 cd $WRF_SCRIPTS/wrf/WPS
 ./clean -a
 
-OPTION=1  # GNU/Linux gfortran configure option
 
-# MAC OS X jason configure fix (workaround)
-if [[ ${OSTYPE} == "darwin"* ]]; then
+# MAC OS X jasper configure fix (workaround)
+if [[ ${OSTYPE} == "darwin"* ]]
+then
 
     # Source: https://github.com/scottlynn73/build_wrf_macos
 
@@ -40,7 +40,10 @@ if [[ ${OSTYPE} == "darwin"* ]]; then
 
     OPTION=10 # MAC OSX gfortran configure option
 
-    # now let WPS "make" configure and compile jason
+    # now let WPS "make" configure and compile jasper
+    
+else
+    OPTION=1  # GNU/Linux gfortran configure option
 fi
  
 ./configure --build-grib2-libs << EOF
