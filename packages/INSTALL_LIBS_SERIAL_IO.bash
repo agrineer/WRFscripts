@@ -19,7 +19,7 @@
 #  see http://www.gnu.org/licenses/gpl-3.0.html
 #
 
-INSTALL_LIBS_SERIAL_IO_copyright="INSTALL_LIBS_SERIAL_IO Copyright (c) 2020-2026 Scott L. Williams ' + 'released under GNU GPL V3.0"
+INSTALL_LIBS_SERIAL_IO_copyright="INSTALL_LIBS_SERIAL_IO Copyright (c) 2020-2026 Scott L. Williams released under GNU GPL V3.0"
 
 untar_package()
 {

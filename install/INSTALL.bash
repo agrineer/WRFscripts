@@ -21,7 +21,7 @@
 #  see http://www.gnu.org/licenses/gpl-3.0.html
 #
 
-INSTALL_COPYRIGHT="INSTALL.bash Copyright (c) 2024-2026 Scott L. Williams ' + 'released under GNU GPL V3.0"
+INSTALL_COPYRIGHT="INSTALL.bash Copyright (c) 2024-2026 Scott L. Williams, released under GNU GPL V3.0"
 
 # this install script requires bash environment given in the
 # example install_wrf_variables.bash

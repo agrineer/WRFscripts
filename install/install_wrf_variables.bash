@@ -4,7 +4,7 @@
 # released under GNU GPL V3.0, see http://www.gnu.org/licenses/gpl-3.0.html   
 
 # example install variable assignation for WRF INSTALL bash script
-# change to your location; replace "/home/user"\
+# change to your location; replace "/home/user"
     
 export WRF_SCRIPTS=/home/agrineer/WRFscripts # installation home
 

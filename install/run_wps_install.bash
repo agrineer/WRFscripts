@@ -38,7 +38,7 @@ if [[ ${OSTYPE} == "darwin"* ]]; then
     chmod +x external/jasper-1.900.29/ac_aux/config.guess external/jasper-1.900.29/ac_aux/config.sub
     ls -l external/jasper-1.900.29/ac_aux/config.*
 
-    OPTION=17 # MAC OSX gfortran configure option
+    OPTION=10 # MAC OSX gfortran configure option
 
     # now let WPS "make" configure and compile jason
 fi
