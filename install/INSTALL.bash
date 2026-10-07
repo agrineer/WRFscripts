@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-#  INSTALL.bash WRF with environment variables parameters 
+#  INSTALL.bash
 # 
 #  Copyright (c) 2024-2026 Scott L. Williams
 # 
