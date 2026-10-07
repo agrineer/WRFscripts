@@ -1,6 +1,17 @@
 WRFscripts-build.txt
 #install_wrf_variables.bash
 
+test_c_mpi/
+!makefile
+!mpi_hello_world.c
+!README.txt
+!test.sh
+
+test_fortran_mpi/
+!hello_world_mpi.f90
+!README.txt
+!test.sh
+
 packages/
 !hdf5-1.10.10.tar.bz2
 !mpich-5.0.2.tar.gz

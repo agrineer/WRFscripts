@@ -9,5 +9,6 @@ call MPI_COMM_RANK(MPI_COMM_WORLD, process_Rank, ierror)
 
 print *, 'Hello World from process: ', process_Rank, 'of ', size_Of_Cluster
 
+call MPI_BARRIER(MPI_COMM_WORLD,ierror)
 call MPI_FINALIZE(ierror)
 END PROGRAM

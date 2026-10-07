@@ -115,7 +115,6 @@ echo "runwrf: running WRF sector:" ${SECTOR} "and UTC date:" ${RUNDATE}
 echo "runwrf: restart=${RESTART}"
 
 # run the WRF model
-#$SCRIPTS/run_wrfgfs.py -s $1 -b 06 -d $GFSHOME -r $DATE > $LOGDIR/$1.log 2>&1
 
 # this version separates stdin from the terminal so that when
 # ^c'ing out of 'tail -f SECTOR.log' the 'wrfGFS.py' program is not stopped
