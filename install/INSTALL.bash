@@ -138,14 +138,14 @@ then
     exit 1
 fi
 
-echo "WRF build environment variable values:" | tee wrf/build.txt
-echo "    WRF_SCRIPTS directory  = ${WRF_SCRIPTS}" | tee -a wrf/build.txt
-echo "    INSTALL WRF_NUM_CORES  = ${INSTALL_WRF_NUM_CORES}" | tee -a wrf/build.txt
-echo "    INSTALL_WRF_IO_TYPE    = ${INSTALL_WRF_IO_TYPE}" | tee -a wrf/build.txt
-echo "    INSTALL_WRF_WPS_GEOG   = ${INSTALL_WRF_WPS_GEOG}" | tee -a wrf/build.txt
-echo "    INSTALL_WRF_MPI        = ${INSTALL_WRF_MPI}" | tee -a wrf/build.txt
-echo "    INSTALL_WRF_IO_CHANNEL = ${INSTALL_WRF_IO_CHANNEL}" | tee -a wrf/build.txt
-echo "    INSTALL_WRF_USE_CUDA   = ${INSTALL_WRF_USE_CUDA}" | tee -a wrf/build.txt
+echo "WRF build environment variable values:" | tee ../wrf/build.txt
+echo "    WRF_SCRIPTS directory  = ${WRF_SCRIPTS}" | tee -a ../wrf/build.txt
+echo "    INSTALL_WRF_NUM_CORES  = ${INSTALL_WRF_NUM_CORES}" | tee -a ../wrf/build.txt
+echo "    INSTALL_WRF_IO_TYPE    = ${INSTALL_WRF_IO_TYPE}" | tee -a ../wrf/build.txt
+echo "    INSTALL_WRF_WPS_GEOG   = ${INSTALL_WRF_WPS_GEOG}" | tee -a ../wrf/build.txt
+echo "    INSTALL_WRF_MPI        = ${INSTALL_WRF_MPI}" | tee -a ../wrf/build.txt
+echo "    INSTALL_WRF_IO_CHANNEL = ${INSTALL_WRF_IO_CHANNEL}" | tee -a ../wrf/build.txt
+echo "    INSTALL_WRF_USE_CUDA   = ${INSTALL_WRF_USE_CUDA}" | tee -a ../wrf/build.txt
 echo ""
 
 #----------------------------------------------------------------------
@@ -236,6 +236,7 @@ fi
 # some sector housekeeping
 cd $WRF_SCRIPTS/wrf/sectors/ANDES03/wps
 cp namelist.wps.template namelist.wps
+sed -i.bak 's|/home/user|'$WRF_SCRIPTS'|' ./namelist.wps && rm namelist.wps.bak
 
 cd $WRF_SCRIPTS/wrf/sectors/ANDES03/wrf
 cp namelist.input.template namelist.input
