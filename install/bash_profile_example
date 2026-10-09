@@ -8,7 +8,6 @@ fi
 # start with basic paths
 export LD_LIBRARY_PATH=/usr/local/lib:/usr/lib:/lib
 export PATH=/usr/local/bin:/usr/bin:/bin:/sbin
-export PYTHONPATH=/usr/local/lib/python3.8/dist-packages:$PYTHONPATH
 
 # add WRF stuff
 export WRF_HOME=/home/user/wrf
@@ -16,5 +15,9 @@ export WRF_MPI=MPICH
 export WRF_JCL=NONE
 export WRF_OPENMP_NCORES=NONE
 export WRF_MPICH_HOSTS=/home/user/mpd.hosts
+
+# for MAC OS/X
+export FI_PROVIDER=tcp
+
 export LD_LIBRARY_PATH=/home/user/wrf/lib:$LD_LIBRARY_PATH
 export PATH=/home/user/bin:$PATH
