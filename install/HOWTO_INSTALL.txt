@@ -6,6 +6,7 @@ Current versions are WRFV4.8.0 and WPSv4.7.0
 # Some WRF dependencies:
 (probably incomplete, but most systems should have these and others required)
 
+    bash
     csh 
     gcc
     gfortran
@@ -20,11 +21,10 @@ Current versions are WRFV4.8.0 and WPSv4.7.0
     mpich 
     netcdf-c 
     netcdf-f 
-    pnetcdf 
 
 #------------------------------------------------------------------------
 # Decide where to put WRFscripts and untar WRFscripts.tar.gz
-# eg. /home/user/WRFscripts
+# eg. /home/user
 
 $ cd ~
 $ tar xvfz WRFscripts.tar.gz
@@ -35,16 +35,16 @@ $ git clone https://github.com/agrineer/WRFscripts
 
 # TO INSTALL:
 
-# change directory to WRFscripts
-$ cd WRFscripts/install
+# change directory to WRFscripts install directory:
+eg.
+$ cd ~/WRFscripts/install
 
 # Edit the file "install_wrf_variables.bash" to suit your type of WRF implementation. Currently, the serial implementation is stable so use SERIAL_IO.
 
 # This bash shell file sets the environment variables that specify how to compile the libraries and WRF.
 
 	  WRF_SCRIPTS sets the location of where WRFscripts.tar was extracted or
-	  cloned.  Change "/home/user/" to your environment.
-	  
+	  cloned.  Change "/home/user/" to your environment below:
 	  WRF_SCRIPTS=/home/user/WRFscripts
 
 	  INSTALL_WRF_NUM_CORES=6
@@ -76,18 +76,29 @@ $ cd WRFscripts/install
 	  Note that ch3 is a legacy transport.
 
           INSTALL_WRF_USE_CUDA=NO
-	  Options are NO and YES
+	  Options are NO or path to cuda directory, eg. /usr/local/cuda
 	  Specifies if GPU (CUDA) is compiled in the MPICH MPI.
 	  This option is not yet implemented in WRF, but can be used elsewhere.
+	  Does not work with MAC OS/X
 
-# Make these options active by sourcing the edited file "install_wrf_variables.bash".
-ie.
-$ ./install_wrf_variables.bash 
+# Make these options active by sourcing the edited file
+# "install_wrf_variables.bash". This should be done in a bash shell:
+
+$ source install_wrf_variables.bash 
+
+# If you are not using bash, you can use:
+
+$ exec bash
+
+# first to activate a bash shell in your terminal (if you have bash
+# installed ), and then:
+$ source install_wrf_variables.bash 
 
 # run the INSTALL shell program with:
-$ bash INSTALL.bash 2>&1 | tee WRFscripts-build.txt
+$ source INSTALL.bash 2>&1 | tee WRFscripts-build.txt
 
-# Use "tee" to keep a copy of the build output. Install time can take over an hour, depending on ....
+# Use "tee" to keep a copy of the build output. Install time can take
+# over an hour, depending on the platform used.
 
 -------------------------------------------------------------------------------
 # With a succesfull install, link the $WRF_SCRIPTS/wrf to a convienient locator,
@@ -95,7 +106,7 @@ eg.
 $ cd ~
 $ ln -s $WRF_SCRIPTS/wrf
 
-# This link makes navigation to "wrf" easier without going through "WRFscripts. Indeed, "WRFscripts" will not be needed from this point on.
+# This link makes navigation to "wrf" easier without going through "WRFscripts. Indeed, "WRFscripts" top directory will not be needed from this point on.
 
 # The construction of the directory "wrf" is now almost complete but for populating SECTOR/wps and some links, if needed.
 
@@ -113,10 +124,10 @@ $ ln -s /input/gfs_0.25
 eg.
 $ cd ~/wrf/sectors/ANDES03/wps
 
-# Edit "namelist.wps" and "namelist.wps.template" files to point to "WPS_GEOG directory
-eg. geog_data_path = '/home/user/wrf/WPS_GEOG',
+# The namelist.wps file has already been edited to include WPS_GEOG path
+eg. geog_data_path = '$WRFscripts/wrf/WPS_GEOG'
 
-# run geogrid.exe to populate the static geo files
+# so, just run geogrid.exe to populate the static geo files for your sector.
 $ ./geogrid.exe
 
 -------------------------------------------------------------------------------
@@ -140,9 +151,11 @@ $ ./geogrid.exe
    io_form_input                       = 2
    io_form_boundary                    = 13
 
-# default in distribution, no need to edit namelist.input if using INSTALL_WRF_IO_TYPE=SERIAL_IO
+# below is default in distribution, no need to edit namelist.input if using
+INSTALL_WRF_IO_TYPE=SERIAL_IO
+
 # If running serial io:
-   go to wrf/sectors/XXXXXXX/wrf
+   go to $WRFscripts/wrf/sectors/XXXXXXX/wrf
    edit namelist.input.template
    set io_form_* to 2
 
@@ -167,7 +180,7 @@ PBS job control is not yet implementation
 
 
 # Fill out these varibles in .bash_profile
-  and source it for user configuration. see bash_profile_example.
+  and source it for user configuration. see the install/bash_profile_example.
 
 eg.
 export WRF_HOME=/home/user/wrf     # here the "wrf" directory is
@@ -183,34 +196,45 @@ export WRF_JCL=NONE                # specifies the JCL to use (SLURM,PBS,NONE)
 export WRF_OPENMP_NCORES=NONE      # if using OPENMP specifies number cores
                                    # to use (under construction)
 
-export WRF_MPICH_HOSTS=/home/user/mpd.hosts # used for non-JCL MPICH, eg.desktop and small networked computers. Format for mpd.hosts is simple:
+# The export below is used for non-JCL MPICH, eg.desktop and small networked
+# computers.
+export WRF_MPICH_HOSTS=/home/user/mpd.hosts 
+
+# The Format for mpd.hosts is simple:
 
 # host:slices
 curiosity:4
 opportunity:4
 
-# Where "host" is the name of the computer to use and "slices" are number of cores to use in each host.
+# Where "host" is the name of the computer to use and "slices" are number
+# of cores to use in each host.
 
------------------------------------------------------------------------------
+# for MAC OS/X set
+export FI_PROVIDER=tcp             # makes MPICH work
+
+# -----------------------------------------------------------------------------
 # Start processing....
 
-# A convienient place to run WRF is from ~/wrf/log, but it can be run from anywhere.
+# A convienient place to run WRF is from ~/wrf/log, but it can be run
+# from anywhere.
 $ cd ~/wrf/log
 
 # Get yesterday's GFS files
 $ getdata_gfs.py
 
-or
+# or
 
 # Get specific date Global Forecast System (GFS) files
 $ getdata_gfs.py YYYYMMDD
 
-NOTE: getdata.py is UTC based, so your location's yesterday might be different from UTC's yesterday. This will be addressed in the future.
+# NOTE: getdata.py is UTC based, so your location's yesterday might be
+#       different from UTC's yesterday. This will be addressed in the future.
 
-NOTE: that GFS files are only available for 10 days. To go back beyond
-      the 10 days you need to go to an archive site. (TODO: where and how to decode name)
+# NOTE: that GFS files are only available for 10 days. To go back beyond
+        the 10 days you need to go to an archive site.
+	(TODO: where and how to decode name)
 
-NOTE: getdata_gfs.py will report errors for days it does not have, you can ignore those.
+# NOTE: getdata_gfs.py will report errors for days it does not have, you can ignore those.
 
 # Running WRF:
 usage: runwrf [-h] -s SECTOR -r RESTART -b BEGIN_HOUR [-d RUNDATE]
@@ -219,6 +243,8 @@ usage: runwrf [-h] -s SECTOR -r RESTART -b BEGIN_HOUR [-d RUNDATE]
    SECTOR refers to a defined regional focus, option is mandatory.
    
 -r is a flag for restarting a run. RESTART=true/false. Option is mandatory.
+   Setting -r false starts a continuous run.
+   Setting -r true continues the run from the day before.
 
 -d RUNDATE. Format is YYYYMMDD. If it is not given then the run will use yesterday's date (useful in a "cron" implementation)
 
@@ -266,9 +292,13 @@ End of output.
 
 # If using SLURM it will say that the job was submitted. Look in the SECTOR/slurm.log file for reports.
 
-NOTE: The number of cores to use depends on the platform. For example, using a HPC the optimal number of cores is eight. On a desktop the optimal is four. On the HPC it about it about 1.5 hours to run ANDES03 and for the desktop about 5.0h hours.
+# NOTE: The number of cores to use depends on the platform. For example, using
+        an HPC the optimal number of cores is eight. On a desktop the optimal
+	is four. On the HPC it about it about 1.5 hours to run ANDES03 and for
+	the desktop about 5.0h hours.
 
-NOTE: In the above output snippet, the floating point exceptions are normal according to team WRF at NCAR/UCAR.
+# NOTE: In the above output snippet, the floating point exceptions are normal
+        according to team WRF at NCAR/UCAR.
 
 # To monitor processing progress:
 $ tail -f ~/wrf/sectors/SECTOR/wrf/rsl.error.0000

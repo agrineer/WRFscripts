@@ -1,3 +1,21 @@
+# .gitignore file for WRFscripts
+
+# Backup files
+# Editor-specific extensions should go in your ~/.gitconfig, but we
+# include the standard Unix backup '~' extension 
+**/*~
+
+# Emacs temporary and lock files
+*~
+\#*\#
+.\#*
+
+temp/
+*.old
+*.tmp
+*~
+
+*.template
 WRFscripts-build.txt
 #install_wrf_variables.bash
 
@@ -26,10 +44,5 @@ wrf/
 !getdata_gfs.py
 !License.txt
 !wrfGFS.py
-
-temp/
-*.old
-*.tmp
-*~
-
+		w
 
