@@ -129,13 +129,13 @@ then
     fi
 fi
 
-if   ! [[ ${INSTALL_WRF_USE_CUDA} == "NO" ]] \
-  && ! [[ ${INSTALL_WRF_USE_CUDA} == "YES" ]]
-then 
-    echo "INSTALL ERROR: given USE_CUDA value: ${INSTALL_WRF_USE_CUDA} is not recognized"
-    echo "should be YES or NO"
-    echo "see example install_wrf_variables.bash...exiting"
-    exit 1
+if ! [[ ${INSTALL_WRF_USE_CUDA} == "NO" ]]
+then
+    if ! [[ -d ${INSTALL_WRF_USE_CUDA} ]]
+    then
+        echo "INSTALL: cannot find ${INSTALL_WRF_USE_CUDA} ... exiting"
+        exit 1
+    fi
 fi
 
 echo "WRF build environment variable values:" | tee ../wrf/build.txt
