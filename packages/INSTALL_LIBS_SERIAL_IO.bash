@@ -39,8 +39,8 @@ check_configure()
     if [[ ${PIPESTATUS[0]} -gt 0 ]]
     then
         echo "INSTALL_LIBS_SERIAL_IO: could not configure ${PNAME}"
-        echo "review ${WRF_SCRIPTS}/wrf/packages/${PNAME}/${PNAME}_config.log"
-        echo "and ${WRF_SCRIPTS}/wrf/packages/${PNAME}/config.log for details"
+        echo "                        review ${WRF_SCRIPTS}/wrf/packages/${PNAME}/${PNAME}_config.log"
+        echo "                        and ${WRF_SCRIPTS}/wrf/packages/${PNAME}/config.log for details"
         exit 1
     fi
 }
@@ -51,7 +51,7 @@ check_make()
     if [[ ${PIPESTATUS[0]} -gt 0 ]]
     then
         echo "INSTALL_LIBS_SERIAL_IO: could not make ${PNAME}"
-        echo "review ${WRF_SCRIPTS}/wrf/packages/${PNAME}/${PNAME}_make.log for details"
+        echo "                        review ${WRF_SCRIPTS}/wrf/packages/${PNAME}/${PNAME}_make.log for details"
         exit 1
     fi
 }
@@ -62,7 +62,7 @@ check_make_install()
     if [[ ${PIPESTATUS[0]} -gt 0 ]]
     then
         echo "INSTALL_LIBS_SERIAL_IO: could not make install ${PNAME}"
-        echo "review ${WRF_SCRIPTS}/wrf/packages/${PNAME}/${PNAME}_make_install.log for details"
+        echo "                        review ${WRF_SCRIPTS}/wrf/packages/${PNAME}/${PNAME}_make_install.log for details"
         exit 1
     fi
 }
@@ -74,63 +74,25 @@ print_env()
 
     # print variable if populated
     
-    if [[ -n ${CC} ]]
-    then
-        echo "CC=${CC}"
-    fi
+    if [[ -n ${CPPFLAGS} ]];   then echo "  CPPFLAGS=${CPPFLAGS}"; fi
+    if [[ -n ${FC} ]];         then echo "  FC=${FC}"; fi
+    if [[ -n ${LDFLAGS} ]];    then echo "  LDFLAGS=${LDFLAGS}"; fi
+    if [[ -n ${WITH_CMAKE} ]]; then echo "  WITH_CMAKE=${WITH_CMAKE}"; fi
 
-    if [[ -n ${MPICC} ]]
-    then
-        echo "MPICC=${MPICC}"
-    fi
-
-    if [[ -n ${CFLAGS} ]]
-    then
-        echo "CFLAGS=${CFLAGS}"
-    fi
-
-    if [[ -n ${CPPFLAGS} ]]
-    then
-        echo "CPPFLAGS=${CPPFLAGS}"
-    fi
-
-    if [[ -n ${CXXFLAGS} ]]
-    then
-        echo "CXXFLAGS=${CXXFLAGS}"
-    fi
-
-    if [[ -n ${FC} ]]
-    then
-        echo "FC=${FC}"
-    fi
-
-    if [[ -n ${FCFLAGS} ]]
-    then
-        echo "FCFLAGS=${FCFLAGS}"
-    fi
-
-    if [[ -n ${MPIF90} ]]
-    then
-        echo "MPIF90=${MPIF90}"
-    fi
-
-    if [[ -n ${LD_LIBRARY_PATH} ]]
-    then
-        echo "LD_LIBRARY_PATH=${LD_LIBRARY_PATH}"
-    fi
-    
-    if [[ -n ${LDFLAGS} ]]
-    then
-        echo "LDFLAGS=${LDFLAGS}"
-    fi
-
-    if [[ -n ${FFLAGS} ]]
-    then
-        echo "FFLAGS=${FFLAGS}"
-    fi
-
-    echo "CONF_PARAMS=${CONF_PARAMS}"  # must always have CONF_PARAMS
+    echo "  CONF_PARAMS=${CONF_PARAMS}"  # must always have CONF_PARAMS
     echo ""
+
+    if [[ -n ${GCC} ]];      then echo "  GCC=${GCC}"; fi
+    if [[ -n ${GNUBIN} ]];   then echo "  GNUBIN=${GNUBIN}"; fi
+    if [[ -n ${SDKROOT} ]];  then echo "  SDKROOT=${SDKROOT}"; fi
+    #if [[ -n ${FC} ]];       then echo "  FC=${FC}"; fi
+    if [[ -n ${F77} ]];      then echo "  F77=${F77}"; fi
+    if [[ -n ${FCFLAGS} ]];  then echo "  FCFLAGS=${FCFLAGS}"; fi
+    if [[ -n ${CLANG} ]];    then echo "  CLANG=${CLANG}"; fi
+    if [[ -n ${FLANG} ]];    then echo "  FLANG=${FLANG}"; fi
+    if [[ -n ${CFLAGS} ]];   then echo "  CFLAGS=${CFLAGS}"; fi
+    if [[ -n ${CXXFLAGS} ]]; then echo "  CXXFLAGS=${CXXFLAGS}"; fi
+    #if [[ -n ${LDFLAGS} ]];  then echo "  LDFLAGS=${LDFLAGS}"; fi
 }
 
 make_lib()
@@ -143,38 +105,59 @@ make_lib()
     untar_package # parameters are PNAME and SUFFIX
     cd $PNAME
    
-    echo "configuring ${PNAME} on ${HOSTNAME}"
+    if [[ -n ${WITH_CMAKE} ]] && [[ ${WITH_CMAKE} == "YES" ]]
+    then
+	echo "INSTALL_LIBS_SERIAL_IO: configuring library ${PNAME} on ${HOSTNAME} with cmake"
+	mkdir build && cd build
+	cmake $CONF_PARAMS ..
+	check_configure
 
-    ./configure $CONF_PARAMS 2>&1 | tee $PNAME\_config.log
-    check_configure
+	echo "INSTALL_LIBS_SERIAL_IO: building library ${PNAME} on ${HOSTNAME} with cmake"
+	cmake --build .
+	check_make
 
-    echo "making ${PNAME}"
-    make -j $INSTALL_WRF_NUM_CORES 2>&1 | tee $PNAME\_make.log
-    check_make
+	echo "INSTALL_LIBS_SERIAL_IO: installing library ${PNAME} on ${HOSTNAME} with cmake"
+	cmake --install .
+	check_make_install
+    else
+	echo "INSTALL_LIBS_SERIAL_IO: configuring library ${PNAME} on ${HOSTNAME} with ./configure"
+	./configure $CONF_PARAMS 2>&1 | tee $PNAME\_config.log
+	check_configure
+
+	echo "INSTALL_LIBS_SERIAL_IO: making library ${PNAME} on ${HOSTNAME} with make"
+	make -j $INSTALL_WRF_NUM_CORES 2>&1 | tee $PNAME\_make.log
+	check_make
     
-    echo "make install ${PNAME}"
-    make install 2>&1 | tee $PNAME\_make_install.log
-    check_make_install
-
-    echo "installing ${PNAME} done"
+	echo "INSTALL_LIBS_SERIAL_IO: installing library ${PNAME} on ${HOSTNAME} with make install"
+	make install 2>&1 | tee $PNAME\_make_install.log
+	check_make_install
+    fi
+    
+    echo "INSTALL_LIBS_SERIAL_IO: installing library ${PNAME} done"
 }
 
 # clear all environment variables used in this script
 clear_vars()
 {
-    unset PNAME
-    unset SUFFIX
-    unset CC
-    unset MPICC
-    unset CFLAGS
+    unset CONF_PARAMS
     unset CPPFLAGS
     unset FC
-    unset FCFLAGS
-    unset MPIF90
-    unset LD_LIBRARY_PATH
     unset LDFLAGS
-    unset CONF_PARAMS
-    unset FFLAGS
+    unset PNAME
+    unset SUFFIX
+    unset WITH_CMAKE
+
+    unset GCC
+    unset GNUBIN
+    unset SDKROOT
+   #unset FC
+    unset F77
+    unset CFLAGS
+    unset CLANG
+    unset FLANG
+    unset CFLAGS
+    unset CXXFLAGS
+   #unset LDFLAGS
 }
 
 #----------------------------------------------------------------------
@@ -220,41 +203,56 @@ echo "         WPS_GEOG"
 echo ""
 echo "are preserved."
 
+# --------------------------------------------------------------------
 # HDF5
-# you can download HDF5 from the HDF5 download page.
-# Go to https://www.hdfgroup.org/downloads/hdf5
-# Scroll down and click on "Specific release?"    
-# download and put into the tarball into ${WRF_SCRIPTS}/packages
+
 clear_vars
-PNAME=hdf5-1.10.10
-SUFFIX=tar.bz2
-CONF_PARAMS="--prefix=${WRF_SCRIPTS}/wrf --enable-fortran"
+
+WITH_CMAKE=YES
+PNAME=hdf5-2.2.0
+SUFFIX=tar.gz
+CONF_PARAMS="--install-prefix=${WRF_SCRIPTS}/wrf\
+ -DBUILD_TESTING=OFF\
+ -DHDF5_BUILD_TOOLS=ON\
+ -DHDF5_ENABLE_ZLIB_SUPPORT=ON\
+ -DBUILD_SHARED_LIBS=ON\
+ -DHDF5_BUILD_FORTRAN=ON"
+# DHDF5_PROVIDES_PARALLEL:BOOL=ON
+
 make_lib
 
-# wget https://downloads.unidata.ucar.edu/netcdf-c/4.9.2/netcdf-c-4.9.2.tar.gz
+#--------------------------------------------------------------------
+# NETCDF
+
 clear_vars
 
 PNAME=netcdf-c-4.10.1
 SUFFIX=tar.gz
 CONF_PARAMS="--prefix=${WRF_SCRIPTS}/wrf --enable-netcdf4 --disable-byterange --enable-largefile"
-export CPPFLAGS=-I$WRF_SCRIPTS/wrf/include
-export LDFLAGS=-L$WRF_SCRIPTS/wrf/lib
+export CPPFLAGS="-I${WRF_SCRIPTS}/wrf/include"
+export LDFLAGS="-L${WRF_SCRIPTS}/wrf/lib"
+
 make_lib
 
-# wget https://downloads.unidata.ucar.edu/netcdf-fortran/4.6.1/netcdf-fortran-4.6.1.tar.gz
+#---------------------------------------------------------------------
+# NETCDF-Fortran
+
 clear_vars
+
 PNAME=netcdf-fortran-4.6.4
 SUFFIX=tar.gz
-CONF_PARAMS="--prefix=${WRF_SCRIPTS}/wrf --enable-largefile --enable-shared"
-export CPPFLAGS=-I$WRF_SCRIPTS/wrf/include
-export LDFLAGS=-L$WRF_SCRIPTS/wrf/lib
+CONF_PARAMS="--prefix=${WRF_SCRIPTS}/wrf --enable-largefile --enable-shared --disable-zstandard-plugin"
+export CPPFLAGS="-I${WRF_SCRIPTS}/wrf/include"
+export LDFLAGS="-L${WRF_SCRIPTS}/wrf/lib -lnetcdf"
 export FC=gfortran
+
 make_lib
 
-# source URL for mpich
-# https://www.mpich.org/downloads/
-# install MPICH or OPENMP
+#-------------------------------------------------------------
+# MPICH
+
 clear_vars
+
 if [[ ${INSTALL_WRF_MPI} == "MPICH" ]]
 then
     PNAME=mpich-5.0.2         # package name
@@ -280,57 +278,30 @@ then
     # MAC OS ?
     if [[ ${OSTYPE} == "darwin"* ]]
     then
-        echo "INSTALL_LIBS_SERIAL_IO: compiling MPICH for MAC OS X ${OSTYPE}"
-
 	# Make sure Apple’s developer tools are selected
-	echo "DPW: Make sure Apple’s developer tools are selected..."
+	echo "INSTALL_LIBS_SERIAL_IO: Make sure Apple’s developer tools are selected..."
 	sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer # sudo ?
 
+	echo "INSTALL_LIBS_SERIAL_IO: compiling MPICH for MAC OS X ${OSTYPE} with: "
+
 	# Identify the GNU bin directory.
-	#GNUBIN=/opt/homebrew/bin
 	export GCC=`which gcc`
 	export GNUBIN=`dirname $GCC`
-	echo "GCC=${GCC} GNUBIN=${GNUBIN}"
 
-	# Add the SDKROOT environment variable to CFLAGS and CXXFLAGS to
+	# Add the SDKROOT environment variable to
 	# reconfigure with Apple frameworks available to the linker.
 	export SDKROOT="$(xcrun --sdk macosx --show-sdk-path)"
-
 	export FC=`which gfortran`
 	export F77=`which gfortran`
-	echo "FC=${FC} F77=${F77}"
 
 	export FCFLAGS="-m64 -fallow-argument-mismatch"
 	export CLANG=`which clang`
 	export FLANG=`which flang`
-	echo "CLANG=${CLANG} FLANG=${FLANG}"
 	
-	export CFLAGS="-w -fPIE -Wno-implicit-function-declaration -I$SDKROOT/usr/include"
-	export CXXFLAGS="-w -fPIE -Wno-implicit-function-declaration -I$SDKROOT/usr/include"
+	export CFLAGS="-w -fPIE -Wno-implicit-function-declaration -I${SDKROOT}/usr/include"
+	export CXXFLAGS="-w -fPIE -Wno-implicit-function-declaration -I${SDKROOT}/usr/include"
 	export LDFLAGS="-Wl,-framework,CoreFoundation -Wl,-framework,IOKit"
 
-#-------------------------------------------------------------------------------
-	#GNUBIN=/opt/local/bin
-	
-	#export FC=$GNUBIN/gfortran
-	#export F77=$FC
-	#echo "FC=${FC} F77=${F77}"
-	
-	#export CC=$GNUBIN/gcc
-	#export CXX=$GNUBIN/g++
-
-	#echo "CC=${CC} CXX=${CXX}"
-
-        #export FFLAGS="-fPIC -m64 -fallow-argument-mismatch -I /opt/local/include/unistring/cdefs.h"
-        #export CFLAGS="-fPIC -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -m64 -I /opt/local/include/unistring/cdefs.h"
-
-	#CONF_PARAMS="--prefix=${WRF_SCRIPTS}/wrf --enable-shared=no --enable-fast=O3,ndebug --disable-error-checking --enable-fortran=all --enable-cxx --enable-romio"
-
-        #export CC=gcc 
-        #export CFLAGS="-fcommon -Wno-error=incompatible-pointer-types"
-        #export CXXFLAGS="-fcommon -Wno-error=incompatible-pointer-types"
-	#-Wincompatible-pointer-types
-#---------------------------------------------------------------------------------
         CONF_PARAMS="--prefix=${WRF_SCRIPTS}/wrf" # no CUDA or DEVICE for now
     else
         
@@ -341,20 +312,6 @@ then
         CONF_PARAMS="--prefix=${WRF_SCRIPTS}/wrf ${CUDA} ${DEVICE}"
     fi
     
-    make_lib
-fi
-
-# source URL for openmpi?
-if [[ ${INSTALL_WRF_MPI} == "OPENMP" ]]
-then
-    # check if libgomp and mpirun exist
-    
-    # if not then compile OPENMP
-    echo "INSTALL_LIBS_SERIAL_IO: compiling OPENMP"
-    PNAME=openmpi-5.0.3
-    SUFFIX=tar.bz2
-    
-    CONF_PARAMS="--prefix=${WRF_SCRIPTS}/wrf"
     make_lib
 fi
 
