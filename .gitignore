@@ -31,7 +31,7 @@ test_fortran_mpi/
 !test.sh
 
 packages/
-!hdf5-1.10.10.tar.bz2
+!hdf5-2.2.0.tar.gz
 !mpich-5.0.2.tar.gz
 !netcdf-c-4.10.1.gz
 !netcdf-fortran-4.6.4.gz
