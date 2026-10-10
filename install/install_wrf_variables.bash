@@ -29,7 +29,7 @@ export INSTALL_WRF_IO_CHANNEL=ch4:ucx
                                       # eg. INSTALL. OPENMP
  
 
-export INSTALL_WRF_USE_CUDA=NO
+export INSTALL_WRF_USE_CUDA=/usr/local/cuda
                                       # use GPU, options are: CUDA directory, 
                                       # eg. /usr/local/cuda, or NO
                                       # NOTE: does not compile with ch4:ofi.
