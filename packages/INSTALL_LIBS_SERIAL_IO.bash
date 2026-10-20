@@ -291,13 +291,13 @@ then
 	# Add the SDKROOT environment variable to
 	# reconfigure with Apple frameworks available to the linker.
 	export SDKROOT="$(xcrun --sdk macosx --show-sdk-path)"
+	
 	export FC=`which gfortran`
 	export F77=`which gfortran`
-
 	export FCFLAGS="-m64 -fallow-argument-mismatch"
-	export CLANG=`which clang`
 	export FLANG=`which flang`
 	
+	export CLANG=`which clang`
 	export CFLAGS="-w -fPIE -Wno-implicit-function-declaration -I${SDKROOT}/usr/include"
 	export CXXFLAGS="-w -fPIE -Wno-implicit-function-declaration -I${SDKROOT}/usr/include"
 	export LDFLAGS="-Wl,-framework,CoreFoundation -Wl,-framework,IOKit"

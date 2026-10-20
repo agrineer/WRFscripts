@@ -236,12 +236,21 @@ fi
 # some sector housekeeping
 cd $WRF_SCRIPTS/wrf/sectors/ANDES03/wps
 cp namelist.wps.template namelist.wps
+
 echo "INSTALL: setting namelist.wps WPS_GEOG path"
 sed -i.bak 's|/home/user|'$WRF_SCRIPTS'|' ./namelist.wps && rm namelist.wps.bak
 status=$?
 if [[ $status -gt 0 ]]
 then
-    echo "INSTALL WARNING: could not install WPS_GEOG path in namelist.wps...continuing."
+    echo "INSTALL WARNING: could not install WPS_GEOG path in namelist.wps ... continuing."
+fi   
+
+# same for template; not needed but just to be complete
+sed -i.bak 's|/home/user|'$WRF_SCRIPTS'|' ./namelist.wps.template && rm namelist.wps.template.bak
+status=$?
+if [[ $status -gt 0 ]]
+then
+    echo "INSTALL WARNING: could not install WPS_GEOG path in namelist.wps.template ... continuing."
 fi   
 
 cd $WRF_SCRIPTS/wrf/sectors/ANDES03/wrf

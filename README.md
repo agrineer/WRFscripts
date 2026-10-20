@@ -1,16 +1,14 @@
-WRFscripts is a package that runs on GNU/Linux, meant to facilitate the installation and execution of the Weather, Research, and Forecasting (WRF) model from NCAR/UCAR. This package compiles and installs libraries for WRF-ARW and WRF-ARW itself, and provides shell and Python scripts needed to run WRF-ARW on an automated basis.
+WRFscripts is a package meant to facilitate the installation and execution of the Weather, Research, and Forecasting (WRF) model and runs on GNU/Linux, MAC OS, and SLURM HPC platforms. This package compiles and installs libraries for WRF-ARW and WRF-ARW itself, and provides shell and Python scripts needed to run WRF-ARW on an automated basis.
 
 WRFscripts is intended to show data science students how large data sets can be generated and managed. It is also being used for research projects involving weather and climate.
 
-The approach is to separate out different geographic sectors from the main WRF working directory with the use of file links, so that each sector retains its own input and output while using only one WRF installation. Simultanoues runs can also be done for different mesoscale sectors.
+The approach is to separate out different geographic sectors from the main WRF working directory with the use of file links, so that each geographical sector retains its own input and output while using only one WRF installation. Simultanoues runs can also be done for different sectors.
 
 Once the user has settled on parameter values for WRF (sectors,namelists,etc) the processing can be automated using the scheduler "cron." This package is hindcast oriented but forcasting can also be done with the appropriate Global Forecast System (GFS) files.
 
-This package can be run on desktops as well as on High Performance Computers (HPC) using SLURM.
+Currently implementing WRFV4.8.0 and WPS-4.7.0 versions with latest HDF5, NetCDF, and Netcdf-Fortran libraries.
 
-Currently implementing WRFV4.8.0 and WPS-4.7.0 versions.
-
-Software: GNU/Linux, Python 3.8 or greater, developer environment with gfortran, etc. 
+Software: Python 3.8 or greater, developer environment with GNU suite, cmake, etc. 
           Developed using Mint 22.1 Xia 64-bit, Kernel 6.8.0-137-generic_x86_64, AMD FX-8350 8 core, 32GB
 
 Skills: Terminal navigation and shell commands.
