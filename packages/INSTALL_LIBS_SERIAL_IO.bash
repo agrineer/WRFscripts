@@ -174,6 +174,7 @@ rm -rf bin
 mkdir bin
 cd bin
 ln -s ../scripts/getdata_gfs.py
+ln -s ../scripts/getarch_gfs.py
 ln -s ../scripts/runwrf
 cd ../
 
