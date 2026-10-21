@@ -42,6 +42,7 @@ packages/
 wrf/
 !runwrf
 !getdata_gfs.py
+!getarch_gfs.py
 !License.txt
 !wrfGFS.py
 
