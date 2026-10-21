@@ -45,7 +45,8 @@ then
 else
     OPTION=1  # GNU/Linux gfortran configure option
 fi
- 
+
+echo "run_wps_install: using option ${OPTION} below."
 ./configure --build-grib2-libs << EOF
 ${OPTION}                
 EOF
