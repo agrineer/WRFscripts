@@ -37,6 +37,7 @@ else:
     exit 1
 fi
 
+echo "run_wrf_serial_io_install: using option ${OPTION} below"
 ./clean -a
 ./configure << EOF
 ${OPTION}
