@@ -8,7 +8,7 @@ Once the user has settled on parameter values for WRF (domains,namelists,etc) th
 
 Currently implementing WRFV4.8.0 and WPS4.7.0 versions with latest HDF5, NetCDF-C, and NetCDF-Fortran libraries.
 
-Software:
+Software used:
 
 * Python 3.8 or greater, developer environment with GNU suite, cmake, etc. 
 * Developed using Mint 22.1 Xia 64-bit, Kernel 6.8.0-137-generic_x86_64, AMD FX-8350 8 core, 32GB
