@@ -318,7 +318,6 @@ then
     exit 1
 fi
 
-select 
 echo "INSTALL: untar'ing modis_landuse_20class_30s.tar.bz2"
 tar xvf modis_landuse_20class_30s.tar.bz2
 status=$?
