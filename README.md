@@ -12,8 +12,8 @@ Software used:
 
 * Python 3.8 or greater, developer environment with GNU suite, cmake, etc. 
 * Developed using Mint 22.1 Xia 64-bit, Kernel 6.8.0-137-generic_x86_64, AMD FX-8350 8 core, 32GB
-* Tested and operational on SLURM with Ubuntu 24.04.5 LTS (GNU/Linux 6.8.0-136-generic x86_64)
-* Tested and operational on Darwin Kernel Version 27.0.0 RELEASE_ARM64_T6041 arm64
+* SLURM with Ubuntu 24.04.5 LTS (GNU/Linux 6.8.0-136-generic x86_64)
+* Darwin Kernel Version 27.0.0 RELEASE_ARM64_T6041 arm64
 
 Skills: GNU/Linux or UNIX terminal navigation and shell commands.
 
