@@ -39,7 +39,8 @@ $ git clone https://github.com/agrineer/WRFscripts
 eg.
 $ cd ~/WRFscripts/install
 
-# Edit the file "install_wrf_variables.bash" to suit your type of WRF implementation. Currently, the serial implementation is stable so use SERIAL_IO.
+# Edit the file "install_wrf_variables.bash" to suit your type of WRF implementation.
+Currently, the serial implementation is stable, so use SERIAL_IO.
 
 # This bash shell file sets the environment variables that specify how to compile the libraries and WRF.
 
@@ -55,36 +56,75 @@ $ cd ~/WRFscripts/install
 	  Stable option is SERIAL_IO and the other options are under
 	  construction.
 
-	  INSTALL_WRF_WPS_GEOG=YES
-	  Options are: YES and NO
-	  This determines if the large WPS_GEOG data gets downloaded.
-	  If you already have WPS_GEOG data use the NO option and after
-	  installation link your WPS_GEOG directory in the $WRFscripts/wrf
-	  directory
+          INSTALL_WRF_OUTPUT_DIR=DEFAULT
+	  This detemines if the output directory is created or linked
 
+	  Options are:
+	    - DEFAULT
+	      This option creates an output directory, $WRF_SCRIPTS/wrf/output
+	      
+            - NONE
+	      This option ignores making or linking the output directory
+	      
+	    - filepath to existing output directory and gets linked
+	      in $WRF_SCRIPTS/wrf
+
+          INSTALL_WRF_GFS_DIR=DEFAULT
+	  This detemines if the input gfs_0.25 directory is created or linked
+
+	  Options are:
+	    - DEFAULT
+	      This option creates a gfs_0.25 directory, $WRF_SCRIPTS/wrf/gfs_0.25
+
+           - NONE
+ 	      This option ignores making or linking the gfs_0.25 directory
+
+	    - filepath to existing output directory and gets linked
+	      in $WRF_SCRIPTS/wrf
+
+	  INSTALL_WRF_WPS_GEOG=DEFAULT
+	  This determines if the large WPS_GEOG data gets downloaded.
+
+	  Options are:
+	    - DEFAULT
+	      This downloads WPS_GEOG tar files to $WRF_SCRIPTS/wrf/WPS_GEOG
+
+            - NONE
+ 	      This option ignores making or linking the WPS_GEOG directory
+
+	    - filepath to existing WPS_GEOG directory and gets linked
+	      in $WRF_SCRIPTS/wrf
+	    
 	  INSTALL_WRF_MPI=MPICH
 	  Specifies what type of MPI to use.
+	  
 	  Options are: MPICH, OPENMP, MPICH+OPENMP
 	  MPICH is stable. MPICH is used for communication between HPC nodes
 	  OPENMP is used for comunication between a node's cores.
 	  MPICH+OPENMP is used to specify a hybrid comunication.
-	  OPENMP implementation is still being developed.
+	  OPENMP implementation is still being development and should not be used.
 
 	  INSTALL_WRF_IO_CHANNEL=ch4:ofi
 	  Current options are: ch3:nemesis,ch4:ofi,ch4:ucx
 	  These specify what kind of communication transport to use.
 	  Note that ch3 is a legacy transport.
 
-          INSTALL_WRF_USE_CUDA=NO
-	  Options are NO or path to cuda directory, eg. /usr/local/cuda
-	  Specifies if GPU (CUDA) is compiled in the MPICH MPI.
-	  This option is not yet implemented in WRF, but can be used elsewhere.
-	  Does not work with MAC OS/X
+          INSTALL_WRF_CUDA_DIR=NONE
+	  Determines if GPU libs are used in the MPICH compile.
+          This is not used in WRF, but can be used elsewhere in other projects
+          Options are:
+	    - NONE
+	      Does not use CUDA 
+
+            - filepath to CUDA directory, eg. /usr/local/cuda
+              NOTE: Does not compile with ch4:ofi.
+                    Compiles and runs with ch3:nemesis and ch4:ucx.
+	  
+	  Compiling with CUDA is  not yet implemented in WRF, but can be used elsewhere.
+	  Does not work with MAC OS/X.
 
 # Make these options active by sourcing the edited file
-# "install_wrf_variables.bash". This should be done in a bash shell:
-
-$ source install_wrf_variables.bash 
+$ source install_wrf_variables.bash". This should be done in a bash shell:
 
 # If you are not using bash, you can use:
 
