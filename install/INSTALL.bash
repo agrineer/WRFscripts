@@ -29,126 +29,75 @@ INSTALL_COPYRIGHT="INSTALL.bash Copyright (c) 2024-2026 Scott L. Williams, relea
 # edit install_wrf_variable.bash for your environment values
 # and then source the file
 
+echo "INSTALL: WRF build environment variable values:"
+echo "                  WRF_SCRIPTS = ${WRF_SCRIPTS}"
+echo "        INSTALL_WRF_NUM_CORES = ${INSTALL_WRF_NUM_CORES}"
+echo "          INSTALL_WRF_IO_TYPE = ${INSTALL_WRF_IO_TYPE=SERIAL_IO}"
+echo "       INSTALL_WRF_OUTPUT_DIR = ${INSTALL_WRF_OUTPUT_DIR}"
+echo "          INSTALL_WRF_GFS_DIR = ${INSTALL_WRF_GFS_DIR}"
+echo "     INSTALL_WRF_WPS_GEOG_DIR = ${INSTALL_WRF_WPS_GEOG_DIR}"
+echo "         INSTALL_WRF_CUDA_DIR = ${INSTALL_WRF_CUDA_DIR}"
+echo "              INSTALL_WRF_MPI = ${INSTALL_WRF_MPI}"
+echo "       INSTALL_WRF_IO_CHANNEL = ${INSTALL_WRF_IO_CHANNEL}"
+echo " "
+
 # WRF versions used
 WRFVER=WRFV4.8.0  # release tarballs
 WPSVER=WPSV4.7.0  # 
 WSUFFIX=tar.gz    #
 
-# check INSTALL environment bash variables
+echo "INSTALL: versions to install:"
+echo "         WPS : ${WPSVER}"
+echo "         WRF : ${WRFVER}"
+echo " "
 
-# check if WRF_SCRIPTS environment variable has been set
-if [[ -z ${WRF_SCRIPTS} ]]
-then
-    echo "INSTALL ERROR: WRF_SCRIPTS environment variable needs to be set:"
-    echo "eg. export WRF_SCRIPTS=/home/user/WRF_SCRIPTS ... exiting"
-    exit 1
-fi
-
-# check if WRF_SCRIPTS directory exists
-if [[ ! -d ${WRF_SCRIPTS} ]]; then
-    echo "INSTALL ERROR: file ${WRF_SCRIPTS} not found!"
-    echo "INSTALL ERROR: exiting"
-    exit 1
-fi
-
-# error check IO_TYPE
-if [[ -z ${INSTALL_WRF_IO_TYPE} ]]
-then
-    echo "INSTALL ERROR: INSTALL_WRF_IO_TYPE environment variable needs to be set:"
-    echo "eg. export INSTALL_WRF_IO_TYPE=SERIAL_IO"
-    echo "see example install_wrf_variables.bash ... exiting"
-    exit 1
-fi
-
-if   ! [[ ${INSTALL_WRF_IO_TYPE} == "SERIAL_IO" ]] 
-then
-    echo "INSTALL ERROR: given INSTALL_WRF_IO_TYPE value: ${INSTALL_WRF_IO_TYPE} is not recognized"
-    echo "see example install_wrf_variables.bash...exiting"
-    exit 1
-fi
-
-# error check for WPS_GEOG flag
-if [[ -z ${INSTALL_WRF_WPS_GEOG} ]]
-then
-    echo "INSTALL ERROR: INSTALL_WRF_WPS_GEOG environment variable needs to be set:"
-    echo "eg. export INSTALL_WRF_WPS_GEOG=NO"
-    echo "see example install_wrf_variables.bash...exiting"
-    exit 1
-fi
-
-if   ! [[ ${INSTALL_WRF_WPS_GEOG} == "NO" ]] \
-  && ! [[ ${INSTALL_WRF_WPS_GEOG} == "YES" ]]
-then 
-    echo "INSTALL ERROR: given WPS_GEOG value: ${INSTALL_WRF_WPS_GEOG} is not recognized"
-    echo "should be YES or NO"
-    echo "see example install_wrf_variables.bash...exiting"
-    exit 1
-fi
-
-# error check WRF_MPI
-if [[ -z ${INSTALL_WRF_MPI} ]]
-then
-    echo "INSTALL ERROR: INSTALL_WRF_MPI environment variable needs to be set:"
-    echo "eg. export INSTALL_WRF_MPI=MPICH"
-    echo "see example install_wrf_variables.bash...exiting"
-    exit 1
-fi
-
-if   ! [[ ${INSTALL_WRF_MPI} == "MPICH" ]]        \
-  && ! [[ ${INSTALL_WRF_MPI} == "OPENMP" ]]       \
-  && ! [[ ${INSTALL_WRF_MPI} == "MPICH+OPENMP" ]] 
-then
-    echo "INSTALL ERROR: given INSTALL_WRF_MPI value: ${INSTALL_WRF_MPI} is not recognized"
-    echo "eg. export INSTALL_WRF_MPI=MPICH"
-    echo "see example install_wrf_variables.bash...exiting"
-    exit 1
-fi
-
-# error check for transport channel if WRF_MPI includes MPICH
-if     [[ ${INSTALL_WRF_MPI} == "MPICH" ]]        \
-    || [[ ${INSTALL_WRF_MPI} == "MPICH+OPENMP" ]]
-then
-    # transport channel
-    if [[ -z ${INSTALL_WRF_IO_CHANNEL} ]]
+function make_dir() {
+    
+    if [[ -z ${1} ]]
     then
-        echo "INSTALL ERROR: INSTALL_WRF_IO_CHANNEL environment variable needs to be set:"
-        echo "eg. export INSTALL_WRF_IO_CHANNEL=ch4:ofi"
-        echo "see example install_wrf_variables.bash...exiting"
-        exit 1
+      echo "INSTALL ERROR: environment variable ${1} needs to be set:"
+      echo "               ... exiting."
+      exit 1
     fi
 
-    # TODO: get colon arg for ch3
-    if   ! [[ ${INSTALL_WRF_IO_CHANNEL} == "ch3:nemesis" ]]     \
-      && ! [[ ${INSTALL_WRF_IO_CHANNEL} == "ch4:ofi" ]]         \
-      && ! [[ ${INSTALL_WRF_IO_CHANNEL} == "ch4:ucx" ]]
+    if [[ -z ${2} ]]
     then
-        echo "INSTALL error: given INSTALL_WRF_IO_CHANNEL value: ${INSTALL_WRF_IO_CHANNEL} is not recognized"
-        echo "eg. export INSTALL_WRF_CHANNEL=ch4:ofi"
-        echo "see example install_wrf_variables.bash...exiting"
-        exit 1
+      echo "INSTALL ERROR: environment variable ${2} needs to be set:"
+      echo "               ... exiting."
+      exit 1
     fi
-fi
 
-if ! [[ ${INSTALL_WRF_USE_CUDA} == "NO" ]]
-then
-    if ! [[ -d ${INSTALL_WRF_USE_CUDA} ]]
+    if [[ -d ${WRF_SCRIPTS}/wrf/${2} ]]
     then
-        echo "INSTALL: cannot find ${INSTALL_WRF_USE_CUDA} ... exiting"
-        exit 1
+	echo "INSTALL: ${WRF_SCRIPTS}/wrf/${2} already exists...leaving alone."
+	return
     fi
-fi
+    
+    if [[ -L ${WRF_SCRIPTS}/wrf/${2} ]]
+    then
+	echo "INSTALL: ${WRF_SCRIPTS}/wrf/${2} link already exists...leaving alone"
+	return
+    fi
 
-echo "WRF build environment variable values:" | tee ../wrf/build.txt
-echo "    WRF_SCRIPTS directory  = ${WRF_SCRIPTS}" | tee -a ../wrf/build.txt
-echo "    INSTALL_WRF_NUM_CORES  = ${INSTALL_WRF_NUM_CORES}" | tee -a ../wrf/build.txt
-echo "    INSTALL_WRF_IO_TYPE    = ${INSTALL_WRF_IO_TYPE}" | tee -a ../wrf/build.txt
-echo "    INSTALL_WRF_WPS_GEOG   = ${INSTALL_WRF_WPS_GEOG}" | tee -a ../wrf/build.txt
-echo "    INSTALL_WRF_MPI        = ${INSTALL_WRF_MPI}" | tee -a ../wrf/build.txt
-echo "    INSTALL_WRF_IO_CHANNEL = ${INSTALL_WRF_IO_CHANNEL}" | tee -a ../wrf/build.txt
-echo "    INSTALL_WRF_USE_CUDA   = ${INSTALL_WRF_USE_CUDA}" | tee -a ../wrf/build.txt
-echo ""
+    if [[ ${1} == "DEFAULT" ]]
+    then
+	echo "INSTALL: making ${WRF_SCRIPTS}/wrf/${2}"
+	mkdir ${WRF_SCRIPTS}/wrf/${2}
+    else
+	if [[ -d ${1} ]]
+	then
+	    echo "INSTALL: linking ${1} to ${WRF_SCRIPTS}/wrf/${2}"
+	    ln -s ${1} ${WRF_SCRIPTS}/wrf/${2}
+	else
+	    echo "INSTALL: GFS directory ${INSTALL_WRF_GFS_DIR} does not exist."
+	    echo "         continuing...you can fix this manually later."
+	fi
+    fi
+}
 
 #----------------------------------------------------------------------
+make_dir ${INSTALL_WRF_GFS_DIR} gfs_0.25
+make_dir ${INSTALL_WRF_OUTPUT_DIR} output
 
 # install library packages needed for WRF
 if [[ ${INSTALL_WRF_IO_TYPE} == "SERIAL_IO" ]]
@@ -256,79 +205,62 @@ fi
 cd $WRF_SCRIPTS/wrf/sectors/ANDES03/wrf
 cp namelist.input.template namelist.input
 
-if [[ ${INSTALL_WRF_WPS_GEOG} == "NO" ]]
+if [[ ${INSTALL_WRF_WPS_GEOG_DIR} == "NONE" ]]
 then
-    echo "WRF ${INSTALL_WRF_IO_TYPE} INSTALLATION complete with NO WPS_GEOG files."
-    echo "Be sure to link your WPS_GEOG to $WRF_SCRIPTS/wrf/WPS_GEOG."
-    echo "You must populate geo files in wrf/sectors/XXXXX/wps, set io_forms"
-    echo "parameters in SECTOR/wrf/namelist.input.template, link to GFS input" 
-    echo "directory if available, etc.  See README.txt"
+    echo "WRF ${INSTALL_WRF_IO_TYPE} INSTALLATION complete without downloading"
+    echo "or linking a WPS_GEOG directory."
+    echo " "
+    echo "Use '${WRF_SCRIPTS}/install/install_wps_geog.bash' to download the files"
+    echo "later, if needed."
+    echo " "
+    echo "Do not forget to populate geo files in ${WRF_SCRIPTS}/wrf/sectors/XXXXX/wps,"
+    echo "after linking or downloading the WPS_GEOG".
+    echo "Also set io_forms parameters in SECTOR/wrf/namelist.input.template, if needed."
     exit 0
 fi
 
-# get static geo files, WPS_GEOG
-cd $WRF_SCRIPTS/wrf
-echo "INSTALL: getting geog_high_res_mandatory.tar.gz from UCAR"
-curl -SLO http://www2.mmm.ucar.edu/wrf/src/wps_files/geog_high_res_mandatory.tar.gz
+# get or link WPS_GEOG
+${WRF_SCRIPTS}/install/install_wps_geog.bash
 status=$?
 if [[ $status -gt 0 ]]
 then
-    echo "INSTALL ERROR: could not download geog_high_res_mandatory.tar.gz ... exiting"
+    echo "INSTALL ERROR: could not link or download WPS_GEOG ... exiting"
     exit 1
 fi
 
-echo "INSTALL: untar'ing geog_high_res_mandatory.tar.gz"
-tar xvf geog_high_res_mandatory.tar.gz
+echo "INSTALL: WRF ${IO} INSTALLATION complete with WPS_GEOG files."
+
+echo "INSTALL: Populating ${WRF_SCRIPTS}/wrf/sectors/ANDES03/wps with geo files."
+cd ${WRF_SCRIPTS}/wrf/sectors/ANDES03/wps
+./geogrid.exe
 status=$?
 if [[ $status -gt 0 ]]
 then
-    echo "INSTALL ERROR: could not untar geog_high_res_mandatory.tar.gz ... exiting"
+    echo "INSTALL ERROR: could not populate  ... exiting"
     exit 1
 fi
 
-rm geog_high_res_mandatory.tar.gz
-
-# add some more geo files
-cd $WRF_SCRIPTS/wrf/WPS_GEOG
-echo "INSTALL: getting topo_gmted2010_30s.tar.bz2 from UCAR"
-curl -SLO http://www2.mmm.ucar.edu/wrf/src/wps_files/topo_gmted2010_30s.tar.bz2
-status=$?
-if [[ $status -gt 0 ]]
-then
-    echo "INSTALL ERROR: could not download topo_gmted2010_30s.tar.bz2 ... exiting"
-    exit 1
-fi
-
-echo "INSTALL: untar'ing topo_gmted2010_30s.tar.bz2"
-tar xvf topo_gmted2010_30s.tar.bz2
-status=$?
-if [[ $status -gt 0 ]]
-then
-    echo "INSTALL ERROR: could not untar topo_gmted2010_30s.tar.bz2 ... exiting"
-    exit 1
-fi
-rm topo_gmted2010_30s.tar.bz2
-
-echo "INSTALL: getting modis_landuse_20class_30s.tar.bz2 from UCAR"
-curl -SLO http://www2.mmm.ucar.edu/wrf/src/wps_files/modis_landuse_20class_30s.tar.bz2
-status=$?
-if [[ $status -gt 0 ]]
-then
-    echo "INSTALL ERROR: could not download modis_landuse_20class_30s.tar.bz2 ... exiting"
-    exit 1
-fi
-
-echo "INSTALL: untar'ing modis_landuse_20class_30s.tar.bz2"
-tar xvf modis_landuse_20class_30s.tar.bz2
-status=$?
-if [[ $status -gt 0 ]]
-then
-    echo "INSTALL ERROR: could not untar modis_landuse_20class_30s.tar.bz2 ... exiting"
-    exit 1
-fi
-rm modis_landuse_20class_30s.tar.bz2
-
-echo "WRF ${IO} INSTALLATION complete with WPS_GEOG files."
-echo "You must populate geo files in wrf/sectors/XXXXX/wps, "
-echo "and set io_forms in $WRF_SCRIPTS/wrf/sectors/XXXXX/wrf/namelist.input.template"
-echo "See HOWTO_INSTALL.txt
+echo "--------------------------------------------------"
+echo "WRFscripts install is done."
+echo "Make sure you have a ~/mpd.hosts file."
+echo ""
+echo "Typical usage:"
+echo "Go to the log directory"
+echo "\$ cd ${WRF_SCRIPTS}/wrf/log"
+echo ""
+echo "If no data in gfs directory, then for yesterday:"
+echo "\$ getdata_gfs.py"
+echo "\$ runwrf -b 6 -s ANDES03 -r false &"
+echo ""
+echo "For data in gfs dir:"
+echo "\$ runwrf -b 6 -s ANDES03 -r false -d YYYYMMDD &"
+echo "\$ tail -f ANDES03.log # for preprocessing."
+echo "\$ tail -f ${WRF_SCRIPTS}/sectors/ANDES03/wrf/rsl.error.000 for processing."
+echo ""
+echo "To get GFS data from the last 10 days:"
+echo "\$ getdata_gfs.py YYYYMMDD
+echo "
+echo "To get archived GFS data:"
+echo \$ getarch_gfs.py YYYYMMDD
+echo 
+echo "--------------------------------------------------"
