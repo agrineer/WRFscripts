@@ -24,10 +24,10 @@
 INSTALL_COPYRIGHT="INSTALL.bash Copyright (c) 2024-2026 Scott L. Williams, released under GNU GPL V3.0"
 
 # this install script requires bash environment given in the
-# example install_wrf_variables.bash
+# ${WRF_SCRIPTS}/install/install_wrf_variables.bash
 #
 # edit install_wrf_variable.bash for your environment values
-# and then source the file
+# and then source the file.
 
 echo "INSTALL: WRF build environment variable values:"
 echo "                  WRF_SCRIPTS = ${WRF_SCRIPTS}"
@@ -150,7 +150,7 @@ then
 fi
 
 # edit WRF/Registry file to include SFCEVP variable output
-#echo "INSTALL: editing REGISTRY"
+echo "INSTALL: editing REGISTRY"
 cd $WRF_SCRIPTS/wrf/WRF/Registry
 source $WRF_SCRIPTS/install/fix_registry.bash
 status=$?
@@ -240,27 +240,60 @@ then
     exit 1
 fi
 
-echo "--------------------------------------------------"
-echo "WRFscripts install is done."
-echo "Make sure you have a ~/mpd.hosts file."
+echo "#########################################################################"
+echo ""
+echo "WRFscripts installation is done, using ${WRFVER} and ${WPSVER}."
+echo ""
+echo "If using a desktop, make sure you have a mpd.hosts file somewhere:"
+echo ""
+echo "   format for mpd.hosts-> hostname:cores for example:"
+echo ""
+echo "   # single node, 4 cores"
+echo "   localhost:4"
+echo ""
+echo "   or"
+echo ""
+echo "   # 2 nodes, 8 cores (for a network using NFS)"
+echo "   curiosity:4"  
+echo "   opportunity:4"
+echo ""
+
+echo "To run, set the environment variables for a desktop as below:"
+echo ""
+echo "export WRF_HOME=${WRF_SCRIPTS}/wrf"
+echo "export WRF_MPI=MPICH"
+echo "export WRF_OPENMP_NCORES=NONE"
+echo "export WRF_JCL=NONE"
+echo "export WRF_MPICH_HOSTS=${HOME}/mpd.hosts # see above"
+echo "export FI_PROVIDER=tcp # for MAC OS/X"
+echo "export LD_LIBRARY_PATH=${WRF_HOME}/lib:/usr/local/lib:/usr/lib:/lib"
+echo "export PATH=${WRF_HOME}/bin:$PATH"
+echo ""
+echo "For SLURM, use: export WRF_JCL=SLURM # no mpd.hosts needed."
 echo ""
 echo "Typical usage:"
-echo "Go to the log directory"
+echo "Go to the log directory:"
 echo "\$ cd ${WRF_SCRIPTS}/wrf/log"
 echo ""
-echo "If no data in gfs directory, then for yesterday:"
+echo "If there is no data in the gfs directory, then for ask for yesterday\'s"
+echo "GFS data with:"
 echo "\$ getdata_gfs.py"
+echo ""
+echo "Start processing and put into backgound with:"
 echo "\$ runwrf -b 6 -s ANDES03 -r false &"
 echo ""
-echo "For data in gfs dir:"
+echo "For data already in gfs dir:"
 echo "\$ runwrf -b 6 -s ANDES03 -r false -d YYYYMMDD &"
-echo "\$ tail -f ANDES03.log # for preprocessing."
-echo "\$ tail -f ${WRF_SCRIPTS}/sectors/ANDES03/wrf/rsl.error.000 for processing."
+echo "\$ tail -f ANDES03.log # for pre-processing."
+echo "\$ tail -f ${WRF_SCRIPTS}/wrf/sectors/ANDES03/wrf/rsl.error.0000 # for processing."
 echo ""
 echo "To get GFS data from the last 10 days:"
-echo "\$ getdata_gfs.py YYYYMMDD
-echo "
-echo "To get archived GFS data:"
-echo \$ getarch_gfs.py YYYYMMDD
-echo 
-echo "--------------------------------------------------"
+echo "\$ getdata_gfs.py YYYYMMDD # currently gets the full date"
+echo "                           # plus 1/2 of next day (6 GFS files)."
+echo ""
+echo "To get archived GFS data one day (4 GFS files) at a time:"
+echo "\$ getarch_gfs.py YYYYMMDD"
+echo ""
+echo "NOTE: archived files start on 2015-01-15. Using early files (2015-2019)"
+echo "      will require adjusting the namelist.input file."
+echo "#########################################################################"

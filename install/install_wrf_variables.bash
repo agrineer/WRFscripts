@@ -8,7 +8,7 @@
     
 export WRF_SCRIPTS=/home/user/WRFscripts # installation home
 
-export INSTALL_WRF_NUM_CORES=6        # number of cores for compilation
+export INSTALL_WRF_NUM_CORES=4        # number of cores for compilation
 
 export INSTALL_WRF_IO_TYPE=SERIAL_IO
 

@@ -260,7 +260,7 @@ then
     SUFFIX=tar.gz
     
     # compile with CUDA?
-    echo "INSTALL_LIBS_SERIAL_IO: using INSTALL_WRF_USE_CUDA=${INSTALL_WRF_USE_CUDA}"
+    echo "INSTALL_LIBS_SERIAL_IO: using INSTALL_WRF_CUDA_DIR=${INSTALL_WRF_CUDA_DIR}"
     if [[ ${INSTALL_WRF_CUDA_DIR} == "NONE" ]]
     then
         CUDA="--without-cuda"
@@ -269,9 +269,9 @@ then
         if [[ -d ${INSTALL_WRF_CUDA_DIR} ]] # check directory 
         then
             CUDA="--with-cuda=${INSTALL_WRF_CUDA_DIR}"
-            echo "INSTALL_LIBS_SERIAL_IO: compiling MPICH with CUDA=${INSTALL_WRF_USE_CUDA}"
+            echo "INSTALL_LIBS_SERIAL_IO: compiling MPICH with CUDA=${INSTALL_WRF_CUDA_DIR}"
         else
-            echo "INSTALL_LIBS_SERIAL_IO: CUDA directory ${INSTALL_WRF_USE_CUDA} does not exist...exiting"
+            echo "INSTALL_LIBS_SERIAL_IO: CUDA directory ${INSTALL_WRF_CUDA_DIR} does not exist...exiting"
             exit 1
         fi
     fi
