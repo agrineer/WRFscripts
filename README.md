@@ -6,7 +6,7 @@ The approach is to separate out different geographic sectors (domains) from the 
 
 Once the user has settled on parameter values for WRF (domains,namelists,etc) the processing can be automated using the scheduler "cron." This package is hindcast oriented but forcasting can also be done with the appropriate Global Forecast System (GFS) files.
 
-Currently implementing WRFV4.8.0 and WPS4.7.0 versions with latest HDF5, NetCDF-C, and NetCDF-Fortran libraries.
+Currently implementing WRF-4.8.0 and WPS-4.7.0 versions with HDF5-2.2.0, NetCDF-C-4.10.1, and NetCDF-4.6.4-Fortran libraries.
 
 Software used:
 
