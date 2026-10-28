@@ -69,13 +69,13 @@ function make_dir() {
 
     if [[ -d ${WRF_SCRIPTS}/wrf/${2} ]]
     then
-	echo "INSTALL: ${WRF_SCRIPTS}/wrf/${2} already exists...leaving alone."
+	echo "INSTALL: ${WRF_SCRIPTS}/wrf/${2} already exists...yes...leaving alone."
 	return
     fi
     
     if [[ -L ${WRF_SCRIPTS}/wrf/${2} ]]
     then
-	echo "INSTALL: ${WRF_SCRIPTS}/wrf/${2} link already exists...leaving alone"
+	echo "INSTALL: ${WRF_SCRIPTS}/wrf/${2} link already exists...yes..leaving alone"
 	return
     fi
 
