@@ -45,12 +45,13 @@ Currently, the serial implementation is stable, so use SERIAL_IO.
 # This bash shell file sets the environment variables that specify how to compile the libraries and WPS/WRF.
 # Below are the variable descriptions and default values:
 
-	  WRF_SCRIPTS sets the location of where WRFscripts.tar was extracted or
-	  cloned.  Change "/home/user/" to your environment below:
 	  WRF_SCRIPTS=/home/user/WRFscripts
+	  Sets the location of where WRFscripts.tar was extracted to or
+	  cloned to.  Change "/home/user/" to your choice.
 
 	  INSTALL_WRF_NUM_CORES=4
 	  Sets the number of cores to use for compilation.
+	  A higher number has, on occasion, confused the compiler.
 	  
           INSTALL_WRF_IO_TYPE=SERIAL_IO
 	  Options are: SERIAL_IO, PNETCDF_IO, NETCDFPAR_IO, ADIOS2_IO
@@ -58,79 +59,97 @@ Currently, the serial implementation is stable, so use SERIAL_IO.
 	  construction.
 
           INSTALL_WRF_OUTPUT_DIR=DEFAULT
-	  This detemines if the output directory is created, linked or no action.
+          Determines if to create the output directory, or to set the 
+	  link path or to take no action.
 
 	  Options are:
 	    - DEFAULT
-	      This option creates an output directory, $WRF_SCRIPTS/wrf/output
-	      In case of a rebuild (not a cloned install), and if the output directory or link
-	      already exists it will be skipped (no action).
-	      
-            - NONE
-	      This option ignores making or linking the output directory (no action).
-	      
-	    - filepath to existing output directory which gets linked
-	      in $WRF_SCRIPTS/wrf. If the output directory or link already exists
+	      Creates the output directory, ${WRF_SCRIPTS}/wrf/output.
+	      In case of a rebuild (not a cloned install), and if the output
+	      directory or link already exists it will be skipped (no action).
+	      	      
+	    - Path to existing output directory which gets linked
+	      in ${WRF_SCRIPTS}/wrf. If the output directory or link already exists
 	      it will be skipped (no action).
+
+            - NONE
+	      This option ignores making or linking the output directory and
+	      takes no action. The user will manually fix.
 
           INSTALL_WRF_GFS_DIR=DEFAULT
-	  This detemines if the input gfs_0.25 directory is created or linked
-
+	  Determines if to create the input ${WRF_SCRIPTS}/wrf/gfs_0.25
+	  directory, or to set the link path, or to take no action.
 	  Options are:
-	    - DEFAULT
-	      This option creates the input gfs_0.25 directory, $WRF_SCRIPTS/wrf/gfs_0.25.
-	      In case of a rebuild (not a cloned install), and if the gfs_0.25 directory
-	      or link already exists it will be skipped (no action).
+	     - DEFAULT
+               Creates the input ${WRF_SCRIPTS}/wrf/gfs_0.25 directory,
+               ${WRF_SCRIPTS}/wrf/gfs_0.25. In case of a rebuild
+               (not a cloned install), and if the gfs_0.25 directory
+               or link already exists it will be skipped (no action).
 
-            - NONE
- 	      This option ignores making or linking the gfs_0.25 directory (no action)
+             - Path to an existing GFS directory and gets linked to
+               in $WRF_SCRIPTS/wrf. If the directory
+	       ${WRF_SCRIPTS}/wrf/gfs_0.25 or link already exists it
+	       will be skipped (no action).
 
-	    - filepath to existing output directory and gets linked
-	      in $WRF_SCRIPTS/wrf. If the output directory or link already exists
-	      it will be skipped (no action).
+             - NONE
+               Ignores making or linking the gfs_0.25 directory and
+               takes no action. The user will manually fix.
 
-	  INSTALL_WRF_WPS_GEOG=DEFAULT
-	  This determines if the large WPS_GEOG data gets downloaded.
 
-	  Options are:
-	    - DEFAULT
-	      This downloads WPS_GEOG tar files to $WRF_SCRIPTS/wrf/WPS_GEOG.
-	      In case of a rebuild (not a cloned install), and if the WPS_GEOG directory 
-	      or link already exists it will be skipped (no action).
+          INSTALL_WRF_WPS_GEOG_DIR=DEFAULT
+	  Determines if the large WPS_GEOG data directory gets downloaded
+	  from UCAR, or to set the link path or to take no action.
 
-            - NONE
- 	      This option ignores making or linking the WPS_GEOG directory
+          Determine if to the input ${WRF_SCRIPTS}/wrf/WPS_GEOG
+	  directory, or to set the path to linked to or to take no action.
+          Options are:
+          - DEFAULT
+            Downloads from UCAR the WPS static data and creates
+            ${WRF_SCRIPTS}/wrf/WPS_GEOG. In case of a rebuild
+	    (not a cloned install), and if the WPS_GEOG directory or
+	    link already exists it will be skipped (no action).
 
-	    - filepath to existing WPS_GEOG directory and gets linked
-	      in $WRF_SCRIPTS/wrf
+          - Path to existing WPS_GEOG directory and gets linked in
+	    ${WRF_SCRIPTS}/wrf
+
+          - NONE
+            Ignores making or linking the WPS_GEOG directory.The user will
+	    manually fix.
 	    
 	  INSTALL_WRF_MPI=MPICH
-	  Specifies what type of MPI to use.
-	  
-	  Options are: MPICH, OPENMP, MPICH+OPENMP
-	  MPICH is stable. MPICH is used for communication between HPC nodes
-	  or networked desktop.
-	  OPENMP is used for comunication between a node's cores.
-	  MPICH+OPENMP is used to specify a hybrid comunication.
-	  MPICH+OPENMP and OPENMP implementation is still being development and should not be used.
+	  Specifies what type of MPI to use, ie. MPI memory access mode
+          Options are:
+	   - MPICH (use this option as the others are currently under
+	     development)
+	     Used for communication between nodes and node cores.
+	     
+	   - OPENMP
+	     Used for comunication between a node's cores.
+	     
+	   - MPICH+OPENMP
+	     Used to specify a hybrid comunication.
+	     
+	  MPICH+OPENMP and OPENMP implementation is still being developed
+	  and should not be used currently.
 
-	  INSTALL_WRF_IO_CHANNEL=ch4:ofi
-	  Current options are: ch3:nemesis,ch4:ofi,ch4:ucx
-	  These specify what kind of communication transport to use.
-	  Note that ch3 is a legacy transport.
+	  INSTALL_WRF_IO_CHANNEL=ch4:ucx
+	  Determines IO channels (communication transport) to use
+	  Options are:
+	  - ch3:nemesis (legacy)
+	  - ch4:ofi (does not work with CUDA)
+	  - ch4:ucx (default)
 
           INSTALL_WRF_CUDA_DIR=NONE
 	  Determines if GPU libs are used in the MPICH compile.
-          This is not used in WRF, but can be used elsewhere in other projects
+          CUDA is not used in WRF, but can be used elsewhere in other projects
           Options are:
 	    - NONE
 	      Does not use CUDA libraries.
 
-            - filepath to CUDA directory, eg. /usr/local/cuda
+            - Path to CUDA directory, eg. /usr/local/cuda
               NOTE: Does not compile with ch4:ofi.
                     Compiles and runs with ch3:nemesis and ch4:ucx.
-	  
-	  Does not work with MAC OS/X.
+	      NOTE: CUDA implementation does not work with MAC OS/X.
 
 # Make these options active by sourcing the edited file
 $ source install_wrf_variables.bash". This should be done in a bash shell:
@@ -156,8 +175,6 @@ $ ln -s $WRF_SCRIPTS/wrf
 
 # This link makes navigation to "wrf" easier without going through "WRFscripts. Indeed, "WRFscripts" top directory will not be needed from this point on.
 
-# The construction of the directory "wrf" is now almost complete but for populating SECTOR/wps and some links, if needed.
-
 # If you did not download the "WPS_GEOG" in your install, ie. by setting INSTALL_WRF_WPS_GEOG=NO, link your existing "WPS_GEOG" directory in the "~/wrf" directory.
 eg.
 $ cd ~/wrf
@@ -168,20 +185,19 @@ eg.
 $ rm -r gfs_0.25
 $ ln -s /input/gfs_0.25
 
-# Populating sector geo directories. This now done automatically, but if you need
-# to repopulate manually:
+# Populating sector geo directories. This is now done automatically, but if you need
+# to re-populate manually:
 
 $ cd ~/wrf/sectors/ANDES03/wps
 
 # Edit the namelist.wps file to include WPS_GEOG path
-eg. geog_data_path = '$WRFscripts/wrf/WPS_GEOG'
+eg. geog_data_path = '${WRF_SCRIPTS}/wrf/WPS_GEOG'
 
 # Run geogrid.exe to populate the static geo files for your sector.
 $ ./geogrid.exe
 
 -------------------------------------------------------------------------------
 # Sector "ANDES03" is distributed with this release and will be used as an example. This project is open to receiving and distributing user's sector "namelist.* Currently, send to git at agrineer.org
-
 #-------------------------------------------------------------------------------
 
 If using SLURM: go to $WRF_SCRIPTS/test_c_mpi and test the slurm interfaces
