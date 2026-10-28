@@ -7,10 +7,10 @@
     
 export WRF_SCRIPTS=/home/user/WRFscripts # installation home
 # Sets the location of where WRFscripts.tar was extracted to or
-# cloned to.  Change "/home/user/" to your choice.
+# cloned to.  Change "/home/user/" to your choice of location.
 
 export INSTALL_WRF_NUM_CORES=4        # number of cores for WRF compilation
-# Sets the number of cores to use for compilation.
+# Sets the number of cores to use for WRF compilation.
 # A higher number has, on occasion, confused the compiler.
 
 export INSTALL_WRF_IO_TYPE=SERIAL_IO
@@ -20,7 +20,7 @@ export INSTALL_WRF_IO_TYPE=SERIAL_IO
 #              The others are under devlopment
 
 export INSTALL_WRF_OUTPUT_DIR=DEFAULT
-# Determines if to create the output directory, or to the set link path,
+# Determines if to create the output directory, or to set the link path,
 # or to take no action.
 # Options are:
 #    - DEFAULT

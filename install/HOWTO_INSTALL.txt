@@ -47,7 +47,7 @@ Currently, the serial implementation is stable, so use SERIAL_IO.
 
 	  WRF_SCRIPTS=/home/user/WRFscripts
 	  Sets the location of where WRFscripts.tar was extracted to or
-	  cloned to.  Change "/home/user/" to your choice.
+	  cloned to.  Change "/home/user/" to your choice of location.
 
 	  INSTALL_WRF_NUM_CORES=4
 	  Sets the number of cores to use for compilation.
