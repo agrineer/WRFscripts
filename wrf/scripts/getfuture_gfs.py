@@ -29,6 +29,7 @@ copyright = 'getfuture_gfs.py Copyright (c) 2016-2026 Scott L. Williams ' + \
 
 import os
 import sys
+import glob
 import time
 import getopt
 import datetime
@@ -180,10 +181,19 @@ if __name__ == '__main__':
              
     get_files( sdate, sdate, 0, interval )
 
-    for i in range( 1, int(ndays) ):
+    for i in range( 1, ndays ):
 
         # get date as YYYYMMDD
         nextdate = start_date + datetime.timedelta( days = i )
         ndate = nextdate.strftime( '%Y%m%d' )
 
-        get_files( sdate, ndate, i, hourly )
+        get_files( sdate, ndate, i, interval )
+
+
+    # calculate interval in seconds
+    interval_seconds = int(interval/360)
+
+    eprint( 'getfuture_gfs: be sure to set interval_seconds = ' +
+            str(interval_seconds) )
+    eprint( '               in .../sectors/XXXXXX/wps/namelist.wps.template' )
+    
