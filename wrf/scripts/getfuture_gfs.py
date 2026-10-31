@@ -74,7 +74,7 @@ def usage():
     eprint( 'usage: getfuture_gfs.y [-h] -s yyyymmdd -n ndays -i hourly_interval ')
     eprint( '       getfuture_gfs.y [--help] --sdate=YYYYMMDD --ndays=ndays --interval=hourly_interval ')
     eprint( '       where:' )
-    eprint( '         yyyymmdd is the date format' )
+    eprint( '         yyyymmdd is the start date format' )
     eprint( '         ndays is number of days to retrieve and must be => 1 and <= 15' )
     eprint( '         hourly_interval is the number of hours between files, and must be in (1,2,3,4,6)' )
     sys.exit(2)  
@@ -168,9 +168,9 @@ if __name__ == '__main__':
     sdate, ndays, interval = read_args( sys.argv[1:] )
     eprint( '            version:', __version__    )
     eprint( 'arguments given are:' )
-    eprint( '           sdate = : ' + sdate )
-    eprint( '           ndays = : ' + str(ndays) )
-    eprint( '        interval = : ' + str(interval) )
+    eprint( '             sdate = ' + sdate )
+    eprint( '             ndays = ' + str(ndays) )
+    eprint( '          interval = ' + str(interval) )
 
     # parse date string
     yr = int( sdate[:4] )
