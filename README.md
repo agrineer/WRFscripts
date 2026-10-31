@@ -4,7 +4,7 @@ WRFscripts is intended to show data science students how large data sets can be 
 
 The approach is to separate out different geographic sectors (domains) from the main WRF working directory with the use of file links, so that each sector retains its own input and output while using only one WRF installation. Simultanoues runs can also be done for different sectors.
 
-Once the user has settled on parameter values for WRF (domains,namelists,etc) the processing can be automated using the scheduler "cron." This package is hindcast oriented but forcasting can also be done with the appropriate Global Forecast System (GFS) files.
+Once the user has settled on parameter values for WRF (domains,namelists,etc) the processing can be automated using the scheduler "cron." 
 
 Currently implementing WRF-4.8.0 and WPS-4.7.0 versions with HDF5-2.2.0, NetCDF-C-4.10.1, and NetCDF-4.6.4-Fortran libraries.
 
@@ -19,5 +19,5 @@ Skills: GNU/Linux or UNIX terminal navigation and shell commands.
 
 To install: After cloning or untar'ing, go to WRFscripts/install and follow directions in HOWTO_INSTALL.txt
 
-PLEASE NOTE: Under development.
+PLEASE NOTE: Under development with frequent updates.
 
