@@ -1,4 +1,4 @@
-WRFscripts is a package meant to facilitate the installation and execution of the Weather, Research, and Forecasting (WRF) model and runs on desktop GNU/Linux, MAC OS/X, and SLURM GNU/Linux HPC platforms. This package compiles and installs libraries for WRF-ARW and WRF-ARW itself, and provides shell and Python scripts to run WRF-ARW on an automated or manual basis.
+WRFscripts is a package meant to facilitate the installation and execution of the Weather, Research, and Forecasting (WRF) model and runs on desktop GNU/Linux, MAC OS/X, and SLURM GNU/Linux HPC platforms. This package compiles and installs libraries for WRF-ARW and WRF-ARW itself, and provides shell and Python scripts to run WRF-ARW on an automated or manual basis. This package can implement both hindcasting and forecasting with executions based on daily runs using the WRF restart feature. 
 
 WRFscripts is intended to show data science students how large data sets can be generated and managed. It is also being used for research projects involving weather and climate (see github.com/agrineer/eto).
 
