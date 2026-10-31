@@ -29,16 +29,18 @@ INSTALL_COPYRIGHT="INSTALL.bash Copyright (c) 2024-2026 Scott L. Williams, relea
 # edit install_wrf_variable.bash for your environment values
 # and then source the file.
 
-echo "INSTALL: WRF build environment variable values:"
-echo "                  WRF_SCRIPTS = ${WRF_SCRIPTS}"
-echo "        INSTALL_WRF_NUM_CORES = ${INSTALL_WRF_NUM_CORES}"
-echo "          INSTALL_WRF_IO_TYPE = ${INSTALL_WRF_IO_TYPE=SERIAL_IO}"
-echo "       INSTALL_WRF_OUTPUT_DIR = ${INSTALL_WRF_OUTPUT_DIR}"
-echo "          INSTALL_WRF_GFS_DIR = ${INSTALL_WRF_GFS_DIR}"
-echo "     INSTALL_WRF_WPS_GEOG_DIR = ${INSTALL_WRF_WPS_GEOG_DIR}"
-echo "         INSTALL_WRF_CUDA_DIR = ${INSTALL_WRF_CUDA_DIR}"
-echo "              INSTALL_WRF_MPI = ${INSTALL_WRF_MPI}"
-echo "       INSTALL_WRF_IO_CHANNEL = ${INSTALL_WRF_IO_CHANNEL}"
+BUILD_DATE=`date`
+echo "INSTALL: WRF build environment variable values:"              | tee ${WRF_SCRIPTS}/wrf/build.txt
+echo "         Built on ${BUILD_DATE}"                              | tee -a ${WRF_SCRIPTS}/wrf/build.txt
+echo "              WRF_SCRIPTS = ${WRF_SCRIPTS}"                   | tee -a ${WRF_SCRIPTS}/wrf/build.txt
+echo "    INSTALL_WRF_NUM_CORES = ${INSTALL_WRF_NUM_CORES}"         | tee -a ${WRF_SCRIPTS}/wrf/build.txt
+echo "      INSTALL_WRF_IO_TYPE = ${INSTALL_WRF_IO_TYPE=SERIAL_IO}" | tee -a ${WRF_SCRIPTS}/wrf/build.txt
+echo "   INSTALL_WRF_OUTPUT_DIR = ${INSTALL_WRF_OUTPUT_DIR}"        | tee -a ${WRF_SCRIPTS}/wrf/build.txt
+echo "      INSTALL_WRF_GFS_DIR = ${INSTALL_WRF_GFS_DIR}"           | tee -a ${WRF_SCRIPTS}/wrf/build.txt
+echo " INSTALL_WRF_WPS_GEOG_DIR = ${INSTALL_WRF_WPS_GEOG_DIR}"      | tee -a ${WRF_SCRIPTS}/wrf/build.txt
+echo "     INSTALL_WRF_CUDA_DIR = ${INSTALL_WRF_CUDA_DIR}"          | tee -a ${WRF_SCRIPTS}/wrf/build.txt
+echo "          INSTALL_WRF_MPI = ${INSTALL_WRF_MPI}"               | tee -a ${WRF_SCRIPTS}/wrf/build.txt
+echo "   INSTALL_WRF_IO_CHANNEL = ${INSTALL_WRF_IO_CHANNEL}"        | tee -a ${WRF_SCRIPTS}/wrf/build.txt
 echo " "
 
 # WRF versions used
@@ -46,9 +48,9 @@ WRFVER=WRFV4.8.0  # release tarballs
 WPSVER=WPSV4.7.0  # 
 WSUFFIX=tar.gz    #
 
-echo "INSTALL: versions to install:"
-echo "         WPS : ${WPSVER}"
-echo "         WRF : ${WRFVER}"
+echo "INSTALL: versions installed:" | tee -a ${WRF_SCRIPTS}/wrf/build.txt
+echo "         WPS : ${WPSVER}"     | tee -a ${WRF_SCRIPTS}/wrf/build.txt
+echo "         WRF : ${WRFVER}"     | tee -a ${WRF_SCRIPTS}/wrf/build.txt
 echo " "
 
 function make_dir() {
@@ -202,6 +204,7 @@ then
     echo "INSTALL WARNING: could not install WPS_GEOG path in namelist.wps.template ... continuing."
 fi   
 
+# change to ../wrf
 cd $WRF_SCRIPTS/wrf/sectors/ANDES03/wrf
 cp namelist.input.template namelist.input
 
@@ -230,7 +233,7 @@ fi
 
 echo "INSTALL: WRF ${IO} INSTALLATION complete with WPS_GEOG files."
 
-echo "INSTALL: Populating ${WRF_SCRIPTS}/wrf/sectors/ANDES03/wps with geo files."
+echo "INSTALL: populating ${WRF_SCRIPTS}/wrf/sectors/ANDES03/wps with geo files."
 cd ${WRF_SCRIPTS}/wrf/sectors/ANDES03/wps
 ./geogrid.exe
 status=$?
