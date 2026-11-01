@@ -48,7 +48,7 @@ WRFVER=WRFV4.8.0  # release tarballs
 WPSVER=WPSV4.7.0  # 
 WSUFFIX=tar.gz    #
 
-echo "INSTALL: versions installed:" | tee -a ${WRF_SCRIPTS}/wrf/build.txt
+echo "INSTALL: versions:" | tee -a ${WRF_SCRIPTS}/wrf/build.txt
 echo "         WPS : ${WPSVER}"     | tee -a ${WRF_SCRIPTS}/wrf/build.txt
 echo "         WRF : ${WRFVER}"     | tee -a ${WRF_SCRIPTS}/wrf/build.txt
 echo " "
@@ -186,23 +186,16 @@ fi
 
 # some sector housekeeping
 cd $WRF_SCRIPTS/wrf/sectors/ANDES03/wps
-cp namelist.wps.template namelist.wps
 
-echo "INSTALL: setting namelist.wps WPS_GEOG path"
-sed -i.bak 's|/home/user|'$WRF_SCRIPTS'|' ./namelist.wps && rm namelist.wps.bak
-status=$?
-if [[ $status -gt 0 ]]
-then
-    echo "INSTALL WARNING: could not install WPS_GEOG path in namelist.wps ... continuing."
-fi   
-
-# same for template; not needed but just to be complete
+echo "INSTALL: setting namelist.wps.template WPS_GEOG path"
 sed -i.bak 's|/home/user|'$WRF_SCRIPTS'|' ./namelist.wps.template && rm namelist.wps.template.bak
 status=$?
 if [[ $status -gt 0 ]]
 then
     echo "INSTALL WARNING: could not install WPS_GEOG path in namelist.wps.template ... continuing."
 fi   
+
+cp namelist.wps.template namelist.wps # so that geogrid.exe works
 
 # change to ../wrf
 cd $WRF_SCRIPTS/wrf/sectors/ANDES03/wrf
