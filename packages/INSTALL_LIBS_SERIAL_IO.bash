@@ -93,7 +93,6 @@ print_env()
 
     echo "  CONF_PARAMS=${CONF_PARAMS}"  # must always have CONF_PARAMS
     echo ""
-
 }
 
 make_lib()
@@ -222,7 +221,7 @@ CONF_PARAMS="--install-prefix=${WRF_SCRIPTS}/wrf\
  -DH5_DEFAULT_PLUGINDIR:PATH=${WRF_SCRIPTS}/wrf/lib"
 # DHDF5_PROVIDES_PARALLEL:BOOL=ON
 echo "INSTALL_LIBS_SERIAL_IO: NOTE: cmake does not seem to honor H5_DEFAULT_PLUGINDIR:PATH"
-# Perhaps another flag needs to set?
+# Perhaps another flag needs to be set?
 
 make_lib
 
@@ -250,7 +249,8 @@ SUFFIX=tar.gz
 
 export CPPFLAGS=-I$WRF_SCRIPTS/wrf/include
 export LDFLAGS=-L$WRF_SCRIPTS/wrf/lib # does not work; need to hijack LD_LIBRARY_PATH, see below
-export LDLIBS=-lnetcdf
+#export LDLIBS=-lnetcdf
+export LDLIBS='-lhdf5_hl -lhdf5 -lm -lz -lsz -lbz2 -lzstd -lblosc -lxml2 -lcurl -lnetcdf'
 export FC=gfortran
 CONF_PARAMS="--prefix=${WRF_SCRIPTS}/wrf --enable-largefile --enable-shared --disable-zstandard-plugin"
 
@@ -329,3 +329,4 @@ then
 fi
 
 echo "Installing SERIAL I/O WRF dependent libraries done"
+echo ""
