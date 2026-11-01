@@ -33,7 +33,7 @@ takes care of: which platforms to use (eg. SLURM, MPICH)
                spin-up restarting
 '''
 
-wrfGFS_pycopyright = 'wrfGFS.py Copyright (c) 2016-2025 Scott L. Williams ' + \
+wrfGFS_py_copyright = 'wrfGFS.py Copyright (c) 2016-2026 Scott L. Williams ' + \
             'released under GNU GPL V3.0'
 
 # gfs wrf run 
@@ -71,7 +71,11 @@ def get_days( date ):
     if date == None:
 
         # run wrf with yesterday's data, instantiate data objects
-        nday = datetime.datetime.utcnow()
+        try:
+            nday = datetime.datetime.now(datetime.UTC)
+        except:
+            nday = datetime.datetime.utcnow() # deprecated
+ 
         rday = nday - datetime.timedelta( days=1 )
 
     else :
@@ -406,14 +410,18 @@ def run_wrf( wrf_home, rdir, wrf_mpi, wrf_jcl, rsector ):
 
     # number of found "SUCCESS COMPLETE WRF" should be the same as the number
     # of rsl.error.* files
+
+    try:
+        now = datetime.datetime.now(datetime.UTC).isoformat
+    except:
+        now = datetime.datetime.utcnow().isoformat # deprecated
+
     if nfound == nfiles:
-        ostr = 'SUCCESSFUL completion of program wrf.exe ' + \
-                datetime.datetime.now().isoformat()
+        ostr = 'SUCCESSFUL completion of program wrf.exe ' + str(now)
         eprint( ostr )
 
     else:
-        ostr = 'UNSUCCESSFUL completion of program wrf.exe ' + \
-                datetime.datetime.now().isoformat()
+        ostr = 'UNSUCCESSFUL completion of program wrf.exe ' + str(now)
         print_and_exit( ostr )
 
 def get_jcl_env_variable( rsector ):
@@ -494,7 +502,8 @@ def get_directories():
     # set WRF sectors
     sectors_dir = wrf_home + '/sectors'
     if not os.path.isdir( sectors_dir ):
-        print_and_exit( 'WRF_HOME sectors directory:', sectors_dir, ' is invalid' )
+        print_and_exit( 'WRF_HOME sectors directory:', sectors_dir,
+                        ' is invalid' )
     
     log_dir = wrf_home + '/log'
     if not os.path.isdir( log_dir ):
@@ -508,8 +517,13 @@ def get_directories():
 
 # announce processing start
 def report_start_processing( gfs_dir, rsector, rdir ):
-    
-    ostr = 'starting run at local time:' + datetime.datetime.now().isoformat()
+
+    try:
+        now = datetime.datetime.now(datetime.UTC).isoformat
+    except:
+        now = datetime.datetime.utcnow().isoformat # deprecated
+
+    ostr = 'starting run at local time:' + str(now)
     eprint( ostr )
 
     ostr = 'using input data directory: ' + gfs_dir
@@ -843,9 +857,9 @@ def read_args( argv ):
 ## In addition to command line arguments (see read_args() ) this script
 ## requires the following environment variables:
 ##
-## WRF_HOME=/home/user/agrineerWRF/wrf        # or wherever agrineerWRF
-##                                            # is installed
-## WRF_MPI=MPICH                              # use a known MPI platform
+## WRF_HOME=/home/user/WRFscripts/wrf        # or wherever WRFscripts
+##                                           # is installed
+## WRF_MPI=MPICH                             # use a known MPI platform
 ## WRF_OPENMP_NCORES=NONE
 ## WRF_JCL=NONE
 ## WRF_MPICH_HOSTS=/home/user/mpd.hosts   # use this if WRF_MPI=MPICH
@@ -875,14 +889,15 @@ if __name__ == '__main__':
     eprint( '             gfsdir: ' + gfs_dir      )
     eprint( '            restart: ' + str(restart) )
     eprint( '            rundate: ' + rundate      )  
-
+    eprint( '' )
     # this code is dependent on several global environment variables
     wrf_home, sectors_dir, log_dir, out_dir = get_directories()
 
     try:
         build = open( wrf_home + '/build.txt' )
         for line in build:
-            eprint( line.strip() )
+            eprint( line )
+        eprint( '' )
         build.close()
     except:
         eprint( 'cannot open ' + wrf_home + '/build.txt ' + 'continuing...' )
@@ -929,5 +944,10 @@ if __name__ == '__main__':
     # post-processing
     clean_up( rsector, prefix, lockpath )
 
-    ostr = 'RUN COMPLETED AT LOCAL TIME: ' + datetime.datetime.now().isoformat()
+    try:
+        now = datetime.datetime.now(datetime.UTC).isoformat
+    except:
+        now = datetime.datetime.utcnow().isoformat # deprecated
+
+    ostr = 'RUN COMPLETED AT LOCAL TIME: ' + str(now)
     eprint( ostr )

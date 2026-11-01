@@ -70,8 +70,11 @@ ac = len( sys.argv )
 if ac < 2:
     
     # run with yesterday's UTC data
-    #nextdate = datetime.datetime.utcnow() # deprecated
-    nextdate = datetime.datetime.now(datetime.UTC)
+    try:
+        nextdate = datetime.datetime.now(datetime.UTC)
+    except:
+        nextdate = datetime.datetime.utcnow() # deprecated
+        
     ndate = nextdate.strftime( '%Y%m%d' )
     rundate = nextdate - datetime.timedelta( days = 1 )
     rdate = rundate.strftime( '%Y%m%d' )
