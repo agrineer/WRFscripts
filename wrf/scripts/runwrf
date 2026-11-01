@@ -1,18 +1,21 @@
+#!/usr/bin/env bash
+#
 # bash shell script to run wrf jobs; GPLv3 license
 SCRIPTS=$WRF_HOME/scripts
 GFSHOME=$WRF_HOME/gfs_0.25
 LOGDIR=$WRF_HOME/log
 
-export LD_LIBRARY_PATH=$WRF_HOME/lib:/usr/local/lib:/usr/lib:/lib
+export FI_PROVIDER=tcp # for MAC OS/X
+export LD_LIBRARY_PATH=$WRF_HOME/lib:$LD_LIBRARY_PATH
 export MP_STACK_SIZE=64000000 
 
 usage() {                             
-    echo "runwrf: usage: $0 [-h] -s SECTOR -r RESTART -b BEGIN_HOUR [-d RUNDATE]"
-    echo "runwrf: RUNDATE has YYYYMMDD format"
-    echo "runwrf: RUNDATE is optional, if no RUNDATE then defaults to UTC yesterday"
-    echo "runwrf: RESTART is either true or false"
-    echo "runwrf: BEGIN_HOUR must be one of 0,6,12,18"
-    echo "runwrf: SECTOR example is -s ANDES03"
+    echo "$0: usage: $0 [-h] -s SECTOR -r RESTART -b BEGIN_HOUR [-d RUNDATE]"
+    echo "$0: RUNDATE has YYYYMMDD format"
+    echo "$0: RUNDATE is optional, if no RUNDATE then defaults to UTC yesterday"
+    echo "$0: RESTART is either true or false"
+    echo "$0: BEGIN_HOUR must be one of 0,6,12,18"
+    echo "$0: SECTOR example is -s ANDES03"
     exit 1
 }
 
@@ -33,7 +36,7 @@ while getopts "hs:r:b:d:" options; do
 	h) usage
 	   ;;
 	:)                                    
-	    echo "runwrf error: -${OPTARG} requires an argument."
+	    echo "$0 error: -${OPTARG} requires an argument."
 	    usage
 	    ;;
 	[?])
