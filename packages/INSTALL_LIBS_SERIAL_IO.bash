@@ -74,38 +74,39 @@ print_env()
 
     # print variable if populated
     
-    if [[ -n ${CPPFLAGS} ]];   then echo "  CPPFLAGS=${CPPFLAGS}"; fi
-    if [[ -n ${FC} ]];         then echo "  FC=${FC}"; fi
-    if [[ -n ${LDFLAGS} ]];    then echo "  LDFLAGS=${LDFLAGS}"; fi
-    if [[ -n ${WITH_CMAKE} ]]; then echo "  WITH_CMAKE=${WITH_CMAKE}"; fi
+    if [[ -n $CPPFLAGS ]];    then echo "  CPPFLAGS=${CPPFLAGS}"; fi
+    if [[ -n $FC ]];          then echo "  FC=${FC}"; fi
+    if [[ -n $LDFLAGS ]];     then echo "  LDFLAGS=${LDFLAGS}"; fi
+    if [[ -n $LDLIBS ]];      then echo "  LDLIBS=${LDLIBS}"; fi
+    if [[ -n $WITH_CMAKE ]];  then echo "  WITH_CMAKE=${WITH_CMAKE}"; fi
+    if [[ -n $GCC ]];         then echo "  GCC=${GCC}"; fi
+    if [[ -n $GNUBIN ]];      then echo "  GNUBIN=${GNUBIN}"; fi
+    if [[ -n $SDKROOT ]];     then echo "  SDKROOT=${SDKROOT}"; fi
+    if [[ -n $F77 ]];         then echo "  F77=${F77}"; fi
+    if [[ -n $FCFLAGS ]];     then echo "  FCFLAGS=${FCFLAGS}"; fi
+    if [[ -n $CLANG ]];       then echo "  CLANG=${CLANG}"; fi
+    if [[ -n $FLANG ]];       then echo "  FLANG=${FLANG}"; fi
+    if [[ -n $CFLAGS ]];      then echo "  CFLAGS=${CFLAGS}"; fi
+    if [[ -n $CXXFLAGS ]];    then echo "  CXXFLAGS=${CXXFLAGS}"; fi
+    if [[ -n $PNAME ]];       then echo "  PNAME=${PNAME}"; fi
+    if [[ -n $SUFFIX ]];      then echo "  SUFFIX=${SUFFIX}"; fi
 
     echo "  CONF_PARAMS=${CONF_PARAMS}"  # must always have CONF_PARAMS
     echo ""
 
-    if [[ -n ${GCC} ]];      then echo "  GCC=${GCC}"; fi
-    if [[ -n ${GNUBIN} ]];   then echo "  GNUBIN=${GNUBIN}"; fi
-    if [[ -n ${SDKROOT} ]];  then echo "  SDKROOT=${SDKROOT}"; fi
-    #if [[ -n ${FC} ]];       then echo "  FC=${FC}"; fi
-    if [[ -n ${F77} ]];      then echo "  F77=${F77}"; fi
-    if [[ -n ${FCFLAGS} ]];  then echo "  FCFLAGS=${FCFLAGS}"; fi
-    if [[ -n ${CLANG} ]];    then echo "  CLANG=${CLANG}"; fi
-    if [[ -n ${FLANG} ]];    then echo "  FLANG=${FLANG}"; fi
-    if [[ -n ${CFLAGS} ]];   then echo "  CFLAGS=${CFLAGS}"; fi
-    if [[ -n ${CXXFLAGS} ]]; then echo "  CXXFLAGS=${CXXFLAGS}"; fi
-    #if [[ -n ${LDFLAGS} ]];  then echo "  LDFLAGS=${LDFLAGS}"; fi
 }
 
 make_lib()
-{
-    print_env
-    
+{    
     cd $WRF_SCRIPTS/packages
     rm -rf $PNAME # remove old package dir
 
     untar_package # parameters are PNAME and SUFFIX
     cd $PNAME
-   
-    if [[ -n ${WITH_CMAKE} ]] && [[ ${WITH_CMAKE} == "YES" ]]
+
+    print_env
+    
+    if [[ -n $WITH_CMAKE ]] && [[ ${WITH_CMAKE} == "YES" ]]
     then
 	echo "INSTALL_LIBS_SERIAL_IO: configuring library ${PNAME} on ${HOSTNAME} with cmake"
 	mkdir build && cd build
@@ -129,7 +130,7 @@ make_lib()
 	check_make
     
 	echo "INSTALL_LIBS_SERIAL_IO: installing library ${PNAME} on ${HOSTNAME} with make install"
-	make install 2>&1 | tee $PNAME\_make_install.log
+	make install 2>&1 | tee ${PNAME}_make_install.log
 	check_make_install
     fi
     
@@ -143,21 +144,19 @@ clear_vars()
     unset CPPFLAGS
     unset FC
     unset LDFLAGS
-    unset PNAME
-    unset SUFFIX
+    unset LDLIBS
     unset WITH_CMAKE
-
     unset GCC
     unset GNUBIN
     unset SDKROOT
-   #unset FC
     unset F77
-    unset CFLAGS
+    unset FCFLAGS
     unset CLANG
-    unset FLANG
     unset CFLAGS
     unset CXXFLAGS
-   #unset LDFLAGS
+    unset FLANG
+    unset PNAME
+    unset SUFFIX
 }
 
 #----------------------------------------------------------------------
@@ -210,9 +209,10 @@ echo "are preserved."
 
 clear_vars
 
-WITH_CMAKE=YES
 PNAME=hdf5-2.2.0
 SUFFIX=tar.gz
+
+WITH_CMAKE=YES
 CONF_PARAMS="--install-prefix=${WRF_SCRIPTS}/wrf\
  -DBUILD_TESTING=OFF\
  -DHDF5_BUILD_TOOLS=ON\
@@ -233,9 +233,10 @@ clear_vars
 
 PNAME=netcdf-c-4.10.1
 SUFFIX=tar.gz
+
+export CPPFLAGS=-I$WRF_SCRIPTS/wrf/include
+export LDFLAGS=-L$WRF_SCRIPTS/wrf/lib
 CONF_PARAMS="--prefix=${WRF_SCRIPTS}/wrf --enable-netcdf4 --disable-byterange --enable-largefile"
-export CPPFLAGS="-I${WRF_SCRIPTS}/wrf/include"
-export LDFLAGS="-L${WRF_SCRIPTS}/wrf/lib"
 
 make_lib
 
@@ -246,13 +247,20 @@ clear_vars
 
 PNAME=netcdf-fortran-4.6.4
 SUFFIX=tar.gz
-CONF_PARAMS="--prefix=${WRF_SCRIPTS}/wrf --enable-largefile --enable-shared --disable-zstandard-plugin"
-export CPPFLAGS="-I${WRF_SCRIPTS}/wrf/include"
-export LDFLAGS="-L${WRF_SCRIPTS}/wrf/lib -lnetcdf"
+
+export CPPFLAGS=-I$WRF_SCRIPTS/wrf/include
+export LDFLAGS=-L$WRF_SCRIPTS/wrf/lib # does not work; need to hijack LD_LIBRARY_PATH, see below
+export LDLIBS=-lnetcdf
 export FC=gfortran
+CONF_PARAMS="--prefix=${WRF_SCRIPTS}/wrf --enable-largefile --enable-shared --disable-zstandard-plugin"
+
+# work-around for LDFLAGS not working
+LD_LIBPATH_OLD=$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$WRF_SCRIPTS/wrf/lib:/usr/local/lib:/usr/lib:/lib
 
 make_lib
 
+export LD_LIBRARY_PATH=$LD_LIBPATH_OLD # restore value
 #-------------------------------------------------------------
 # MPICH
 
