@@ -896,7 +896,7 @@ if __name__ == '__main__':
     try:
         build = open( wrf_home + '/build.txt' )
         for line in build:
-            eprint( line )
+            eprint( line.strip( '\n') )
         eprint( '' )
         build.close()
     except:
