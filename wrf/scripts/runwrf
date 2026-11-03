@@ -9,6 +9,15 @@ export FI_PROVIDER=tcp # for MAC OS/X
 export LD_LIBRARY_PATH=$WRF_HOME/lib:$LD_LIBRARY_PATH
 export MP_STACK_SIZE=64000000 
 
+echo "using:"
+echo "       WRF_HOME=${WRF_HOME}"
+echo "        SCRIPTS=${SCRIPTS}"
+echo "        GFSHOME=${GFSHOME}"
+echo "         LOGDIR=${LOGDIR}"
+echo "    FI_PROVIDER=${FI_PROVIDER}"
+echo "LD_LIBRARY_PATH=${LD_LIBRARY_PATH}"
+echo "  MP_STACK_SIZE=${MP_STACK_SIZE}"
+
 usage() {                             
     echo "$0: usage: $0 [-h] -s SECTOR -r RESTART -b BEGIN_HOUR [-d RUNDATE]"
     echo "$0: RUNDATE has YYYYMMDD format"
@@ -21,7 +30,7 @@ usage() {
 
 if [ $# -gt 9 ];
 then
-    echo "too many arguments....exiting"
+    echo "$0: too many arguments....exiting"
     exit 1
 fi
 
