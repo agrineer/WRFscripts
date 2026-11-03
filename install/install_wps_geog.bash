@@ -6,10 +6,10 @@ then
     exit 0
 fi
 
-if [[ (-d ${WRF_SCRIPTS}/wrf/WPS_GEOG) || (-L ${WRF_SCRIPTS}/wrf/WPS_GEOG) ]]
+if [[ (-d ${INSTALL_WRF_SCRIPTS_DIR}/wrf/WPS_GEOG) || (-L ${INSTALL_WRF_SCRIPTS_DIR}/wrf/WPS_GEOG) ]]
 then
-    echo "INSTALL: ${WRF_SCRIPTS}/wrf/WPS_GEOG already exists...leaving alone."
-    echo "NOTE: ${WRF_SCRIPTS}/wrf/sectors/ANDES03/wps will be populated"
+    echo "INSTALL: ${INSTALL_WRF_SCRIPTS_DIR}/wrf/WPS_GEOG already exists...leaving alone."
+    echo "NOTE: ${INSTALL_WRF_SCRIPTS_DIR}/wrf/sectors/ANDES03/wps will be populated"
     echo "      by the existing directory WPS_GEOG."
     exit 0
 fi
@@ -17,8 +17,8 @@ fi
 if [[ -d ${INSTALL_WRF_WPS_GEOG_DIR} ]]
 then
     # link and exit
-    echo "INSTALL: linking ${INSTALL_WRF_WPS_GEOG_DIR} to ${WRF_SCRIPTS}/wrf/WPS_GEOG"
-    ln -s ${INSTALL_WRF_WPS_GEOG_DIR} ${WRF_SCRIPTS}/wrf/WPS_GEOG
+    echo "INSTALL: linking ${INSTALL_WRF_WPS_GEOG_DIR} to ${INSTALL_WRF_SCRIPTS_DIR}/wrf/WPS_GEOG"
+    ln -s ${INSTALL_WRF_WPS_GEOG_DIR} ${INSTALL_WRF_SCRIPTS_DIR}/wrf/WPS_GEOG
     exit 0
 fi
 
@@ -30,4 +30,4 @@ fi
 
 # get the WPS_GEOG data
 echo "$0: getting WPS_GEOG data."
-${WRF_SCRIPTS}/install/get_wps_geog.bash -d ${WRF_SCRIPTS}/wrf
+${INSTALL_WRF_SCRIPTS_DIR}/install/get_wps_geog.bash -d ${INSTALL_WRF_SCRIPTS_DIR}/wrf

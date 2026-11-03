@@ -4,14 +4,14 @@
 
 echo "Starting WRF configure and compile"
 
-export HDF5=$WRF_SCRIPTS/wrf
-export NETCDF=$WRF_SCRIPTS/wrf
+export HDF5=$INSTALL_WRF_SCRIPTS_DIR/wrf
+export NETCDF=$INSTALL_WRF_SCRIPTS_DIR/wrf
 export NETCDF4=1
 export NETCDF_classic=1
 export WRF_EM_CORE=1
 export WRFIO_NCD_LARGE_FILE_SUPPORT=1 
 
-cd $WRF_SCRIPTS/wrf/WRF
+cd $INSTALL_WRF_SCRIPTS_DIR/wrf/WRF
 
 if [[ ${INSTALL_WRF_MPI} == "OPENMP" ]]
 then

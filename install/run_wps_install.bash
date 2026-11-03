@@ -1,11 +1,10 @@
 
 echo "Starting WPS configure and compile"
 
-export NETCDF=$WRF_SCRIPTS/wrf
+export NETCDF=$INSTALL_WRF_SCRIPTS_DIR/wrf
 
-cd $WRF_SCRIPTS/wrf/WPS
+cd $INSTALL_WRF_SCRIPTS_DIR/wrf/WPS
 ./clean -a
-
 
 # MAC OS X jasper configure fix (workaround)
 if [[ ${OSTYPE} == "darwin"* ]]

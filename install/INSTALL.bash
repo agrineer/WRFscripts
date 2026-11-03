@@ -24,23 +24,23 @@
 INSTALL_COPYRIGHT="INSTALL.bash Copyright (c) 2024-2026 Scott L. Williams, released under GNU GPL V3.0"
 
 # this install script requires bash environment given in the
-# ${WRF_SCRIPTS}/install/install_wrf_variables.bash
+# ${INSTALL_WRF_SCRIPTS_DIR}/install/install_wrf_variables.bash
 #
 # edit install_wrf_variable.bash for your environment values
 # and then source the file.
 
 BUILD_DATE=`date`
-echo "INSTALL: WRF build environment variable values:"              | tee ${WRF_SCRIPTS}/wrf/build.txt
-echo "         Built on ${BUILD_DATE}"                              | tee -a ${WRF_SCRIPTS}/wrf/build.txt
-echo "              WRF_SCRIPTS = ${WRF_SCRIPTS}"                   | tee -a ${WRF_SCRIPTS}/wrf/build.txt
-echo "    INSTALL_WRF_NUM_CORES = ${INSTALL_WRF_NUM_CORES}"         | tee -a ${WRF_SCRIPTS}/wrf/build.txt
-echo "      INSTALL_WRF_IO_TYPE = ${INSTALL_WRF_IO_TYPE=SERIAL_IO}" | tee -a ${WRF_SCRIPTS}/wrf/build.txt
-echo "   INSTALL_WRF_OUTPUT_DIR = ${INSTALL_WRF_OUTPUT_DIR}"        | tee -a ${WRF_SCRIPTS}/wrf/build.txt
-echo "      INSTALL_WRF_GFS_DIR = ${INSTALL_WRF_GFS_DIR}"           | tee -a ${WRF_SCRIPTS}/wrf/build.txt
-echo " INSTALL_WRF_WPS_GEOG_DIR = ${INSTALL_WRF_WPS_GEOG_DIR}"      | tee -a ${WRF_SCRIPTS}/wrf/build.txt
-echo "     INSTALL_WRF_CUDA_DIR = ${INSTALL_WRF_CUDA_DIR}"          | tee -a ${WRF_SCRIPTS}/wrf/build.txt
-echo "          INSTALL_WRF_MPI = ${INSTALL_WRF_MPI}"               | tee -a ${WRF_SCRIPTS}/wrf/build.txt
-echo "   INSTALL_WRF_IO_CHANNEL = ${INSTALL_WRF_IO_CHANNEL}"        | tee -a ${WRF_SCRIPTS}/wrf/build.txt
+echo "WRF build environment variable values:"                       | tee ${INSTALL_WRF_SCRIPTS_DIR}/wrf/build.txt
+echo "               Build date = ${BUILD_DATE}"                    | tee -a ${INSTALL_WRF_SCRIPTS_DIR}/wrf/build.txt
+echo "  INSTALL_WRF_SCRIPTS_DIR = ${INSTALL_WRF_SCRIPTS_DIR}"       | tee -a ${INSTALL_WRF_SCRIPTS_DIR}/wrf/build.txt
+echo "    INSTALL_WRF_NUM_CORES = ${INSTALL_WRF_NUM_CORES}"         | tee -a ${INSTALL_WRF_SCRIPTS_DIR}/wrf/build.txt
+echo "      INSTALL_WRF_IO_TYPE = ${INSTALL_WRF_IO_TYPE=SERIAL_IO}" | tee -a ${INSTALL_WRF_SCRIPTS_DIR}/wrf/build.txt
+echo "   INSTALL_WRF_OUTPUT_DIR = ${INSTALL_WRF_OUTPUT_DIR}"        | tee -a ${INSTALL_WRF_SCRIPTS_DIR}/wrf/build.txt
+echo "      INSTALL_WRF_GFS_DIR = ${INSTALL_WRF_GFS_DIR}"           | tee -a ${INSTALL_WRF_SCRIPTS_DIR}/wrf/build.txt
+echo " INSTALL_WRF_WPS_GEOG_DIR = ${INSTALL_WRF_WPS_GEOG_DIR}"      | tee -a ${INSTALL_WRF_SCRIPTS_DIR}/wrf/build.txt
+echo "     INSTALL_WRF_CUDA_DIR = ${INSTALL_WRF_CUDA_DIR}"          | tee -a ${INSTALL_WRF_SCRIPTS_DIR}/wrf/build.txt
+echo "          INSTALL_WRF_MPI = ${INSTALL_WRF_MPI}"               | tee -a ${INSTALL_WRF_SCRIPTS_DIR}/wrf/build.txt
+echo "   INSTALL_WRF_IO_CHANNEL = ${INSTALL_WRF_IO_CHANNEL}"        | tee -a ${INSTALL_WRF_SCRIPTS_DIR}/wrf/build.txt
 echo " "
 
 # WRF versions used
@@ -48,9 +48,9 @@ WRFVER=WRFV4.8.0  # release tarballs
 WPSVER=WPSV4.7.0  # 
 WSUFFIX=tar.gz    #
 
-echo "INSTALL: versions:" | tee -a ${WRF_SCRIPTS}/wrf/build.txt
-echo "         WPS : ${WPSVER}"     | tee -a ${WRF_SCRIPTS}/wrf/build.txt
-echo "         WRF : ${WRFVER}"     | tee -a ${WRF_SCRIPTS}/wrf/build.txt
+echo "INSTALL: versions:"         | tee -a ${INSTALL_WRF_SCRIPTS_DIR}/wrf/build.txt
+echo "         WPS : ${WPSVER}"     | tee -a ${INSTALL_WRF_SCRIPTS_DIR}/wrf/build.txt
+echo "         WRF : ${WRFVER}"     | tee -a ${INSTALL_WRF_SCRIPTS_DIR}/wrf/build.txt
 echo " "
 
 function make_dir() {
@@ -69,27 +69,27 @@ function make_dir() {
       exit 1
     fi
 
-    if [[ -d ${WRF_SCRIPTS}/wrf/${2} ]]
+    if [[ -d ${INSTALL_WRF_SCRIPTS_DIR}/wrf/${2} ]]
     then
-	echo "INSTALL: ${WRF_SCRIPTS}/wrf/${2} already exists...yes...leaving alone."
+	echo "INSTALL: does ${INSTALL_WRF_SCRIPTS_DIR}/wrf/${2} already exists...yes...leaving alone."
 	return
     fi
     
-    if [[ -L ${WRF_SCRIPTS}/wrf/${2} ]]
+    if [[ -L ${INSTALL_WRF_SCRIPTS_DIR}/wrf/${2} ]]
     then
-	echo "INSTALL: ${WRF_SCRIPTS}/wrf/${2} link already exists...yes..leaving alone"
+	echo "INSTALL: does ${INSTALL_WRF_SCRIPTS_DIR}/wrf/${2} link already exists...yes..leaving alone"
 	return
     fi
 
     if [[ ${1} == "DEFAULT" ]]
     then
-	echo "INSTALL: making ${WRF_SCRIPTS}/wrf/${2}"
-	mkdir ${WRF_SCRIPTS}/wrf/${2}
+	echo "INSTALL: making ${INSTALL_WRF_SCRIPTS_DIR}/wrf/${2}"
+	mkdir ${INSTALL_WRF_SCRIPTS_DIR}/wrf/${2}
     else
 	if [[ -d ${1} ]]
 	then
-	    echo "INSTALL: linking ${1} to ${WRF_SCRIPTS}/wrf/${2}"
-	    ln -s ${1} ${WRF_SCRIPTS}/wrf/${2}
+	    echo "INSTALL: linking ${1} to ${INSTALL_WRF_SCRIPTS_DIR}/wrf/${2}"
+	    ln -s ${1} ${INSTALL_WRF_SCRIPTS_DIR}/wrf/${2}
 	else
 	    echo "INSTALL: GFS directory ${INSTALL_WRF_GFS_DIR} does not exist."
 	    echo "         continuing...you can fix this manually later."
@@ -105,7 +105,7 @@ make_dir ${INSTALL_WRF_OUTPUT_DIR} output
 if [[ ${INSTALL_WRF_IO_TYPE} == "SERIAL_IO" ]]
 then
     echo "INSTALL: installing SERIAL_IO libraries"
-    source $WRF_SCRIPTS/packages/INSTALL_LIBS_SERIAL_IO.bash
+    source $INSTALL_WRF_SCRIPTS_DIR/packages/INSTALL_LIBS_SERIAL_IO.bash
     status=$?
     if [[ $status -gt 0 ]]
     then
@@ -117,12 +117,12 @@ fi
 #---------------------------------------------------------------------
 # make WRF and WPS
 
-# add WRF_SCRIPTS locations to paths (set these after LIB installs)
-export PATH=$WRF_SCRIPTS/wrf/bin:$PATH
-export LD_LIBRARY_PATH=$WRF_SCRIPTS/wrf/lib:$LD_LIBRARY_PATH
+# add INSTALL_WRF_SCRIPTS_DIR locations to paths (set these after LIB installs)
+export PATH=$INSTALL_WRF_SCRIPTS_DIR/wrf/bin:$PATH
+export LD_LIBRARY_PATH=$INSTALL_WRF_SCRIPTS_DIR/wrf/lib:$LD_LIBRARY_PATH
 
 # remove old versions if there
-cd $WRF_SCRIPTS/wrf
+cd $INSTALL_WRF_SCRIPTS_DIR/wrf
 rm -rf WRF WPS
 
 # get WRF and WPS latest versions (not implemented)
@@ -131,10 +131,10 @@ rm -rf WRF WPS
 
 # rejoin split WRF tar ball
 echo "Rejoining ${WRFVER}.tar.gz"
-cat $WRF_SCRIPTS/packages/$WRFVER\_part_* > $WRF_SCRIPTS/packages/$WRFVER.tar.gz
+cat $INSTALL_WRF_SCRIPTS_DIR/packages/$WRFVER\_part_* > $INSTALL_WRF_SCRIPTS_DIR/packages/$WRFVER.tar.gz
 
 echo "INSTALL: untar'ing ${WRFVER}.${WSUFFIX} package"
-tar xvfz $WRF_SCRIPTS/packages/$WRFVER.$WSUFFIX
+tar xvfz $INSTALL_WRF_SCRIPTS_DIR/packages/$WRFVER.$WSUFFIX
 status=$?
 if [[ $status -gt 0 ]]
 then
@@ -143,7 +143,7 @@ then
 fi
 
 echo "INSTALL: untar'ing ${WPSVER}.${WSUFFIX} package"
-tar xvf $WRF_SCRIPTS/packages/$WPSVER.$WSUFFIX
+tar xvf $INSTALL_WRF_SCRIPTS_DIR/packages/$WPSVER.$WSUFFIX
 status=$?
 if [[ $status -gt 0 ]]
 then
@@ -153,8 +153,8 @@ fi
 
 # edit WRF/Registry file to include SFCEVP variable output
 echo "INSTALL: editing REGISTRY"
-cd $WRF_SCRIPTS/wrf/WRF/Registry
-source $WRF_SCRIPTS/install/fix_registry.bash
+cd $INSTALL_WRF_SCRIPTS_DIR/wrf/WRF/Registry
+source $INSTALL_WRF_SCRIPTS_DIR/install/fix_registry.bash
 status=$?
 if [[ $status -gt 0 ]]
 then
@@ -166,7 +166,7 @@ fi
 if [[ ${INSTALL_WRF_IO_TYPE} == "SERIAL_IO" ]]
 then
     echo "INSTALL: installing ${WRFVER} SERIAL_IO"
-    source $WRF_SCRIPTS/install/run_wrf_serial_io_install.bash
+    source $INSTALL_WRF_SCRIPTS_DIR/install/run_wrf_serial_io_install.bash
     status=$?
     if [[ $status -gt 0 ]]
     then
@@ -176,7 +176,7 @@ then
 fi
 
 # build WPS after WRF build_
-source $WRF_SCRIPTS/install/run_wps_install.bash
+source $INSTALL_WRF_SCRIPTS_DIR/install/run_wps_install.bash
 status=$?
 if [[ $status -gt 0 ]]
 then
@@ -185,10 +185,10 @@ then
 fi   
 
 # some sector housekeeping
-cd $WRF_SCRIPTS/wrf/sectors/ANDES03/wps
+cd $INSTALL_WRF_SCRIPTS_DIR/wrf/sectors/ANDES03/wps
 
 echo "INSTALL: setting namelist.wps.template WPS_GEOG path"
-sed -i.bak 's|/home/user|'$WRF_SCRIPTS'|' ./namelist.wps.template && rm namelist.wps.template.bak
+sed -i.bak 's|/home/user|'$INSTALL_WRF_SCRIPTS_DIR'|' ./namelist.wps.template && rm namelist.wps.template.bak
 status=$?
 if [[ $status -gt 0 ]]
 then
@@ -198,7 +198,7 @@ fi
 cp namelist.wps.template namelist.wps # so that geogrid.exe works
 
 # change to ../wrf
-cd $WRF_SCRIPTS/wrf/sectors/ANDES03/wrf
+cd $INSTALL_WRF_SCRIPTS_DIR/wrf/sectors/ANDES03/wrf
 cp namelist.input.template namelist.input
 
 if [[ ${INSTALL_WRF_WPS_GEOG_DIR} == "NONE" ]]
@@ -206,17 +206,17 @@ then
     echo "WRF ${INSTALL_WRF_IO_TYPE} INSTALLATION complete without downloading"
     echo "or linking a WPS_GEOG directory."
     echo " "
-    echo "Use '${WRF_SCRIPTS}/install/install_wps_geog.bash' to download the files"
+    echo "Use '${INSTALL_WRF_SCRIPTS_DIR}/install/install_wps_geog.bash' to download the files"
     echo "later, if needed."
     echo " "
-    echo "Do not forget to populate geo files in ${WRF_SCRIPTS}/wrf/sectors/XXXXX/wps,"
+    echo "Do not forget to populate geo files in ${INSTALL_WRF_SCRIPTS_DIR}/wrf/sectors/XXXXX/wps,"
     echo "after linking or downloading the WPS_GEOG".
     echo "Also set io_forms parameters in SECTOR/wrf/namelist.input.template, if needed."
     exit 0
 fi
 
 # get or link WPS_GEOG
-${WRF_SCRIPTS}/install/install_wps_geog.bash
+${INSTALL_WRF_SCRIPTS_DIR}/install/install_wps_geog.bash
 status=$?
 if [[ $status -gt 0 ]]
 then
@@ -226,8 +226,8 @@ fi
 
 echo "INSTALL: WRF ${IO} INSTALLATION complete with WPS_GEOG files."
 
-echo "INSTALL: populating ${WRF_SCRIPTS}/wrf/sectors/ANDES03/wps with geo files."
-cd ${WRF_SCRIPTS}/wrf/sectors/ANDES03/wps
+echo "INSTALL: populating ${INSTALL_WRF_SCRIPTS_DIR}/wrf/sectors/ANDES03/wps with geo files."
+cd ${INSTALL_WRF_SCRIPTS_DIR}/wrf/sectors/ANDES03/wps
 ./geogrid.exe
 status=$?
 if [[ $status -gt 0 ]]
@@ -257,7 +257,7 @@ echo ""
 echo "To run, set the environment variables for a desktop as below"
 echo "and to suit your environment:"
 echo ""
-echo "export WRF_HOME=${WRF_SCRIPTS}/wrf"
+echo "export WRF_HOME=${INSTALL_WRF_SCRIPTS_DIR}/wrf"
 echo "export WRF_MPI=MPICH"
 echo "export WRF_OPENMP_NCORES=NONE"
 echo "export WRF_JCL=NONE"
@@ -272,7 +272,7 @@ echo "           and adjust for HPC"
 echo ""
 echo "Typical usage:"
 echo "Go to the log directory:"
-echo "\$ cd ${WRF_SCRIPTS}/wrf/log"
+echo "\$ cd ${INSTALL_WRF_SCRIPTS_DIR}/wrf/log"
 echo ""
 echo "If there is no data in the gfs directory, then for ask for yesterday\'s"
 echo "GFS data with:"
@@ -289,7 +289,7 @@ echo "To monitor WPS pre-processing:"
 echo "\$ tail -f ANDES03.log"
 echo ""
 echo "To monitor WRF processing:"
-echo "\$ tail -f ${WRF_SCRIPTS}/wrf/sectors/ANDES03/wrf/rsl.error.0000"
+echo "\$ tail -f ${INSTALL_WRF_SCRIPTS_DIR}/wrf/sectors/ANDES03/wrf/rsl.error.0000"
 echo ""
 echo "To get GFS data from the last 10 days:"
 echo "\$ getdata_gfs.py YYYYMMDD # currently gets the full date"

@@ -39,8 +39,8 @@ check_configure()
     if [[ ${PIPESTATUS[0]} -gt 0 ]]
     then
         echo "INSTALL_LIBS_SERIAL_IO: could not configure ${PNAME}"
-        echo "                        review ${WRF_SCRIPTS}/wrf/packages/${PNAME}/${PNAME}_config.log"
-        echo "                        and ${WRF_SCRIPTS}/wrf/packages/${PNAME}/config.log for details"
+        echo "                        review ${INSTALL_WRF_SCRIPTS_DIR}/wrf/packages/${PNAME}/${PNAME}_config.log"
+        echo "                        and ${INSTALL_WRF_SCRIPTS_DIR}/wrf/packages/${PNAME}/config.log for details"
         exit 1
     fi
 }
@@ -51,7 +51,7 @@ check_make()
     if [[ ${PIPESTATUS[0]} -gt 0 ]]
     then
         echo "INSTALL_LIBS_SERIAL_IO: could not make ${PNAME}"
-        echo "                        review ${WRF_SCRIPTS}/wrf/packages/${PNAME}/${PNAME}_make.log for details"
+        echo "                        review ${INSTALL_WRF_SCRIPTS_DIR}/wrf/packages/${PNAME}/${PNAME}_make.log for details"
         exit 1
     fi
 }
@@ -62,7 +62,7 @@ check_make_install()
     if [[ ${PIPESTATUS[0]} -gt 0 ]]
     then
         echo "INSTALL_LIBS_SERIAL_IO: could not make install ${PNAME}"
-        echo "                        review ${WRF_SCRIPTS}/wrf/packages/${PNAME}/${PNAME}_make_install.log for details"
+        echo "                        review ${INSTALL_WRF_SCRIPTS_DIR}/wrf/packages/${PNAME}/${PNAME}_make_install.log for details"
         exit 1
     fi
 }
@@ -97,7 +97,7 @@ print_env()
 
 make_lib()
 {    
-    cd $WRF_SCRIPTS/packages
+    cd $INSTALL_WRF_SCRIPTS_DIR/packages
     rm -rf $PNAME # remove old package dir
 
     untar_package # parameters are PNAME and SUFFIX
@@ -165,9 +165,9 @@ clear_vars()
 echo ""
 echo "INSTALL_LIBS_SERIAL IO: installing SERIAL I/O WRF dependent libraries"
 
-cd $WRF_SCRIPTS/wrf
+cd $INSTALL_WRF_SCRIPTS_DIR/wrf
 
-echo "INSTALL_LIBS_SERIAL_IO: cleaning ${WRF_SCRIPTS}/wrf/bin"
+echo "INSTALL_LIBS_SERIAL_IO: cleaning ${INSTALL_WRF_SCRIPTS_DIR}/wrf/bin"
 rm -rf bin
 mkdir bin
 cd bin
@@ -177,31 +177,32 @@ ln -s ../scripts/getfuture_gfs.py
 ln -s ../scripts/runwrf
 cd ../
 
-echo "INSTALL_LIBS_SERIAL_IO: cleaning ${WRF_SCRIPTS}/wrf/include"
+echo "INSTALL_LIBS_SERIAL_IO: cleaning ${INSTALL_WRF_SCRIPTS_DIR}/wrf/include"
 rm -rf include
 mkdir include
 
-echo "INSTALL_LIBS_SERIAL_IO: cleaning ${WRF_SCRIPTS}/wrf/lib"
+echo "INSTALL_LIBS_SERIAL_IO: cleaning ${INSTALL_WRF_SCRIPTS_DIR}/wrf/lib"
 rm -rf lib
 mkdir lib
 
-echo "INSTALL_LIBS_SERIAL_IO: cleaning ${WRF_SCRIPTS}/wrf/log"
+echo "INSTALL_LIBS_SERIAL_IO: cleaning ${INSTALL_WRF_SCRIPTS_DIR}/wrf/log"
 rm -rf log
 mkdir log
 
-echo "INSTALL_LIBS_SERIAL_IO: cleaning ${WRF_SCRIPTS}/wrf/share"
+echo "INSTALL_LIBS_SERIAL_IO: cleaning ${INSTALL_WRF_SCRIPTS_DIR}/wrf/share"
 rm -rf share
 mkdir share
 
 mkdir -p gfs_0.25 output
 
-echo "INSTAll_LIBS_SERIAL_IO: if this is a re-build (not a cloned install) then directories:"
-echo "         gfs_0.25"
-echo "         output"
-echo "         sectors"
-echo "         WPS_GEOG"
+echo "INSTAll_LIBS_SERIAL_IO: if this is a re-build (not a cloned install)"
+echo "                        then these directories are preserved:"
 echo ""
-echo "are preserved."
+echo "                        gfs_0.25"
+echo "                        output"
+echo "                        sectors"
+echo "                        WPS_GEOG"
+echo ""
 
 # --------------------------------------------------------------------
 # HDF5
@@ -212,13 +213,13 @@ PNAME=hdf5-2.2.0
 SUFFIX=tar.gz
 
 WITH_CMAKE=YES
-CONF_PARAMS="--install-prefix=${WRF_SCRIPTS}/wrf\
+CONF_PARAMS="--install-prefix=${INSTALL_WRF_SCRIPTS_DIR}/wrf\
  -DBUILD_TESTING=OFF\
  -DHDF5_BUILD_TOOLS=ON\
  -DHDF5_ENABLE_ZLIB_SUPPORT=ON\
  -DBUILD_SHARED_LIBS=ON\
  -DHDF5_BUILD_FORTRAN=ON\
- -DH5_DEFAULT_PLUGINDIR:PATH=${WRF_SCRIPTS}/wrf/lib"
+ -DH5_DEFAULT_PLUGINDIR:PATH=${INSTALL_WRF_SCRIPTS_DIR}/wrf/lib"
 # DHDF5_PROVIDES_PARALLEL:BOOL=ON
 echo "INSTALL_LIBS_SERIAL_IO: NOTE: cmake does not seem to honor H5_DEFAULT_PLUGINDIR:PATH"
 # Perhaps another flag needs to be set?
@@ -233,9 +234,9 @@ clear_vars
 PNAME=netcdf-c-4.10.1
 SUFFIX=tar.gz
 
-export CPPFLAGS=-I$WRF_SCRIPTS/wrf/include
-export LDFLAGS=-L$WRF_SCRIPTS/wrf/lib
-CONF_PARAMS="--prefix=${WRF_SCRIPTS}/wrf --enable-netcdf4 --disable-byterange --enable-largefile"
+export CPPFLAGS=-I$INSTALL_WRF_SCRIPTS_DIR/wrf/include
+export LDFLAGS=-L$INSTALL_WRF_SCRIPTS_DIR/wrf/lib
+CONF_PARAMS="--prefix=${INSTALL_WRF_SCRIPTS_DIR}/wrf --enable-netcdf4 --disable-byterange --enable-largefile"
 
 make_lib
 
@@ -247,16 +248,16 @@ clear_vars
 PNAME=netcdf-fortran-4.6.4
 SUFFIX=tar.gz
 
-export CPPFLAGS=-I$WRF_SCRIPTS/wrf/include
-export LDFLAGS=-L$WRF_SCRIPTS/wrf/lib # does not work; need to hijack LD_LIBRARY_PATH, see below
+export CPPFLAGS=-I$INSTALL_WRF_SCRIPTS_DIR/wrf/include
+export LDFLAGS=-L$INSTALL_WRF_SCRIPTS_DIR/wrf/lib # does not work; need to hijack LD_LIBRARY_PATH, see below
 #export LDLIBS=-lnetcdf
 export LDLIBS='-lhdf5_hl -lhdf5 -lm -lz -lsz -lbz2 -lzstd -lblosc -lxml2 -lcurl -lnetcdf'
 export FC=gfortran
-CONF_PARAMS="--prefix=${WRF_SCRIPTS}/wrf --enable-largefile --enable-shared --disable-zstandard-plugin"
+CONF_PARAMS="--prefix=${INSTALL_WRF_SCRIPTS_DIR}/wrf --enable-largefile --enable-shared --disable-zstandard-plugin"
 
 # work-around for LDFLAGS not working
 LD_LIBPATH_OLD=$LD_LIBRARY_PATH
-export LD_LIBRARY_PATH=$WRF_SCRIPTS/wrf/lib:/usr/local/lib:/usr/lib:/lib
+export LD_LIBRARY_PATH=$INSTALL_WRF_SCRIPTS_DIR/wrf/lib:/usr/local/lib:/usr/lib:/lib
 
 make_lib
 
@@ -315,14 +316,14 @@ then
 	export CXXFLAGS="-w -fPIE -Wno-implicit-function-declaration -I${SDKROOT}/usr/include"
 	export LDFLAGS="-Wl,-framework,CoreFoundation -Wl,-framework,IOKit"
 
-        CONF_PARAMS="--prefix=${WRF_SCRIPTS}/wrf" # no CUDA or DEVICE for now
+        CONF_PARAMS="--prefix=${INSTALL_WRF_SCRIPTS_DIR}/wrf" # no CUDA or DEVICE for now
     else
         
         echo "INSTALL_LIBS_SERIAL_IO: compiling MPICH with channel ${INSTALL_WRF_IO_CHANNEL}"
         
         # TODO:check for valid device
         DEVICE="--with-device=${INSTALL_WRF_IO_CHANNEL}"
-        CONF_PARAMS="--prefix=${WRF_SCRIPTS}/wrf ${CUDA} ${DEVICE}"
+        CONF_PARAMS="--prefix=${INSTALL_WRF_SCRIPTS_DIR}/wrf ${CUDA} ${DEVICE}"
     fi
     
     make_lib

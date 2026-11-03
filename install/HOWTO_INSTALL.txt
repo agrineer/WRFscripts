@@ -45,7 +45,7 @@ Currently, the serial implementation is stable, so use SERIAL_IO.
 # This bash shell file sets the environment variables that specify how to compile the libraries and WPS/WRF.
 # Below are the variable descriptions and default values:
 
-	  WRF_SCRIPTS=/home/user/WRFscripts
+	  INSTALL_WRF_SCRIPTS_DIR=/home/user/WRFscripts
 	  Sets the location of where WRFscripts.tar was extracted to or
 	  cloned to.  Change "/home/user/" to your choice of location.
 
@@ -64,12 +64,12 @@ Currently, the serial implementation is stable, so use SERIAL_IO.
 
 	  Options are:
 	    - DEFAULT
-	      Creates the output directory, ${WRF_SCRIPTS}/wrf/output.
+	      Creates the output directory, ${INSTALL_WRF_SCRIPTS_DIR}/wrf/output.
 	      In case of a rebuild (not a cloned install), and if the output
 	      directory or link already exists it will be skipped (no action).
 	      	      
 	    - Path to existing output directory which gets linked
-	      in ${WRF_SCRIPTS}/wrf. If the output directory or link already exists
+	      in ${INSTALL_WRF_SCRIPTS_DIR}/wrf. If the output directory or link already exists
 	      it will be skipped (no action).
 
             - NONE
@@ -77,18 +77,18 @@ Currently, the serial implementation is stable, so use SERIAL_IO.
 	      takes no action. The user will manually fix.
 
           INSTALL_WRF_GFS_DIR=DEFAULT
-	  Determines if to create the input ${WRF_SCRIPTS}/wrf/gfs_0.25
+	  Determines if to create the input ${INSTALL_WRF_SCRIPTS_DIR}/wrf/gfs_0.25
 	  directory, or to set the link path, or to take no action.
 	  Options are:
 	     - DEFAULT
-               Creates the input ${WRF_SCRIPTS}/wrf/gfs_0.25 directory,
-               ${WRF_SCRIPTS}/wrf/gfs_0.25. In case of a rebuild
+               Creates the input ${INSTALL_WRF_SCRIPTS_DIR}/wrf/gfs_0.25 directory,
+               ${INSTALL_WRF_SCRIPTS_DIR}/wrf/gfs_0.25. In case of a rebuild
                (not a cloned install), and if the gfs_0.25 directory
                or link already exists it will be skipped (no action).
 
              - Path to an existing GFS directory and gets linked to
-               in $WRF_SCRIPTS/wrf. If the directory
-	       ${WRF_SCRIPTS}/wrf/gfs_0.25 or link already exists it
+               in ${INSTALL_WRF_SCRIPTS_DIR}/wrf. If the directory
+	       ${INSTALL_WRF_SCRIPTS_DIR}/wrf/gfs_0.25 or link already exists it
 	       will be skipped (no action).
 
              - NONE
@@ -100,17 +100,17 @@ Currently, the serial implementation is stable, so use SERIAL_IO.
 	  Determines if the large WPS_GEOG data directory gets downloaded
 	  from UCAR, or to set the link path or to take no action.
 
-          Determine if to the input ${WRF_SCRIPTS}/wrf/WPS_GEOG
+          Determine if to the input ${INSTALL_WRF_SCRIPTS_DIR}/wrf/WPS_GEOG
 	  directory, or to set the path to linked to or to take no action.
           Options are:
           - DEFAULT
             Downloads from UCAR the WPS static data and creates
-            ${WRF_SCRIPTS}/wrf/WPS_GEOG. In case of a rebuild
+            ${INSTALL_WRF_SCRIPTS_DIR}/wrf/WPS_GEOG. In case of a rebuild
 	    (not a cloned install), and if the WPS_GEOG directory or
 	    link already exists it will be skipped (no action).
 
           - Path to existing WPS_GEOG directory and gets linked in
-	    ${WRF_SCRIPTS}/wrf
+	    ${INSTALL_WRF_SCRIPTS_DIR}/wrf
 
           - NONE
             Ignores making or linking the WPS_GEOG directory.The user will
@@ -168,10 +168,10 @@ $ ./INSTALL.bash 2>&1 | tee WRFscripts-build.txt
 # over an hour, depending on the platform used.
 
 -------------------------------------------------------------------------------
-# With a succesfull install, link the $WRF_SCRIPTS/wrf to a convienient locator,
+# With a succesfull install, link the ${INSTALL_WRF_SCRIPTS_DIR}/wrf to a convienient locator,
 eg.
 $ cd ~
-$ ln -s $WRF_SCRIPTS/wrf
+$ ln -s $INSTALL_WRF_SCRIPTS_DIR/wrf
 
 # This link makes navigation to "wrf" easier without going through "WRFscripts. Indeed, "WRFscripts" top directory will not be needed from this point on.
 
@@ -191,7 +191,7 @@ $ ln -s /input/gfs_0.25
 $ cd ~/wrf/sectors/ANDES03/wps
 
 # Edit the namelist.wps file to include WPS_GEOG path
-eg. geog_data_path = '${WRF_SCRIPTS}/wrf/WPS_GEOG'
+eg. geog_data_path = '${INSTALL_WRF_SCRIPTS_DIR}/wrf/WPS_GEOG'
 
 # Run geogrid.exe to populate the static geo files for your sector.
 $ ./geogrid.exe
@@ -200,10 +200,10 @@ $ ./geogrid.exe
 # Sector "ANDES03" is distributed with this release and will be used as an example. This project is open to receiving and distributing user's sector "namelist.* Currently, send to git at agrineer.org
 #-------------------------------------------------------------------------------
 
-If using SLURM: go to $WRF_SCRIPTS/test_c_mpi and test the slurm interfaces
+If using SLURM: go to ${INSTALL_INSTALL_WRF_SCRIPTS_DIR}/test_c_mpi and test the slurm interfaces
    	 	using mpi_hello_world.c. See the test_c_mpi/README.txt
 		
-   	 	Edit WRF_SCRIPTS/wrf/sectors/SECTOR/wrf_mpich.slurm 
+   	 	Edit INSTALL_WRF_SCRIPTS_DIR/wrf/sectors/SECTOR/wrf_mpich.slurm 
 
 		mpich.slurm contains the SLURM parameters for execution. 
 		
@@ -218,7 +218,7 @@ PBS job control is not yet implementation
 # and source it for user configuration. see the install/bash_profile_example.
 
 export WRF_HOME=~/wrf          # here the "wrf" directory is
-                               # linked to $WRF_SCRIPTS/wrf
+                               # linked to ${INSTALL_WRF_SCRIPTS_DIR}/wrf
 			       
 export WRF_MPI=MPICH           # specifies type of MPI. If MPICH then
                                # runtime program will look for the hosts
@@ -350,13 +350,13 @@ End of output.
 # NOTE: In the above output snippet, the floating point exceptions are normal
         according to team WRF at NCAR/UCAR.
 
-# To monitor processing progress:
+# To monitor processing progress (SECTOR is your sector to use):
 $ tail -f ~/wrf/sectors/SECTOR/wrf/rsl.error.0000
 
 NOTE: To change parameter values in the "namelist.wps" and "namelist.input" files you must edit the corresponding "template" files instead. "runwrf" will update the files.
 
 # To get slurm reports see SECTOR_slurm.log in log directory.
 
-# See the example cron file "WRF_SCRIPTS/cron/cronfile" for daily runs.
+# See the example cron file "{INSTALL_WRF_SCRIPTS_DIR}/cron/cronfile" for daily runs.
 
 # Happy WRF'ing!

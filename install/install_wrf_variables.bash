@@ -5,7 +5,7 @@
 
 # example install variable assignation for WRF INSTALL bash script
     
-export WRF_SCRIPTS=/home/user/WRFscripts # installation home
+export INSTALL_WRF_SCRIPTS_DIR=/home/user/WRFscripts # installation home
 # Sets the location of where WRFscripts.tar was extracted to or
 # cloned to.  Change "/home/user/" to your choice of location.
 
@@ -24,13 +24,13 @@ export INSTALL_WRF_OUTPUT_DIR=DEFAULT
 # or to take no action.
 # Options are:
 #    - DEFAULT
-#      Creates the output directory, ${WRF_SCRIPTS}/wrf/output.
+#      Creates the output directory, ${INSTALL_WRF_SCRIPTS_DIR}/wrf/output.
 #      In case of a rebuild (not a cloned install), and if the output
 #      directory or link already exists it will be skipped (no action).
 #
 #    - Path to existing output directory which gets linked to
-#      in ${WRF_SCRIPTS}/wrf. If the output directory or link already exists
-#      it will be skipped (no action).
+#      in ${INSTALL_WRF_SCRIPTS_DIR}/wrf. If the output directory or link
+#      already exists it will be skipped (no action).
 #
 #    - NONE
 #      This option ignores making or linking the output directory and
@@ -38,19 +38,20 @@ export INSTALL_WRF_OUTPUT_DIR=DEFAULT
 #
 
 export INSTALL_WRF_GFS_DIR=DEFAULT
-# Determines if to create the input ${WRF_SCRIPTS}/wrf/gfs_0.25 directory,
-# or to set the link path, or to take no action.
+# Determines if to create the input ${INSTALL_WRF_SCRIPTS_DIR}/wrf/gfs_0.25
+# directory, or to set the link path, or to take no action.
 
 # Options are:
 #   - DEFAULT
-#     Creates the input ${WRF_SCRIPTS}/wrf/gfs_0.25 directory,
-#     $WRF_SCRIPTS/wrf/gfs_0.25. In case of a rebuild
+#     Creates the input ${INSTALL_WRF_SCRIPTS_DIR}/wrf/gfs_0.25 directory,
+#     ${INSTALL_WRF_SCRIPTS_DIR}/wrf/gfs_0.25. In case of a rebuild
 #     (not a cloned install), and if the gfs_0.25 directory
 #     or link already exists it will be skipped (no action).
 #
 #   - Path to existing GFS directory and gets linked to
-#     in $WRF_SCRIPTS/wrf. If the directory ${WRF_SCRIPTS}/wrf/gfs_0.25
-#     directory or link already exists it will be skipped (no action).
+#     in ${INSTALL_WRF_SCRIPTS_DIR}/wrf. If the directory
+#     ${INSTALL_WRF_SCRIPTS_DIR}/wrf/gfs_0.25 directory or link already exists
+#     it will be skipped (no action).
 #
 #   - NONE
 #     Ignores making or linking the gfs_0.25 directory and
@@ -62,11 +63,12 @@ export INSTALL_WRF_WPS_GEOG_DIR=DEFAULT
 # Options are:
 # - DEFAULT
 #   Downloads from UCAR the WPS static data and creates
-#   ${WRF_SCRIPTS}/wrf/WPS_GEOG. In case of a rebuild (not a cloned install),
+#   ${INSTALL_WRF_SCRIPTS_DIR}/wrf/WPS_GEOG. In case of a rebuild (not a cloned install),
 #   and if the WPS_GEOG directory or link already exists it will be skipped
 #   (no action).
 #
-# - Path to existing WPS_GEOG directory and gets linked in ${WRF_SCRIPTS}/wrf
+# - Path to existing WPS_GEOG directory and gets linked in
+#   ${INSTALL_WRF_SCRIPTS_DIR}/wrf
 #
 # - NONE
 #   Ignores making or linking the WPS_GEOG directory.The user will manually fix.
@@ -134,7 +136,7 @@ function check_dir() {
 }
 
 # check directories
-check_dir $WRF_SCRIPTS
+check_dir $INSTALL_WRF_SCRIPTS_DIR
 check_dir $INSTALL_WRF_OUTPUT_DIR
 check_dir $INSTALL_WRF_GFS_DIR
 check_dir $INSTALL_WRF_WPS_GEOG_DIR
@@ -207,7 +209,7 @@ fi
 
 
 echo "WRF build environment variable values:"
-echo "                  WRF_SCRIPTS = ${WRF_SCRIPTS}"
+echo "      INSTALL_WRF_SCRIPTS_DIR = ${INSTALL_WRF_SCRIPTS_DIR}"
 echo "        INSTALL_WRF_NUM_CORES = ${INSTALL_WRF_NUM_CORES}"
 echo "          INSTALL_WRF_IO_TYPE = ${INSTALL_WRF_IO_TYPE=SERIAL_IO}"
 echo "       INSTALL_WRF_OUTPUT_DIR = ${INSTALL_WRF_OUTPUT_DIR}"
