@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+#
 #  INSTALL_LIBS_SERIAL_IO
 # 
 #  Copyright (c) 2020-2026 Scott L. Williams
