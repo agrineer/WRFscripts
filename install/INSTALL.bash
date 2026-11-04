@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+#
 #  INSTALL.bash
 # 
 #  Copyright (c) 2024-2026 Scott L. Williams
@@ -105,7 +105,7 @@ make_dir ${INSTALL_WRF_OUTPUT_DIR} output
 if [[ ${INSTALL_WRF_IO_TYPE} == "SERIAL_IO" ]]
 then
     echo "INSTALL: installing SERIAL_IO libraries"
-    source $INSTALL_WRF_SCRIPTS_DIR/packages/INSTALL_LIBS_SERIAL_IO.bash
+    $INSTALL_WRF_SCRIPTS_DIR/packages/INSTALL_LIBS_SERIAL_IO.bash
     status=$?
     if [[ $status -gt 0 ]]
     then
@@ -154,7 +154,7 @@ fi
 # edit WRF/Registry file to include SFCEVP variable output
 echo "INSTALL: editing REGISTRY"
 cd $INSTALL_WRF_SCRIPTS_DIR/wrf/WRF/Registry
-source $INSTALL_WRF_SCRIPTS_DIR/install/fix_registry.bash
+$INSTALL_WRF_SCRIPTS_DIR/install/fix_registry.bash
 status=$?
 if [[ $status -gt 0 ]]
 then
@@ -166,7 +166,7 @@ fi
 if [[ ${INSTALL_WRF_IO_TYPE} == "SERIAL_IO" ]]
 then
     echo "INSTALL: installing ${WRFVER} SERIAL_IO"
-    source $INSTALL_WRF_SCRIPTS_DIR/install/run_wrf_serial_io_install.bash
+    $INSTALL_WRF_SCRIPTS_DIR/install/run_wrf_serial_io_install.bash
     status=$?
     if [[ $status -gt 0 ]]
     then
@@ -176,7 +176,7 @@ then
 fi
 
 # build WPS after WRF build_
-source $INSTALL_WRF_SCRIPTS_DIR/install/run_wps_install.bash
+$INSTALL_WRF_SCRIPTS_DIR/install/run_wps_install.bash
 status=$?
 if [[ $status -gt 0 ]]
 then
@@ -188,7 +188,7 @@ fi
 cd $INSTALL_WRF_SCRIPTS_DIR/wrf/sectors/ANDES03/wps
 
 echo "INSTALL: setting namelist.wps.template WPS_GEOG path"
-sed -i.bak 's|/home/user|'$INSTALL_WRF_SCRIPTS_DIR'|' ./namelist.wps.template && rm namelist.wps.template.bak
+sed -i.bak 's|/home/user/WRFscripts|'$INSTALL_WRF_SCRIPTS_DIR'|' ./namelist.wps.template && rm namelist.wps.template.bak
 status=$?
 if [[ $status -gt 0 ]]
 then
