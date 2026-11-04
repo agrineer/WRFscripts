@@ -10,7 +10,7 @@ export LD_LIBRARY_PATH=$WRF_HOME/lib:$LD_LIBRARY_PATH
 export MP_STACK_SIZE=64000000 
 
 echo ""
-echo "$0: using:"
+echo "runwrf: using:"
 echo "       WRF_HOME=${WRF_HOME}"
 echo "        SCRIPTS=${SCRIPTS}"
 echo "        GFSHOME=${GFSHOME}"
@@ -21,18 +21,18 @@ echo "  MP_STACK_SIZE=${MP_STACK_SIZE}"
 echo ""
 
 usage() {                             
-    echo "$0: usage: $0 [-h] -s SECTOR -r RESTART -b BEGIN_HOUR [-d RUNDATE]"
-    echo "$0: RUNDATE has YYYYMMDD format"
-    echo "$0: RUNDATE is optional, if no RUNDATE then defaults to UTC yesterday"
-    echo "$0: RESTART is either true or false"
-    echo "$0: BEGIN_HOUR must be one of 0,6,12,18"
-    echo "$0: SECTOR example is -s ANDES03"
+    echo "runwrf: usage: runwrf [-h] -s SECTOR -r RESTART -b BEGIN_HOUR [-d RUNDATE]"
+    echo "runwrf: RUNDATE has YYYYMMDD format"
+    echo "runwrf: RUNDATE is optional, if no RUNDATE then defaults to UTC yesterday"
+    echo "runwrf: RESTART is either true or false"
+    echo "runwrf: BEGIN_HOUR must be one of 0,6,12,18"
+    echo "runwrf: SECTOR example is -s ANDES03"
     exit 1
 }
 
 if [ $# -gt 9 ];
 then
-    echo "$0: too many arguments....exiting"
+    echo "runwrf: too many arguments....exiting"
     exit 1
 fi
 
@@ -47,7 +47,7 @@ while getopts "hs:r:b:d:" options; do
 	h) usage
 	   ;;
 	:)                                    
-	    echo "$0 error: -${OPTARG} requires an argument."
+	    echo "runwrf error: ${OPTARG} requires an argument."
 	    usage
 	    ;;
 	[?])
