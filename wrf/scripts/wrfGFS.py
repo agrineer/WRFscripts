@@ -521,11 +521,11 @@ def get_directories():
 def report_start_processing( gfs_dir, rsector, rdir ):
 
     try:
-        now = datetime.datetime.now(datetime.UTC).isoformat
+        now = datetime.datetime.now(datetime.UTC)
     except:
-        now = datetime.datetime.utcnow().isoformat # deprecated
+        now = datetime.datetime.utcnow() # deprecated
 
-    ostr = 'starting run at local time:' + str(now)
+    ostr = 'starting run at local time: ' + str(now)
     eprint( ostr )
 
     ostr = 'using input data directory: ' + gfs_dir
