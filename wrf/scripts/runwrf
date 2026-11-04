@@ -9,7 +9,8 @@ export FI_PROVIDER=tcp # for MAC OS/X
 export LD_LIBRARY_PATH=$WRF_HOME/lib:$LD_LIBRARY_PATH
 export MP_STACK_SIZE=64000000 
 
-echo "using:"
+scho ""
+echo "$0: using:"
 echo "       WRF_HOME=${WRF_HOME}"
 echo "        SCRIPTS=${SCRIPTS}"
 echo "        GFSHOME=${GFSHOME}"
