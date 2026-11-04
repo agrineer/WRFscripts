@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 
 echo "Starting WPS configure and compile"
 
