@@ -30,6 +30,7 @@ INSTALL_COPYRIGHT="INSTALL.bash Copyright (c) 2024-2026 Scott L. Williams, relea
 # and then source the file.
 
 BUILD_DATE=`date`
+
 echo "WRF build environment variable values:"                       | tee ${INSTALL_WRF_SCRIPTS_DIR}/wrf/build.txt
 echo "               Build date = ${BUILD_DATE}"                    | tee -a ${INSTALL_WRF_SCRIPTS_DIR}/wrf/build.txt
 echo "  INSTALL_WRF_SCRIPTS_DIR = ${INSTALL_WRF_SCRIPTS_DIR}"       | tee -a ${INSTALL_WRF_SCRIPTS_DIR}/wrf/build.txt
@@ -48,10 +49,11 @@ WRFVER=WRFV4.8.0  # release tarballs
 WPSVER=WPSV4.7.0  # 
 WSUFFIX=tar.gz    #
 
-echo "INSTALL: versions:"         | tee -a ${INSTALL_WRF_SCRIPTS_DIR}/wrf/build.txt
-echo "         WPS : ${WPSVER}"     | tee -a ${INSTALL_WRF_SCRIPTS_DIR}/wrf/build.txt
-echo "         WRF : ${WRFVER}"     | tee -a ${INSTALL_WRF_SCRIPTS_DIR}/wrf/build.txt
-echo " "
+echo " "                        | tee -a ${INSTALL_WRF_SCRIPTS_DIR}/wrf/build.txt
+echo "INSTALL: versions:"       | tee -a ${INSTALL_WRF_SCRIPTS_DIR}/wrf/build.txt
+echo "         WPS : ${WPSVER}" | tee -a ${INSTALL_WRF_SCRIPTS_DIR}/wrf/build.txt
+echo "         WRF : ${WRFVER}" | tee -a ${INSTALL_WRF_SCRIPTS_DIR}/wrf/build.txt
+echo " "                        | tee -a ${INSTALL_WRF_SCRIPTS_DIR}/wrf/build.txt
 
 function make_dir() {
     
