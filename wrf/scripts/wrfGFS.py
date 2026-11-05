@@ -339,8 +339,10 @@ def clean_wrfdir( rsector, rsl ):
 def run_real():
 
     eprint( 'running real.exe...' )
-    ld_library_path = os.environ[ 'LD_LIBRARY_PATH' ]
-    eprint( 'LD_LIBRARY_PATH=' + ld_library_path )
+    eprint( 'LD_LIBRARY_PATH=' + os.environ[ 'LD_LIBRARY_PATH' ] )
+    eprint( 'DYLD_LIBRARY_PATH=' + os.environ[ 'DYLD_LIBRARY_PATH' ] )
+    eprint( 'DYLD_FALLBACK_LIBRARY_PATH=' + os.environ[ 'DYLD_FALLBACK_LIBRARY_PATH' ] )
+
     os_command( './real.exe' )
 
     # check if successful
