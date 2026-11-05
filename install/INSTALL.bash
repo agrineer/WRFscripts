@@ -42,14 +42,13 @@ echo " INSTALL_WRF_WPS_GEOG_DIR = ${INSTALL_WRF_WPS_GEOG_DIR}"      | tee -a ${I
 echo "     INSTALL_WRF_CUDA_DIR = ${INSTALL_WRF_CUDA_DIR}"          | tee -a ${INSTALL_WRF_SCRIPTS_DIR}/wrf/build.txt
 echo "          INSTALL_WRF_MPI = ${INSTALL_WRF_MPI}"               | tee -a ${INSTALL_WRF_SCRIPTS_DIR}/wrf/build.txt
 echo "   INSTALL_WRF_IO_CHANNEL = ${INSTALL_WRF_IO_CHANNEL}"        | tee -a ${INSTALL_WRF_SCRIPTS_DIR}/wrf/build.txt
-echo " "
 
 # WRF versions used
 WRFVER=WRFV4.8.0  # release tarballs
 WPSVER=WPSV4.7.0  # 
 WSUFFIX=tar.gz    #
 
-echo " "                        | tee -a ${INSTALL_WRF_SCRIPTS_DIR}/wrf/build.txt
+#echo " "                        | tee -a ${INSTALL_WRF_SCRIPTS_DIR}/wrf/build.txt
 echo "INSTALL: versions:"       | tee -a ${INSTALL_WRF_SCRIPTS_DIR}/wrf/build.txt
 echo "         WPS : ${WPSVER}" | tee -a ${INSTALL_WRF_SCRIPTS_DIR}/wrf/build.txt
 echo "         WRF : ${WRFVER}" | tee -a ${INSTALL_WRF_SCRIPTS_DIR}/wrf/build.txt
@@ -77,13 +76,6 @@ function make_dir()
 	return
     fi
 
-    echo -n "INSTALL: does ${INSTALL_WRF_SCRIPTS_DIR}/wrf/${2} already exists..."
-    if [[ -d $INSTALL_WRF_SCRIPTS_DIR/wrf/$2 ]]
-    then
-	echo "yes..leaving alone."
-	return
-    fi
-
     # see it is linked
     if [[ -L $INSTALL_WRF_SCRIPTS_DIR/wrf/$2 ]]
     then
@@ -91,7 +83,12 @@ function make_dir()
 	return
     fi
 
-    echo "INSTALL: ${INSTALL_WRF_SCRIPTS_DIR}/wrf/${2} does not exists..."
+    echo -n "INSTALL: does ${INSTALL_WRF_SCRIPTS_DIR}/wrf/${2} already exists..."
+    if [[ -d $INSTALL_WRF_SCRIPTS_DIR/wrf/$2 ]]
+    then
+	echo "yes..leaving alone."
+	return
+    fi
 
     if [[ ${1} == "DEFAULT" ]]
     then
@@ -271,13 +268,15 @@ echo "To run, set the environment variables for a desktop as below"
 echo "and to suit your environment:"
 echo ""
 echo "export WRF_HOME=${INSTALL_WRF_SCRIPTS_DIR}/wrf"
+echo "export PATH=${WRF_HOME}/bin:$PATH"
+echo ""
+echo "set these variables in ${WRF_HOME}/scripts/runwrf"
 echo "export WRF_MPI=MPICH"
 echo "export WRF_OPENMP_NCORES=NONE"
 echo "export WRF_JCL=NONE"
 echo "export WRF_MPICH_HOSTS=${HOME}/mpd.hosts # see above"
 echo "export FI_PROVIDER=tcp # for MAC OS/X"
 echo "export LD_LIBRARY_PATH=${WRF_HOME}/lib:/usr/local/lib:/usr/lib:/lib"
-echo "export PATH=${WRF_HOME}/bin:$PATH"
 echo ""
 echo "For SLURM: as above but use: export WRF_JCL=SLURM # no mpd.hosts needed."
 echo "           Also, review .../wrf/sectors/ANDES03/wrf_mpich.slurm"

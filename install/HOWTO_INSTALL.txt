@@ -175,7 +175,7 @@ $ ln -s $INSTALL_WRF_SCRIPTS_DIR/wrf
 
 # This link makes navigation to "wrf" easier without going through "WRFscripts. Indeed, "WRFscripts" top directory will not be needed from this point on.
 
-# If you did not download the "WPS_GEOG" in your install, ie. by setting INSTALL_WRF_WPS_GEOG=NO, link your existing "WPS_GEOG" directory in the "~/wrf" directory.
+# If you did not download the "WPS_GEOG" in your install, ie. by setting INSTALL_WRF_WPS_GEOG=NONE, link your existing "WPS_GEOG" directory in the "~/wrf" directory.
 eg.
 $ cd ~/wrf
 $ ln -s /data/WPS_GEOG
@@ -217,9 +217,15 @@ PBS job control is not yet implementation
 # Fill out these varibles in .bash_profile
 # and source it for user configuration. see the install/bash_profile_example.
 
-export WRF_HOME=~/wrf          # here the "wrf" directory is
-                               # linked to ${INSTALL_WRF_SCRIPTS_DIR}/wrf
+export WRF_HOME=$HOME/wrf      # here the "wrf" directory is
+                               # linked to $HOME/wrf
 			       
+# reset execution path to include $HOME/bin, similar to:
+export PATH=$WRF_HOME/bin:/usr/local/bin:/usr/bin:/bin:/sbin
+#-------------------------------------------------------------------------
+
+The other necessary WRF env variable are set in $WRF_HOME/scripts/runwrf:
+
 export WRF_MPI=MPICH           # specifies type of MPI. If MPICH then
                                # runtime program will look for the hosts
 			       # file, unless a HPC job control (JCL)
@@ -231,19 +237,20 @@ export WRF_OPENMP_NCORES=NONE  # if using OPENMP specifies number cores
 export WRF_JCL=NONE            # specifies the JCL to use (SLURM,PBS,NONE) no PBS yet
 
 # The export below is used for non-JCL MPICH, eg. desktop and small networked
-# computers.
-export WRF_MPICH_HOSTS=~/mpd.hosts
+# computers, eg.
+export WRF_MPICH_HOSTS=$HOME/mpd.hosts
 
-export FI_PROVIDER=tcp # for MAC OS/X
+# for MAC OS/X
+export FI_PROVIDER=tcp 
+export DYLD_LIBRARY_PATH=$WRF_HOME/lib:$DYLD_LIBRARY_PATH
+export DYLD_FALLBACK_LIBRARY_PATH=$WRF_HOME/lib:$DYLD_FALLBACK_LIBRARY_PATH
 
-# reset load library path to include ~/wrf/lib, similar to:
-export LD_LIBRARY_PATH=~/wrf/lib:/usr/local/lib:/usr/lib:/lib
+# reset load library path to include ${WRF_HOME}/lib, similar to:
+export LD_LIBRARY_PATH=$WRF_HOME/wrf/lib:$LD_LIBRARY_PATH
 
-# reset execution path to include ~/wrf/bin, simlarlar to:
-export PATH=~/wrf/bin:/usr/local/bin:/usr/bin:/bin:/sbin
-				   				   
+#---------------------------------------------------------------------------
 # The Format for mpd.hosts is simple:
-
+eg,
 # host:slices
 curiosity:4
 opportunity:4
