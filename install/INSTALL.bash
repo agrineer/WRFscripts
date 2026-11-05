@@ -55,43 +55,54 @@ echo "         WPS : ${WPSVER}" | tee -a ${INSTALL_WRF_SCRIPTS_DIR}/wrf/build.tx
 echo "         WRF : ${WRFVER}" | tee -a ${INSTALL_WRF_SCRIPTS_DIR}/wrf/build.txt
 echo " "                        | tee -a ${INSTALL_WRF_SCRIPTS_DIR}/wrf/build.txt
 
-function make_dir() {
-    
-    if [[ -z ${1} ]]
+function make_dir()
+{    
+    if [[ -z $1 ]]
     then
       echo "INSTALL ERROR: environment variable ${1} needs to be set:"
       echo "               ... exiting."
       exit 1
     fi
 
-    if [[ -z ${2} ]]
+    if [[ -z $2 ]]
     then
       echo "INSTALL ERROR: environment variable ${2} needs to be set:"
       echo "               ... exiting."
       exit 1
     fi
 
-    if [[ -d ${INSTALL_WRF_SCRIPTS_DIR}/wrf/${2} ]]
+    if [[ ${1} == "NONE" ]]
     then
-	echo "INSTALL: does ${INSTALL_WRF_SCRIPTS_DIR}/wrf/${2} already exists...yes...leaving alone."
+	echo "INSTALL: ${2} is to NONE, will not create ${INSTALL_WRF_SCRIPTS_DIR}/wrf/${2}."
 	return
     fi
-    
-    if [[ -L ${INSTALL_WRF_SCRIPTS_DIR}/wrf/${2} ]]
+
+    echo -n "INSTALL: does ${INSTALL_WRF_SCRIPTS_DIR}/wrf/${2} already exists..."
+    if [[ -d $INSTALL_WRF_SCRIPTS_DIR/wrf/$2 ]]
     then
-	echo "INSTALL: does ${INSTALL_WRF_SCRIPTS_DIR}/wrf/${2} link already exists...yes..leaving alone"
+	echo "yes..leaving alone."
 	return
     fi
+
+    # see it is linked
+    if [[ -L $INSTALL_WRF_SCRIPTS_DIR/wrf/$2 ]]
+    then
+	echo "${INSTALL_WRF_SCRIPTS_DIR}/wrf/${2} is already linked ... leaving alone."
+	return
+    fi
+
+    echo "INSTALL: ${INSTALL_WRF_SCRIPTS_DIR}/wrf/${2} does not exists..."
 
     if [[ ${1} == "DEFAULT" ]]
     then
 	echo "INSTALL: making ${INSTALL_WRF_SCRIPTS_DIR}/wrf/${2}"
-	mkdir ${INSTALL_WRF_SCRIPTS_DIR}/wrf/${2}
-    else
-	if [[ -d ${1} ]]
+	mkdir $INSTALL_WRF_SCRIPTS_DIR/wrf/$2
+    
+    else  # link the given GFS directroy
+	if [[ -d $1 ]]
 	then
 	    echo "INSTALL: linking ${1} to ${INSTALL_WRF_SCRIPTS_DIR}/wrf/${2}"
-	    ln -s ${1} ${INSTALL_WRF_SCRIPTS_DIR}/wrf/${2}
+	    ln -s $1 $INSTALL_WRF_SCRIPTS_DIR/wrf/$2
 	else
 	    echo "INSTALL: GFS directory ${INSTALL_WRF_GFS_DIR} does not exist."
 	    echo "         continuing...you can fix this manually later."
@@ -106,7 +117,7 @@ make_dir ${INSTALL_WRF_OUTPUT_DIR} output
 # install library packages needed for WRF
 if [[ ${INSTALL_WRF_IO_TYPE} == "SERIAL_IO" ]]
 then
-    echo "INSTALL: installing SERIAL_IO libraries"
+    echo "INSTALL: installing SERIAL IO libraries"
     $INSTALL_WRF_SCRIPTS_DIR/packages/INSTALL_LIBS_SERIAL_IO.bash
     status=$?
     if [[ $status -gt 0 ]]
