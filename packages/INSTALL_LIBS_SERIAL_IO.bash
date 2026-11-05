@@ -26,7 +26,7 @@ INSTALL_LIBS_SERIAL_IO_copyright="INSTALL_LIBS_SERIAL_IO Copyright (c) 2020-2026
 untar_package()
 {
     echo "INSTALL_LIBS_SERIAL_IO: untar'ing ${PNAME}.${SUFFIX}"
-    tar xvf $PNAME.$SUFFIX
+    tar xf $PNAME.$SUFFIX
     status=$?
     if [[ $status -gt 0 ]]
     then
@@ -177,7 +177,7 @@ ln -s ../scripts/getdata_gfs.py
 ln -s ../scripts/getpast_gfs.py
 ln -s ../scripts/getfuture_gfs.py
 ln -s ../scripts/runwrf
-cd ../
+cd ..
 
 echo "INSTALL_LIBS_SERIAL_IO: cleaning ${INSTALL_WRF_SCRIPTS_DIR}/wrf/include"
 rm -rf include
@@ -216,6 +216,7 @@ SUFFIX=tar.gz
 
 WITH_CMAKE=YES
 CONF_PARAMS="--install-prefix=${INSTALL_WRF_SCRIPTS_DIR}/wrf\
+ -Wno-author\
  -DBUILD_TESTING=OFF\
  -DHDF5_BUILD_TOOLS=ON\
  -DHDF5_ENABLE_ZLIB_SUPPORT=ON\
@@ -251,19 +252,14 @@ PNAME=netcdf-fortran-4.6.4
 SUFFIX=tar.gz
 
 export CPPFLAGS=-I$INSTALL_WRF_SCRIPTS_DIR/wrf/include
-export LDFLAGS=-L$INSTALL_WRF_SCRIPTS_DIR/wrf/lib # does not work; need to hijack LD_LIBRARY_PATH, see below
-#export LDLIBS=-lnetcdf
-export LDLIBS='-lhdf5_hl -lhdf5 -lm -lz -lsz -lbz2 -lzstd -lblosc -lxml2 -lcurl -lnetcdf'
+export LDFLAGS="-L${INSTALL_WRF_SCRIPTS_DIR}/wrf/lib -lnetcdf -lhdf5_hl -lhdf5 \
+                -lm -lz -lsz -lbz2 -lzstd -lblosc -lxml2 -lcurl"
 export FC=gfortran
-CONF_PARAMS="--prefix=${INSTALL_WRF_SCRIPTS_DIR}/wrf --enable-largefile --enable-shared --disable-zstandard-plugin"
-
-# work-around for LDFLAGS not working
-LD_LIBPATH_OLD=$LD_LIBRARY_PATH
-export LD_LIBRARY_PATH=$INSTALL_WRF_SCRIPTS_DIR/wrf/lib:/usr/local/lib:/usr/lib:/lib
+CONF_PARAMS="--prefix=${INSTALL_WRF_SCRIPTS_DIR}/wrf --enable-largefile --enable-shared \
+             --disable-zstandard-plugin"
 
 make_lib
 
-export LD_LIBRARY_PATH=$LD_LIBPATH_OLD # restore value
 #-------------------------------------------------------------
 # MPICH
 
