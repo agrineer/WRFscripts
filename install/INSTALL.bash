@@ -48,7 +48,7 @@ WRFVER=WRFV4.8.0  # release tarballs
 WPSVER=WPSV4.7.0  # 
 WSUFFIX=tar.gz    #
 
-#echo " "                        | tee -a ${INSTALL_WRF_SCRIPTS_DIR}/wrf/build.txt
+echo " "                        | tee -a ${INSTALL_WRF_SCRIPTS_DIR}/wrf/build.txt
 echo "INSTALL: versions:"       | tee -a ${INSTALL_WRF_SCRIPTS_DIR}/wrf/build.txt
 echo "         WPS : ${WPSVER}" | tee -a ${INSTALL_WRF_SCRIPTS_DIR}/wrf/build.txt
 echo "         WRF : ${WRFVER}" | tee -a ${INSTALL_WRF_SCRIPTS_DIR}/wrf/build.txt
@@ -88,6 +88,8 @@ function make_dir()
     then
 	echo "yes..leaving alone."
 	return
+    else
+	echo "no."
     fi
 
     if [[ ${1} == "DEFAULT" ]]
