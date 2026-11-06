@@ -146,7 +146,7 @@ echo "Rejoining ${WRFVER}.tar.gz"
 cat $INSTALL_WRF_SCRIPTS_DIR/packages/$WRFVER\_part_* > $INSTALL_WRF_SCRIPTS_DIR/packages/$WRFVER.tar.gz
 
 echo "INSTALL: untar'ing ${WRFVER}.${WSUFFIX} package"
-tar xvfz $INSTALL_WRF_SCRIPTS_DIR/packages/$WRFVER.$WSUFFIX
+tar xf $INSTALL_WRF_SCRIPTS_DIR/packages/$WRFVER.$WSUFFIX
 status=$?
 if [[ $status -gt 0 ]]
 then
@@ -155,7 +155,7 @@ then
 fi
 
 echo "INSTALL: untar'ing ${WPSVER}.${WSUFFIX} package"
-tar xvf $INSTALL_WRF_SCRIPTS_DIR/packages/$WPSVER.$WSUFFIX
+tar xf $INSTALL_WRF_SCRIPTS_DIR/packages/$WPSVER.$WSUFFIX
 status=$?
 if [[ $status -gt 0 ]]
 then
