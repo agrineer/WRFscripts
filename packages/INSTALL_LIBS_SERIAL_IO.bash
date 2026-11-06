@@ -75,7 +75,8 @@ print_env()
     echo "INSTALL_LIBS_SERIAL_IO: installing ${PNAME} with these variable values and flags:"
 
     # print variable if populated
-    
+    if [[ -n $CC ]];          then echo "  CC=${CC}"; fi
+    if [[ -n $CXX ]];         then echo "  CXX=${CXX}"; fi
     if [[ -n $CPPFLAGS ]];    then echo "  CPPFLAGS=${CPPFLAGS}"; fi
     if [[ -n $FC ]];          then echo "  FC=${FC}"; fi
     if [[ -n $LDFLAGS ]];     then echo "  LDFLAGS=${LDFLAGS}"; fi
@@ -143,6 +144,8 @@ clear_vars()
 {
     unset CONF_PARAMS
     unset CPPFLAGS
+    unset CC
+    unset CXX
     unset FC
     unset LDFLAGS
     unset LDLIBS
@@ -213,10 +216,11 @@ clear_vars
 
 PNAME=hdf5-2.2.0
 SUFFIX=tar.gz
-
 WITH_CMAKE=YES
 CONF_PARAMS="--install-prefix=${INSTALL_WRF_SCRIPTS_DIR}/wrf\
  -Wno-author\
+ -DCMAKE_C_COMPILER=gcc\
+ -DCMAKE_CXX_COMPILER=g++\
  -DBUILD_TESTING=OFF\
  -DHDF5_BUILD_TOOLS=ON\
  -DHDF5_ENABLE_ZLIB_SUPPORT=ON\
