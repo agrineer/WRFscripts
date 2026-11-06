@@ -86,10 +86,10 @@ function make_dir()
     echo -n "INSTALL: does ${INSTALL_WRF_SCRIPTS_DIR}/wrf/${2} already exists..."
     if [[ -d $INSTALL_WRF_SCRIPTS_DIR/wrf/$2 ]]
     then
-	echo "yes..leaving alone."
+	echo "yes ... leaving alone."
 	return
     else
-	echo "no."
+	echo "no ... continuing."
     fi
 
     if [[ ${1} == "DEFAULT" ]]
