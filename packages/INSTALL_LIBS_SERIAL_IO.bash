@@ -209,6 +209,16 @@ echo "                        sectors"
 echo "                        WPS_GEOG"
 echo ""
 
+#---------------------------------------------------------------------
+# ZLIB
+
+clear_vars
+PNAME=zlib-1.4
+SUFFIX=tar.gz
+CONF_PARAMS="--prefix=${INSTALL_WRF_SCRIPTS_DIR}/wrf"
+
+make_lib
+
 # --------------------------------------------------------------------
 # HDF5
 
@@ -228,7 +238,7 @@ CONF_PARAMS="--install-prefix=${INSTALL_WRF_SCRIPTS_DIR}/wrf\
  -DHDF5_BUILD_FORTRAN=ON\
  -DH5_DEFAULT_PLUGINDIR:PATH=${INSTALL_WRF_SCRIPTS_DIR}/wrf/lib"
 # DHDF5_PROVIDES_PARALLEL:BOOL=ON
-echo "INSTALL_LIBS_SERIAL_IO: NOTE: cmake does not seem to honor H5_DEFAULT_PLUGINDIR:PATH"
+#echo "INSTALL_LIBS_SERIAL_IO: NOTE: cmake does not seem to honor H5_DEFAULT_PLUGINDIR:PATH"
 # Perhaps another flag needs to be set?
 
 make_lib
