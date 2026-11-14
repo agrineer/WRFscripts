@@ -8,7 +8,8 @@
 
 echo -n "INSTALL: fixing registry values..."
 
-cd $WRF_SCRIPTS/wrf/WRF/Registry
+INSTALL_WRF_SCRIPTS_DIR
+cd $INSTALL_WRF_SCRIPTS_DIR/wrf/WRF/Registry
 
 # save the original
 cp Registry.EM_COMMON Registry.EM_COMMON.ORG
