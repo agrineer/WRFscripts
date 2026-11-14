@@ -75,24 +75,25 @@ print_env()
     echo "INSTALL_LIBS_SERIAL_IO: installing ${PNAME} with these variable values and flags:"
 
     # print variable if populated
-    if [[ -n $CC ]];          then echo "  CC=${CC}"; fi
-    if [[ -n $CXX ]];         then echo "  CXX=${CXX}"; fi
-    if [[ -n $CPPFLAGS ]];    then echo "  CPPFLAGS=${CPPFLAGS}"; fi
-    if [[ -n $FC ]];          then echo "  FC=${FC}"; fi
-    if [[ -n $LDFLAGS ]];     then echo "  LDFLAGS=${LDFLAGS}"; fi
-    if [[ -n $LDLIBS ]];      then echo "  LDLIBS=${LDLIBS}"; fi
-    if [[ -n $WITH_CMAKE ]];  then echo "  WITH_CMAKE=${WITH_CMAKE}"; fi
-    if [[ -n $GCC ]];         then echo "  GCC=${GCC}"; fi
-    if [[ -n $GNUBIN ]];      then echo "  GNUBIN=${GNUBIN}"; fi
-    if [[ -n $SDKROOT ]];     then echo "  SDKROOT=${SDKROOT}"; fi
-    if [[ -n $F77 ]];         then echo "  F77=${F77}"; fi
-    if [[ -n $FCFLAGS ]];     then echo "  FCFLAGS=${FCFLAGS}"; fi
-    if [[ -n $CLANG ]];       then echo "  CLANG=${CLANG}"; fi
-    if [[ -n $FLANG ]];       then echo "  FLANG=${FLANG}"; fi
-    if [[ -n $CFLAGS ]];      then echo "  CFLAGS=${CFLAGS}"; fi
-    if [[ -n $CXXFLAGS ]];    then echo "  CXXFLAGS=${CXXFLAGS}"; fi
-    if [[ -n $PNAME ]];       then echo "  PNAME=${PNAME}"; fi
-    if [[ -n $SUFFIX ]];      then echo "  SUFFIX=${SUFFIX}"; fi
+    if [[ -n $CC ]];              then echo "  CC=${CC}"; fi
+    if [[ -n $CXX ]];             then echo "  CXX=${CXX}"; fi
+    if [[ -n $CPPFLAGS ]];        then echo "  CPPFLAGS=${CPPFLAGS}"; fi
+    if [[ -n $FC ]];              then echo "  FC=${FC}"; fi
+    if [[ -n $LDFLAGS ]];         then echo "  LDFLAGS=${LDFLAGS}"; fi
+    if [[ -n $LDLIBS ]];          then echo "  LDLIBS=${LDLIBS}"; fi
+    if [[ -n $LD_LIBRARY_PATH ]]; then echo "  LD_LIBRARY_PATH=${LD_LIBRARY_PATH}"; fi
+    if [[ -n $WITH_CMAKE ]];      then echo "  WITH_CMAKE=${WITH_CMAKE}"; fi
+    if [[ -n $GCC ]];             then echo "  GCC=${GCC}"; fi
+    if [[ -n $GNUBIN ]];          then echo "  GNUBIN=${GNUBIN}"; fi
+    if [[ -n $SDKROOT ]];         then echo "  SDKROOT=${SDKROOT}"; fi
+    if [[ -n $F77 ]];             then echo "  F77=${F77}"; fi
+    if [[ -n $FCFLAGS ]];         then echo "  FCFLAGS=${FCFLAGS}"; fi
+    if [[ -n $CLANG ]];           then echo "  CLANG=${CLANG}"; fi
+    if [[ -n $FLANG ]];           then echo "  FLANG=${FLANG}"; fi
+    if [[ -n $CFLAGS ]];          then echo "  CFLAGS=${CFLAGS}"; fi
+    if [[ -n $CXXFLAGS ]];        then echo "  CXXFLAGS=${CXXFLAGS}"; fi
+    if [[ -n $PNAME ]];           then echo "  PNAME=${PNAME}"; fi
+    if [[ -n $SUFFIX ]];         then echo "  SUFFIX=${SUFFIX}"; fi
 
     echo "  CONF_PARAMS=${CONF_PARAMS}"  # must always have CONF_PARAMS
     echo ""
@@ -110,6 +111,12 @@ make_lib()
     
     if [[ -n $WITH_CMAKE ]] && [[ ${WITH_CMAKE} == "YES" ]]
     then
+
+	# workaround to make cmake see our zlib
+	cp CMakeLists.txt CMakeLists_ORG.txt
+	sed -i.bak "/string (TIMESTAMP CONFIG_DATE/a\find_package( ZLIB )" CMakeLists.txt && rm CMakeLists.txt.bak
+	sed -i.bak "/string (TIMESTAMP CONFIG_DATE/a\set( ZLIB_ROOT $INSTALL_WRF_SCRIPTS_DIR/wrf )" CMakeLists.txt && rm CMakeLists.txt.bak
+
 	echo "INSTALL_LIBS_SERIAL_IO: configuring library ${PNAME} on ${HOSTNAME} with cmake"
 	mkdir build && cd build
 	cmake $CONF_PARAMS ..
@@ -149,6 +156,7 @@ clear_vars()
     unset FC
     unset LDFLAGS
     unset LDLIBS
+    unset LD_LIBRARY_PATH
     unset WITH_CMAKE
     unset GCC
     unset GNUBIN
@@ -223,10 +231,12 @@ make_lib
 # HDF5
 
 clear_vars
-
+#export LD_LIBRARY_PATH=$INSTALL_WRF_SCRIPTS_DIR/wrf/lib:/usr/lib:/lib
 PNAME=hdf5-2.2.0
 SUFFIX=tar.gz
 WITH_CMAKE=YES
+#export CPPFLAGS=-I$INSTALL_WRF_SCRIPTS_DIR/wrf/include
+#export LDFLAGS="-L$INSTALL_WRF_SCRIPTS_DIR/wrf/lib -lz" 
 CONF_PARAMS="--install-prefix=${INSTALL_WRF_SCRIPTS_DIR}/wrf\
  -Wno-author\
  -DCMAKE_C_COMPILER=gcc\
@@ -267,7 +277,8 @@ SUFFIX=tar.gz
 
 export CPPFLAGS=-I$INSTALL_WRF_SCRIPTS_DIR/wrf/include
 export LDFLAGS="-L${INSTALL_WRF_SCRIPTS_DIR}/wrf/lib -lnetcdf -lhdf5_hl -lhdf5 \
-                -lm -lz -lsz -lbz2 -lzstd -lblosc -lxml2 -lcurl"
+                -lm -lz -lblosc -lxml2 -lcurl"
+#                -lm -lz -lsz -lbz2 -lzstd -lblosc -lxml2 -lcurl"
 export FC=gfortran
 CONF_PARAMS="--prefix=${INSTALL_WRF_SCRIPTS_DIR}/wrf --enable-largefile --enable-shared \
              --disable-zstandard-plugin"
