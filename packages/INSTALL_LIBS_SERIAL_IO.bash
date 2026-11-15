@@ -114,7 +114,7 @@ make_lib()
 
 	# workaround so that cmake can see our zlib
 	# check if already there, if so then skip
-	if [[ ! -f CMakeLists_ORG.txt ]]; then
+	if [[ ! -f "CMakeLists_ORG.txt" ]]; then
 	    echo "make_lib: editing CMakeLists.txt ... "	    
 	    cp CMakeLists.txt CMakeLists_ORG.txt
 	    sed -i.bak "/string (TIMESTAMP CONFIG_DATE/a\find_package( ZLIB )" CMakeLists.txt && rm CMakeLists.txt.bak
