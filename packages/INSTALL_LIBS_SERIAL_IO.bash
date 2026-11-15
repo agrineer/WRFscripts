@@ -112,10 +112,11 @@ make_lib()
     if [[ -n $WITH_CMAKE ]] && [[ ${WITH_CMAKE} == "YES" ]]
     then
 
-	# workaround to make cmake see our zlib
+	# workaround so that cmake can see our zlib
 	cp CMakeLists.txt CMakeLists_ORG.txt
 	sed -i.bak "/string (TIMESTAMP CONFIG_DATE/a\find_package( ZLIB )" CMakeLists.txt && rm CMakeLists.txt.bak
-	sed -i.bak "/string (TIMESTAMP CONFIG_DATE/a\set( ZLIB_ROOT $INSTALL_WRF_SCRIPTS_DIR/wrf )" CMakeLists.txt && rm CMakeLists.txt.bak
+	sed -i.bak "/string (TIMESTAMP CONFIG_DATE/a\set( ZLIB_ROOT ${INSTALL_WRF_SCRIPTS_DIR}/wrf )" CMakeLists.txt && rm CMakeLists.txt.bak
+	# TODO: copy our own CMakeLists.txt ...
 
 	echo "INSTALL_LIBS_SERIAL_IO: configuring library ${PNAME} on ${HOSTNAME} with cmake"
 	mkdir build && cd build
@@ -129,6 +130,7 @@ make_lib()
 	echo "INSTALL_LIBS_SERIAL_IO: installing library ${PNAME} on ${HOSTNAME} with cmake"
 	cmake --install .
 	check_make_install
+	
     else
 	echo "INSTALL_LIBS_SERIAL_IO: configuring library ${PNAME} on ${HOSTNAME} with ./configure"
 	./configure $CONF_PARAMS 2>&1 | tee $PNAME\_config.log
