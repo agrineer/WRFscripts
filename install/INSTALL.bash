@@ -117,13 +117,21 @@ make_dir ${INSTALL_WRF_OUTPUT_DIR} output
 if [[ ${INSTALL_WRF_IO_TYPE} == "SERIAL_IO" ]]
 then
     echo "INSTALL: installing SERIAL IO libraries"
-    $INSTALL_WRF_SCRIPTS_DIR/packages/INSTALL_LIBS_SERIAL_IO.bash
+    if [[ ${OSTYPE} == "darwin"* ]]
+    then
+	$INSTALL_WRF_SCRIPTS_DIR/packages/INSTALL_MACLIBS_SERIAL_IO.bash
+    else
+	$INSTALL_WRF_SCRIPTS_DIR/packages/INSTALL_LIBS_SERIAL_IO.bash
+    fi
     status=$?
     if [[ $status -gt 0 ]]
     then
         echo "INSTALL ERROR: could not install SERIAL_IO libs ... exiting"
         exit 1
-    fi   
+    fi	   
+else
+    echo "INSTALL: unknown WRF IO type: ${INSTALL_WRF_IOTYPE} ... exiting"
+    exit 1
 fi
 
 #---------------------------------------------------------------------
