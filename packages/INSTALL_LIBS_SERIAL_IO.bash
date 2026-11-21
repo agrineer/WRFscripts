@@ -41,8 +41,8 @@ check_configure()
     if [[ ${PIPESTATUS[0]} -gt 0 ]]
     then
         echo "INSTALL_LIBS_SERIAL_IO: could not configure ${PNAME}"
-        echo "                        review ${INSTALL_WRF_SCRIPTS_DIR}/wrf/packages/${PNAME}/${PNAME}_config.log"
-        echo "                        and ${INSTALL_WRF_SCRIPTS_DIR}/wrf/packages/${PNAME}/config.log for details"
+        echo "                        review ${INSTALL_WRF_SCRIPTS_DIR}/packages/${PNAME}/${PNAME}_config.log"
+        echo "                        and ${INSTALL_WRF_SCRIPTS_DIR}/packages/${PNAME}/config.log for details"
         exit 1
     fi
 }
@@ -53,7 +53,7 @@ check_make()
     if [[ ${PIPESTATUS[0]} -gt 0 ]]
     then
         echo "INSTALL_LIBS_SERIAL_IO: could not make ${PNAME}"
-        echo "                        review ${INSTALL_WRF_SCRIPTS_DIR}/wrf/packages/${PNAME}/${PNAME}_make.log for details"
+        echo "                        review ${INSTALL_WRF_SCRIPTS_DIR}/packages/${PNAME}/${PNAME}_make.log for details"
         exit 1
     fi
 }
@@ -64,7 +64,7 @@ check_make_install()
     if [[ ${PIPESTATUS[0]} -gt 0 ]]
     then
         echo "INSTALL_LIBS_SERIAL_IO: could not make install ${PNAME}"
-        echo "                        review ${INSTALL_WRF_SCRIPTS_DIR}/wrf/packages/${PNAME}/${PNAME}_make_install.log for details"
+        echo "                        review ${INSTALL_WRF_SCRIPTS_DIR}/packages/${PNAME}/${PNAME}_make_install.log for details"
         exit 1
     fi
 }
@@ -117,8 +117,8 @@ make_lib()
 	if [[ ! -f "CMakeLists_ORG.txt" ]]; then
 	    echo "make_lib: editing CMakeLists.txt ... "	    
 	    cp CMakeLists.txt CMakeLists_ORG.txt
-	    sed -i.bak "/string (TIMESTAMP CONFIG_DATE/a\find_package( ZLIB )" CMakeLists.txt && rm CMakeLists.txt.bak
-	    sed -i.bak "/string (TIMESTAMP CONFIG_DATE/a\set( ZLIB_ROOT ${INSTALL_WRF_SCRIPTS_DIR}/wrf )" CMakeLists.txt && rm CMakeLists.txt.bak
+	    sed "/string (TIMESTAMP CONFIG_DATE/a\find_package( ZLIB )" CMakeLists.txt
+	    sed "/string (TIMESTAMP CONFIG_DATE/a\set( ZLIB_ROOT ${INSTALL_WRF_SCRIPTS_DIR}/wrf )" CMakeLists.txt
 	fi
 	# TODO: copy our own CMakeLists.txt ...
 
