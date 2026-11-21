@@ -154,10 +154,10 @@ status=$?
 if [ $status -gt 0 ];
 then
     # preserve error log
-    cp $LOGDIR/$SECTOR.log $LOGDIR/${SECTOR}_ERROR_$RUNDATE.log
+    cp $WRF_HOME/log/$SECTOR.log $WRF_HOME/log/${SECTOR}_ERROR_$RUNDATE.log
 
     # remove lock file so subsequent runs don't get locked out
-    rm -f $LOGDIR/running_$SECTOR.lock
+    rm -f $WRF_HOME/log/running_$SECTOR.lock
     
     echo "runwrf: ERROR found, exiting..."
     exit 1
