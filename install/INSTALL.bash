@@ -196,7 +196,13 @@ then
 fi
 
 # build WPS after WRF build_
-$INSTALL_WRF_SCRIPTS_DIR/install/run_wps_install.bash
+if [[ ${OSTYPE} == "darwin"* ]]
+then
+    $INSTALL_WRF_SCRIPTS_DIR/install/run_wps_macinstall.bash
+else
+    $INSTALL_WRF_SCRIPTS_DIR/install/run_wps_install.bash
+fi
+
 status=$?
 if [[ $status -gt 0 ]]
 then
