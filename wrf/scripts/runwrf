@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 #
+# bash shell script to run wrf jobs; GPLv3 license
+
 # set environment variables here...these disappear after running.
-#export WRF_HOME=$HOME/WRFscripts/wrf
+#export WRF_HOME=$HOME/WRFscripts/wrf # change to your cloned directory
+                                      # if set .bash_profile comment out
+
 export WRF_MPI=MPICH
 export WRF_OPENMP_NCORES=NONE
 export WRF_JCL=NONE
@@ -16,21 +20,15 @@ export LD_LIBRARY_PATH=$WRF_HOME/lib:$LD_LIBRARY_PATH
 
 export MP_STACK_SIZE=64000000 
 
-# bash shell script to run wrf jobs; GPLv3 license
-SCRIPTS=$WRF_HOME/scripts
-GFSHOME=$WRF_HOME/gfs_0.25
-LOGDIR=$WRF_HOME/log
 
 echo ""
 echo "runwrf: using:"
-echo "                   WRF_HOME=${WRF_HOME}"
 echo "                    WRF_MPI=${WRF_MPI}"
-echo "          WRF_OPENMP_NCORES=${WRF_OPENMP_NCORES}"
 echo "                    WRF_JCL=${WRF_JCL}"
+echo "                   WRF_HOME=${WRF_HOME}"
 echo "            WRF_MPICH_HOSTS=${WRF_MPICH_HOSTS}"
-echo "                    SCRIPTS=${SCRIPTS}"
-echo "                    GFSHOME=${GFSHOME}"
-echo "                     LOGDIR=${LOGDIR}"
+echo "          WRF_OPENMP_NCORES=${WRF_OPENMP_NCORES}"
+echo " "
 echo "                FI_PROVIDER=${FI_PROVIDER}"
 echo "            LD_LIBRARY_PATH=${LD_LIBRARY_PATH}"
 echo "          DYLD_LIBRARY_PATH=${DYLD_LIBRARY_PATH=}"
@@ -149,7 +147,7 @@ echo "runwrf: restart=${RESTART}"
 
 # this version separates stdin from the terminal so that when
 # ^c'ing out of 'tail -f SECTOR.log' the 'wrfGFS.py' program is not stopped
-$SCRIPTS/wrfGFS.py -b $BEGIN -s $SECTOR -g $GFSHOME -r $RESTART -d $RUNDATE < /dev/null > $LOGDIR/$SECTOR.log 2>&1
+$WRF_HOME/scripts/wrfGFS.py -b $BEGIN -s $SECTOR -g $WRF_HOME/gfs_0.25 -r $RESTART -d $RUNDATE < /dev/null > $WRF_HOME/log/$SECTOR.log 2>&1
 
 # check exit status
 status=$?
