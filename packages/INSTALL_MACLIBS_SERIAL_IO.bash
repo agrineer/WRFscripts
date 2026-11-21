@@ -1,0 +1,404 @@
+#!/usr/bin/env bash
+#
+#  INSTALL_MACLIBS_SERIAL_IO
+# 
+#  Copyright (c) 2020-2026 Scott L. Williams, Daryl P. Williams
+# 
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 3 of the License, or
+#  (at your option) any later version.
+# 
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+# 
+#  You should have received a copy of the GNU General Public License
+#  along with this program; if not, write to the Free Software
+#  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#  or visit https://www.gnu.org/licenses/gpl-3.0-standalone.html or
+#  see http://www.gnu.org/licenses/gpl-3.0.html
+#
+
+INSTALL_MACLIBS_SERIAL_IO_copyright="INSTALL_MACLIBS_SERIAL_IO Copyright (c) 2020-2026 Scott L. Williams, Daryl P. Williams released under GNU GPL V3.0"
+
+untar_package()
+{
+    echo "INSTALL_MACLIBS_SERIAL_IO: untar'ing ${PNAME}.${SUFFIX}"
+    tar xf $PNAME.$SUFFIX
+    status=$?
+    if [[ $status -gt 0 ]]
+    then
+        echo "INSTALL_MACLIBS_SERIAL_IO: could not untar ${PNAME}.${SUFFIX}"
+        exit 1
+    fi
+}
+
+# test and report configure
+check_configure()
+{
+    if [[ ${PIPESTATUS[0]} -gt 0 ]]
+    then
+        echo "INSTALL_MACLIBS_SERIAL_IO: could not configure ${PNAME}"
+        echo "                        review ${INSTALL_WRF_SCRIPTS_DIR}/packages/${PNAME}/${PNAME}_config.log"
+        echo "                        and ${INSTALL_WRF_SCRIPTS_DIR}/packages/${PNAME}/config.log for details"
+        exit 1
+    fi
+}
+
+# test and report make
+check_make()
+{
+    if [[ ${PIPESTATUS[0]} -gt 0 ]]
+    then
+        echo "INSTALL_MACLIBS_SERIAL_IO: could not make ${PNAME}"
+        echo "                        review ${INSTALL_WRF_SCRIPTS_DIR}/packages/${PNAME}/${PNAME}_make.log for details"
+        exit 1
+    fi
+}
+
+# test and report make install
+check_make_install()
+{
+    if [[ ${PIPESTATUS[0]} -gt 0 ]]
+    then
+        echo "INSTALL_MACLIBS_SERIAL_IO: could not make install ${PNAME}"
+        echo "                        review ${INSTALL_WRF_SCRIPTS_DIR}/packages/${PNAME}/${PNAME}_make_install.log for details"
+        exit 1
+    fi
+}
+
+print_env()
+{
+    echo ""
+    echo "INSTALL_MACLIBS_SERIAL_IO: installing ${PNAME} with these variable values and flags:"
+
+    # print variable if populated
+    if [[ -n $CC ]];              then echo "  CC=${CC}"; fi
+    if [[ -n $CXX ]];             then echo "  CXX=${CXX}"; fi
+    if [[ -n $CPPFLAGS ]];        then echo "  CPPFLAGS=${CPPFLAGS}"; fi
+    if [[ -n $FC ]];              then echo "  FC=${FC}"; fi
+    if [[ -n $LDFLAGS ]];         then echo "  LDFLAGS=${LDFLAGS}"; fi
+    if [[ -n $LDLIBS ]];          then echo "  LDLIBS=${LDLIBS}"; fi
+    if [[ -n $LD_LIBRARY_PATH ]]; then echo "  LD_LIBRARY_PATH=${LD_LIBRARY_PATH}"; fi
+    if [[ -n $WITH_CMAKE ]];      then echo "  WITH_CMAKE=${WITH_CMAKE}"; fi
+    if [[ -n $GCC ]];             then echo "  GCC=${GCC}"; fi
+    if [[ -n $GNUBIN ]];          then echo "  GNUBIN=${GNUBIN}"; fi
+    if [[ -n $SDKROOT ]];         then echo "  SDKROOT=${SDKROOT}"; fi
+    if [[ -n $F77 ]];             then echo "  F77=${F77}"; fi
+    if [[ -n $FCFLAGS ]];         then echo "  FCFLAGS=${FCFLAGS}"; fi
+    if [[ -n $CLANG ]];           then echo "  CLANG=${CLANG}"; fi
+    if [[ -n $FLANG ]];           then echo "  FLANG=${FLANG}"; fi
+    if [[ -n $CFLAGS ]];          then echo "  CFLAGS=${CFLAGS}"; fi
+    if [[ -n $CXXFLAGS ]];        then echo "  CXXFLAGS=${CXXFLAGS}"; fi
+    if [[ -n $PNAME ]];           then echo "  PNAME=${PNAME}"; fi
+    if [[ -n $SUFFIX ]];         then echo "  SUFFIX=${SUFFIX}"; fi
+
+    echo "  CONF_PARAMS=${CONF_PARAMS}"  # must always have CONF_PARAMS
+    echo ""
+}
+
+make_lib()
+{    
+    cd $INSTALL_WRF_SCRIPTS_DIR/packages
+    rm -rf $PNAME # remove old package dir
+
+    untar_package # parameters are PNAME and SUFFIX
+    cd $PNAME
+
+    print_env
+    
+    if [[ -n $WITH_CMAKE ]] && [[ ${WITH_CMAKE} == "YES" ]]
+    then
+
+	# workaround so that cmake can see our zlib
+	# check if already there, if so then skip
+	if [[ ! -f "CMakeLists_ORG.txt" ]]; then
+	    echo "make_lib: editing CMakeLists.txt ... "	    
+	    cp CMakeLists.txt CMakeLists_ORG.txt
+	    sed -i.bak "/string (TIMESTAMP CONFIG_DATE/a\find_package( ZLIB )" CMakeLists.txt && rm CMakeLists.txt.bak
+	    sed -i.bak "/string (TIMESTAMP CONFIG_DATE/a\set( ZLIB_ROOT ${INSTALL_WRF_SCRIPTS_DIR}/wrf )" CMakeLists.txt && rm CMakeLists.txt.bak
+	fi
+	# TODO: copy our own CMakeLists.txt ...
+
+	echo "INSTALL_MACLIBS_SERIAL_IO: configuring library ${PNAME} on ${HOSTNAME} with cmake"
+	mkdir build && cd build
+	cmake $CONF_PARAMS ..
+	check_configure
+
+	echo "INSTALL_MACLIBS_SERIAL_IO: building library ${PNAME} on ${HOSTNAME} with cmake"
+	cmake --build .
+	check_make
+
+	echo "INSTALL_MACLIBS_SERIAL_IO: installing library ${PNAME} on ${HOSTNAME} with cmake"
+	cmake --install .
+	check_make_install
+	
+    else
+	echo "INSTALL_MACLIBS_SERIAL_IO: configuring library ${PNAME} on ${HOSTNAME} with ./configure"
+	./configure $CONF_PARAMS 2>&1 | tee $PNAME\_config.log
+	check_configure
+
+	echo "INSTALL_MACLIBS_SERIAL_IO: making library ${PNAME} on ${HOSTNAME} with make"
+	make -j $INSTALL_WRF_NUM_CORES 2>&1 | tee $PNAME\_make.log
+	check_make
+    
+	echo "INSTALL_MACLIBS_SERIAL_IO: installing library ${PNAME} on ${HOSTNAME} with make install"
+	make install 2>&1 | tee ${PNAME}_make_install.log
+	check_make_install
+    fi
+    
+    echo "INSTALL_MACLIBS_SERIAL_IO: installing library ${PNAME} done"
+}
+
+# clear all environment variables used in this script
+clear_vars()
+{
+    unset CONF_PARAMS
+    unset CPPFLAGS
+    unset CC
+    unset CXX
+    unset FC
+    unset LDFLAGS
+    unset LDLIBS
+    unset LD_LIBRARY_PATH
+    unset WITH_CMAKE
+    unset GCC
+    unset GNUBIN
+    unset SDKROOT
+    unset F77
+    unset FCFLAGS
+    unset CLANG
+    unset CFLAGS
+    unset CXXFLAGS
+    unset FLANG
+    unset PNAME
+    unset SUFFIX
+}
+
+#----------------------------------------------------------------------
+# main
+
+# make directories and WRF/WPS dependent libraries
+echo ""
+echo "INSTALL_MACLIBS_SERIAL IO: installing SERIAL I/O WRF dependent libraries"
+
+cd $INSTALL_WRF_SCRIPTS_DIR/wrf
+
+echo "INSTALL_MACLIBS_SERIAL_IO: cleaning ${INSTALL_WRF_SCRIPTS_DIR}/wrf/bin"
+rm -rf bin
+mkdir bin
+cd bin
+ln -s ../scripts/getdata_gfs.py
+ln -s ../scripts/getpast_gfs.py
+ln -s ../scripts/getfuture_gfs.py
+ln -s ../scripts/runwrf
+cd ..
+
+echo "INSTALL_MACLIBS_SERIAL_IO: cleaning ${INSTALL_WRF_SCRIPTS_DIR}/wrf/include"
+rm -rf include
+mkdir include
+
+echo "INSTALL_MACLIBS_SERIAL_IO: cleaning ${INSTALL_WRF_SCRIPTS_DIR}/wrf/lib"
+rm -rf lib
+mkdir lib
+
+echo "INSTALL_MACLIBS_SERIAL_IO: cleaning ${INSTALL_WRF_SCRIPTS_DIR}/wrf/log"
+rm -rf log
+mkdir log
+
+echo "INSTALL_MACLIBS_SERIAL_IO: cleaning ${INSTALL_WRF_SCRIPTS_DIR}/wrf/share"
+rm -rf share
+mkdir share
+
+mkdir -p gfs_0.25 output
+
+echo "INSTAll_LIBS_SERIAL_IO: if this is a re-build (not a cloned install)"
+echo "                        then these directories are preserved:"
+echo ""
+echo "                        gfs_0.25"
+echo "                        output"
+echo "                        sectors"
+echo "                        WPS_GEOG"
+echo ""
+
+#---------------------------------------------------------------------
+# ZLIB
+
+clear_vars
+PNAME=zlib-1.4
+SUFFIX=tar.gz
+CONF_PARAMS="--prefix=${INSTALL_WRF_SCRIPTS_DIR}/wrf"
+
+#make_lib
+
+#---------------------------------------------------------------------
+# HDF5
+
+clear_vars
+export LD_LIBRARY_PATH=$INSTALL_WRF_SCRIPTS_DIR/wrf/lib:/usr/lib:/lib
+PNAME=hdf5-2.2.0
+SUFFIX=tar.gz
+WITH_CMAKE=YES
+#export CPPFLAGS=-I$INSTALL_WRF_SCRIPTS_DIR/wrf/include
+#export LDFLAGS="-L$INSTALL_WRF_SCRIPTS_DIR/wrf/lib -lz" 
+CONF_PARAMS="--install-prefix=${INSTALL_WRF_SCRIPTS_DIR}/wrf\
+ -Wno-author\
+ -DCMAKE_PREFIX_PATH=${INSTALL_WRF_SCRIPTS_DIR}/wrf\
+ -DCMAKE_INCLUDE_PATH=${INSTALL_WRF_SCRIPTS_DIR}/include\
+ -DCMAKE_LIBRARY_PATH=${INSTALL_WRF_SCRIPTS_DIR}/lib\
+ -DCMAKE_OSX_SYSROOT=$(xcrun --show-sdk-path)\
+ -DCMAKE_C_COMPILER=gcc\
+ -DCMAKE_CXX_COMPILER=g++\
+ -DBUILD_TESTING=OFF\
+ -DHDF5_BUILD_TOOLS=ON\
+ -DHDF5_ENABLE_ZLIB_SUPPORT=ON\
+ -DBUILD_SHARED_LIBS=ON\
+ -DHDF5_BUILD_FORTRAN=ON\
+ -DH5_DEFAULT_PLUGINDIR:PATH=${INSTALL_WRF_SCRIPTS_DIR}/wrf/lib\
+ -DHDF5_ENABLE_NONSTANDARD_FEATURE_FLOAT16=OFF
+"
+# DHDF5_PROVIDES_PARALLEL:BOOL=ON
+echo "INSTALL_MACLIBS_SERIAL_IO: NOTE: cmake does not seem to honor H5_DEFAULT_PLUGINDIR:PATH"
+# Perhaps another flag needs to be set?
+
+#echo
+#echo "DPW: INSTALL_WRF_SCRIPTS_DIR = $INSTALL_WRF_SCRIPTS_DIR"
+#echo "DPW: INSTALL_PREFIX          = $INSTALL_WRF_SCRIPTS_DIR"
+#echo "DPW: CMAKE_INCLUDE_PATH      = $CMAKE_INCLUDE_PATH"
+#echo "DPW: CMAKE_LIBRARY_PATH      = $CMAKE_LIBRARY_PATH"
+#echo "DPW: CMAKE_OSX_SYSROOT       = $CMAKE_OSX_SYSROOT"
+#echo
+
+make_lib
+
+#--------------------------------------------------------------------
+# NETCDF
+
+clear_vars
+
+LIBZIP_PREFIX="$(brew --prefix libzip)"
+BLOSC_PREFIX="$(brew --prefix c-blosc)"
+LIBAEC_PREFIX="$(brew --prefix libaec)"
+
+export CC=gcc
+export GCC=gcc
+export FC=gfortran
+export F77=gfortran
+export CPPFLAGS="-I/Users/daryl/Projects/Scott/WRF/WRFscripts/wrf/include -I${LIBZIP_PREFIX}/include -I${BLOSC_PREFIX}/include -I${LIBAEC_PREFIX}/include"
+export FCFLAGS="-I/Users/daryl/Projects/Scott/WRF/WRFscripts/wrf/include"
+export FFLAGS="-I/Users/daryl/Projects/Scott/WRF/WRFscripts/wrf/include"
+export LDFLAGS="-L${INSTALL_WRF_SCRIPTS_DIR}/wrf/lib -L/opt/homebrew/lib -L${LIBZIP_PREFIX}/lib -L${BLOSC_PREFIX}/lib -Wl,-rpath,${INSTALL_WRF_SCRIPTS_DIR}/wrf/lib -Wl,-rpath,${LIBZIP_PREFIX}/lib"
+export LIBS="-lhdf5_hl -lhdf5 -lm -lz -lxml2 -lcurl"
+
+PNAME=netcdf-c-4.10.1
+SUFFIX=tar.gz
+
+CONF_PARAMS="--prefix=${INSTALL_WRF_SCRIPTS_DIR}/wrf --enable-netcdf4 --disable-byterange --enable-largefile"
+
+make_lib
+
+#---------------------------------------------------------------------
+# NETCDF-Fortran
+
+clear_vars
+
+BLOSC_PREFIX="$(brew --prefix c-blosc)"
+
+export CC=gcc
+export GCC=gcc
+export FC=gfortran
+export F77=gfortran
+export CPPFLAGS="-I${INSTALL_WRF_SCRIPTS_DIR}/wrf/include"
+export FCFLAGS="-I${INSTALL_WRF_SCRIPTS_DIR}/wrf/include"
+export FFLAGS="-I${INSTALL_WRF_SCRIPTS_DIR}/wrf/include"
+export LDFLAGS="-L${INSTALL_WRF_SCRIPTS_DIR}/wrf/lib -L${BLOSC_PREFIX}/lib -Wl,-rpath,${INSTALL_WRF_SCRIPTS_DIR}/wrf/lib -Wl,-rpath,/${BLOSC_PREFIX}/lib"
+echo "DPW: NETCDF_Fortran LDFLAGS = ${LDFLAGS}"
+
+PNAME=netcdf-fortran-4.6.4
+SUFFIX=tar.gz
+
+CONF_PARAMS="--prefix=${INSTALL_WRF_SCRIPTS_DIR}/wrf --enable-largefile --enable-shared \
+             --disable-zstandard-plugin"
+
+make_lib
+
+#-------------------------------------------------------------
+# MPICH
+
+clear_vars
+
+if [[ ${INSTALL_WRF_MPI} == "MPICH" ]]
+then
+    PNAME=mpich-5.0.2         # package name
+    SUFFIX=tar.gz
+    
+    # compile with CUDA?
+    echo "INSTALL_MACLIBS_SERIAL_IO: using INSTALL_WRF_CUDA_DIR=${INSTALL_WRF_CUDA_DIR}"
+    if [[ ${INSTALL_WRF_CUDA_DIR} == "NONE" ]]
+    then
+        CUDA="--without-cuda"
+        echo "INSTALL_MACLIBS_SERIAL_IO: compiling MPICH without CUDA"
+    else
+        if [[ -d ${INSTALL_WRF_CUDA_DIR} ]] # check directory 
+        then
+            CUDA="--with-cuda=${INSTALL_WRF_CUDA_DIR}"
+            echo "INSTALL_MACLIBS_SERIAL_IO: compiling MPICH with CUDA=${INSTALL_WRF_CUDA_DIR}"
+        else
+            echo "INSTALL_MACLIBS_SERIAL_IO: CUDA directory ${INSTALL_WRF_CUDA_DIR} does not exist...exiting"
+            exit 1
+        fi
+    fi
+
+    # MAC OS ?
+    if [[ ${OSTYPE} == "darwin"* ]]
+    then
+	    # Make sure Apple’s developer tools are selected
+	    echo "INSTALL_MACLIBS_SERIAL_IO: Make sure Apple’s developer tools are selected..."
+	    sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer # sudo required
+
+	    echo "INSTALL_MACLIBS_SERIAL_IO: compiling MPICH for MAC OS X ${OSTYPE} with: "
+
+	    # Add the SDKROOT environment variable to
+	    # reconfigure with Apple frameworks available to the linker.
+	    export SDKROOT="$(xcrun --sdk macosx --show-sdk-path)"
+
+	    # Identify the GNU bin directory.
+	    #export GCC=`which gcc`
+	    #export GNUBIN=`dirname $GCC`
+
+        BREW_PREFIX="$(brew --prefix)"
+
+        export CC="${BREW_PREFIX}/bin/gcc"
+        export GCC="${BREW_PREFIX}/bin/gcc"
+        export FC="${BREW_PREFIX}/bin/gfortran"
+        export F77="${BREW_PREFIX}/bin/gfortran"
+	    export FCFLAGS="-m64 -fallow-argument-mismatch"
+	    export FLANG=`which flang`
+	
+	    export CFLAGS="-w -fPIE -Wno-implicit-function-declaration -I${SDKROOT}/usr/include"
+	    export CXXFLAGS="-w -fPIE -Wno-implicit-function-declaration -I${SDKROOT}/usr/include"
+	    export LDFLAGS="-Wl,-framework,CoreFoundation -Wl,-framework,IOKit"
+
+        unset LIBS
+
+        echo
+        echo "DPW: LIBS = ${LIBS}"
+        echo
+
+        CONF_PARAMS="--prefix=${INSTALL_WRF_SCRIPTS_DIR}/wrf" # no CUDA or DEVICE for now
+    else
+        
+        echo "INSTALL_MACLIBS_SERIAL_IO: compiling MPICH with channel ${INSTALL_WRF_IO_CHANNEL}"
+        
+        # TODO:check for valid device
+        DEVICE="--with-device=${INSTALL_WRF_IO_CHANNEL}"
+        CONF_PARAMS="--prefix=${INSTALL_WRF_SCRIPTS_DIR}/wrf ${CUDA} ${DEVICE}"
+    fi
+    
+    make_lib
+fi
+
+echo "Installing SERIAL I/O WRF dependent libraries done"
+echo ""
