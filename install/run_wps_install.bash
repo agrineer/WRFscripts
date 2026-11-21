@@ -7,44 +7,7 @@ export NETCDF=$INSTALL_WRF_SCRIPTS_DIR/wrf
 cd $INSTALL_WRF_SCRIPTS_DIR/wrf/WPS
 ./clean -a
 
-# MAC OS X jasper configure fix (workaround)
-if [[ ${OSTYPE} == "darwin"* ]]
-then
-
-    # Source: https://github.com/scottlynn73/build_wrf_macos
-
-    # Jasper is tricky to build because it ships with an old
-    # config.sub/config.guess that does not list the ARM64 architecture,
-    # which means the compilers can't tell which type of system we're
-    # building against. The steps below require updated
-    # versions of these definitions to allow compilation to proceed.
-    
-    # Check for automake and install it if not available
-    if ! command -v automake &> /dev/null
-    then
-        brew install automake;
-    fi
-
-    # Copy required configuration files for macOS build
-    cp $(brew --prefix)/share/automake-*/config.{guess,sub} external/jasper-1.900.29/ac_aux
-    chmod +x external/jasper-1.900.29/ac_aux/config.guess external/jasper-1.900.29/ac_aux/config.sub
-    ls -l external/jasper-1.900.29/ac_aux/config.*
-
-    # Debug automake location
-    brew list automake && echo "Automake location:" && find $(brew --prefix)/share -name "config.guess" -o -name "config.sub" 2>/dev/null
-
-    # Copy exact files from known location
-    cp /opt/homebrew/Cellar/automake/1.17/share/automake-1.17/config.{guess,sub} external/jasper-1.900.29/ac_aux
-    chmod +x external/jasper-1.900.29/ac_aux/config.guess external/jasper-1.900.29/ac_aux/config.sub
-    ls -l external/jasper-1.900.29/ac_aux/config.*
-
-    OPTION=10 # MAC OSX gfortran configure option
-
-    # now let WPS "make" configure and compile jasper
-    
-else
-    OPTION=1  # GNU/Linux gfortran configure option
-fi
+OPTION=1  # GNU/Linux gfortran configure option
 
 echo "run_wps_install: using option ${OPTION} below."
 ./configure --build-grib2-libs << EOF
