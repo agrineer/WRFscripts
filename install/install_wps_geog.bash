@@ -2,7 +2,7 @@
 
 if [[ ${INSTALL_WRF_WPS_GEOG_DIR} == "NONE" ]]
 then
-    echo "INSTALL: INSTALL_WRF_WPS_GEOG_DIR == NONE; nothing to do ...exiting"
+    echo "INSTALL: INSTALL_WRF_WPS_GEOG_DIR == NONE; nothing to do ... exiting"
     exit 0
 fi
 
@@ -29,5 +29,5 @@ then
 fi
 
 # get the WPS_GEOG data
-echo "$0: getting WPS_GEOG data."
+echo "$0: getting WPS_GEOG data ..."
 ${INSTALL_WRF_SCRIPTS_DIR}/install/get_wps_geog.bash -d ${INSTALL_WRF_SCRIPTS_DIR}/wrf
